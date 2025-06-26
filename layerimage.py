@@ -8,3 +8,5 @@ chair = tk.Image("images/chair.png")
 
 
 canvas = tk.Canvas()
+
+print("hello world")
