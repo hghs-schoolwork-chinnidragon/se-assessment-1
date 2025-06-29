@@ -34,7 +34,21 @@ class Quiz():
 #i'm trying to get the questiosn AND answers loaded but idk how to :(
 
         print(self.questions)
-        
+    def run_quiz(self):
+        print(f'Welcome to the {self.title} quiz!')
+        qnum = 0
+        score = 0
+        #for q in questions (when this works)
+            #print (f"Question {qnum}":)
+            #print (f"{question name}")
+            #print correct answer + random potential answers
+
+            #ans = user inputted answer
+            #if ans == correct answer:
+                #score +=1
+            #else:
+                #print "too bad" or smth
+            #qnum +=1
 
 
 
