@@ -21,15 +21,19 @@ class Quiz():
     def load_qs(self):
         load_quinfo(self.jsonf)
         self.questions = info['questions']
-        qnum = 0
-        for q in self.questions:
-            print(q['question'])
-            print(q['correct answer'])
-            for ans in q['potential answer']:
-                print(ans)
+        print(self.questions)
+        # qnum = 0
+        # print(info['questions'])
+        # for q in self.questions:
+        #     print(q)
+        #     print(q['question'])
+        #     print(q['correct answer'])
+        #     for ans in q['potential answer']:
+        #         print(ans)
 
+#i'm trying to get the questiosn AND answers loaded but idk how to :(
 
-        # print(self.questions)
+        print(self.questions)
         
 
 
