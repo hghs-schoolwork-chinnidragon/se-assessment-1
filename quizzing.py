@@ -1,4 +1,5 @@
 import json
+import random
 
 def load_quinfo(filename):
     with open(filename, "r") as file:
@@ -23,10 +24,13 @@ class Quiz():
         self.questions = info['questions']
         # print(self.questions)
         # qnum = 0
+        
         print(info['questions']['Question 1'][0]['question'])
-        print(info['questions']['Question 1'][1])
-        print(info['questions']['Question 1'][2])
-        # for q in self.questions:
+        print(info['questions']['Question 1'][1]['correct answer'])
+        print(info['questions']['Question 1'][2]['potential answer'][random.randint(0, 5)])
+        # for num in info['questions']['Question 1'][2]['potential answer']:
+        #     print(info['questions']['Question 1'][2]['potential answer'][num])
+        # # for q in self.questions:
         #     print(q)
         #     print(q['question'])
         #     print(q['correct answer'])
