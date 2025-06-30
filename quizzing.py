@@ -1,0 +1,66 @@
+import json
+import random
+
+def load_quinfo(filename):
+    with open(filename, "r") as file:
+        global info 
+        info = json.load(file)
+
+class Quiz():
+    def __init__(self, jsfile):
+        self.jsonf = jsfile
+
+    # def set_json(self):
+    #     with open(self.jsonf, "r") as file:
+    #         info = json.load(file)
+    
+    def load_title(self):
+        load_quinfo(self.jsonf)
+        self.title = info['title']
+        print(self.title)
+
+    def load_qs(self):
+        load_quinfo(self.jsonf)
+        self.questions = info['questions']
+        # print(self.questions)
+        # qnum = 0
+        self.question1 = info['questions']['Question 1'][0]
+        # self.answer1 = 
+
+        print(info['questions']['Question 1'][0]['question'])
+        print(info['questions']['Question 1'][1]['correct answer'])
+        for num in range(3):
+            print(info['questions']['Question 1'][2]['potential answer'][random.randint(0, 5)])
+        # for num in info['questions']['Question 1'][2]['potential answer']:
+        #     print(info['questions']['Question 1'][2]['potential answer'][num])
+        # # for q in self.questions:
+        #     print(q)
+        #     print(q['question'])
+        #     print(q['correct answer'])
+        #     for ans in q['potential answer']:
+        #         print(ans)
+
+#i'm trying to get the questiosn AND answers loaded but idk how to :(
+
+        # print(self.questions)
+    def run_quiz(self):
+        print(f'Welcome to the {self.title} quiz!')
+        qnum = 0
+        score = 0
+        #for q in questions (when this works)
+            #print (f"Question {qnum}":)
+            #print (f"{question name}")
+            #print correct answer + random potential answers
+
+            #ans = user inputted answer
+            #if ans == correct answer:
+                #score +=1
+            #else:
+                #print "too bad" or smth
+            #qnum +=1
+
+
+
+roygbiv = Quiz("quiz.json")
+roygbiv.load_title()
+roygbiv.load_qs()
