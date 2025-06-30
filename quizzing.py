@@ -24,10 +24,13 @@ class Quiz():
         self.questions = info['questions']
         # print(self.questions)
         # qnum = 0
-        
+        self.question1 = info['questions']['Question 1'][0]
+        # self.answer1 = 
+
         print(info['questions']['Question 1'][0]['question'])
         print(info['questions']['Question 1'][1]['correct answer'])
-        print(info['questions']['Question 1'][2]['potential answer'][random.randint(0, 5)])
+        for num in range(3):
+            print(info['questions']['Question 1'][2]['potential answer'][random.randint(0, 5)])
         # for num in info['questions']['Question 1'][2]['potential answer']:
         #     print(info['questions']['Question 1'][2]['potential answer'][num])
         # # for q in self.questions:
