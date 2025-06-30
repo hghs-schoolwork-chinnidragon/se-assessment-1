@@ -16,14 +16,16 @@ class Quiz():
     def load_title(self):
         load_quinfo(self.jsonf)
         self.title = info['title']
-        # print(self.title)
+        print(self.title)
 
     def load_qs(self):
         load_quinfo(self.jsonf)
         self.questions = info['questions']
-        print(self.questions)
+        # print(self.questions)
         # qnum = 0
-        # print(info['questions'])
+        print(info['questions']['Question 1'][0]['question'])
+        print(info['questions']['Question 1'][1])
+        print(info['questions']['Question 1'][2])
         # for q in self.questions:
         #     print(q)
         #     print(q['question'])
@@ -33,7 +35,7 @@ class Quiz():
 
 #i'm trying to get the questiosn AND answers loaded but idk how to :(
 
-        print(self.questions)
+        # print(self.questions)
     def run_quiz(self):
         print(f'Welcome to the {self.title} quiz!')
         qnum = 0
