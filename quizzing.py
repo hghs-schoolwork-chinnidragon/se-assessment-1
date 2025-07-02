@@ -32,28 +32,13 @@ class Quiz():
             self.questions.append(info['questions'][f'Question {i}'][0])
             self.answers.append(info['questions'][f'Question {i}'][1])
             self.potentans.append(info['questions'][f'Question {i}'][2])
-            # print(self.questions, self.answers, self.potentans)
-
-        # print(info['questions']['Question 1'][0]['question'])
-        # print(info['questions']['Question 1'][1]['correct answer'])
-        # for num in range(3):
-        #     print(info['questions']['Question 1'][2]['potential answer'][random.randint(0, 5)])
-        # for num in info['questions']['Question 1'][2]['potential answer']:
-        #     print(info['questions']['Question 1'][2]['potential answer'][num])
-        # # for q in self.questions:
-        #     print(q)
-        #     print(q['question'])
-        #     print(q['correct answer'])
-        #     for ans in q['potential answer']:
-        #         print(ans)
-
-#i'm trying to get the questiosn AND answers loaded but idk how to :(
 
         # print(self.questions)
     def run_quiz(self):
         print(f'Welcome to the {self.title} quiz!')
         question_number = 0
         score = 0
+        # needs to generate in random order + not show the same options (maybe just display all?)
         for q in range(0, len(self.questions)):
             print(f"Question {question_number+1}:")
             print(f"""{self.questions[question_number]['question']}
@@ -62,8 +47,6 @@ class Quiz():
 * {self.potentans[question_number]['potential answer'][random.randint(0, 5)]}
 * {self.answers[question_number]['correct answer']}""")
 
-
-
             #ans = user inputted answer
             #if ans == correct answer:
                 #score +=1
@@ -71,8 +54,7 @@ class Quiz():
                 #print "too bad" or smth
             #qnum +=1
 
-
-
+# need to make the Quiz as its own module and put these in a different file
 roygbiv = Quiz("quiz.json")
 roygbiv.load_title()
 roygbiv.load_qs(2)
