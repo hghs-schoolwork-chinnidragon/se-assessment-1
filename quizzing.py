@@ -9,10 +9,6 @@ def load_quinfo(filename):
 class Quiz():
     def __init__(self, jsfile):
         self.jsonf = jsfile
-
-    # def set_json(self):
-    #     with open(self.jsonf, "r") as file:
-    #         info = json.load(file)
     
     def load_title(self):
         load_quinfo(self.jsonf)
@@ -21,19 +17,14 @@ class Quiz():
 
     def load_qs(self, numq):
         load_quinfo(self.jsonf)
-        # self.questions = info['questions']
-        # print(self.questions)
-        # qnum = 0
         self.questions = []
         self.answers = []
         self.potentans  = []
-
         for i in range(1, numq+1):
             self.questions.append(info['questions'][f'Question {i}'][0])
             self.answers.append(info['questions'][f'Question {i}'][1])
             self.potentans.append(info['questions'][f'Question {i}'][2])
 
-        # print(self.questions)
     def run_quiz(self):
         print(f'Welcome to the {self.title} quiz!')
         question_number = 0
@@ -49,18 +40,19 @@ class Quiz():
             playerans = input("")
             if playerans == {str(self.answers[question_number]['correct answer'])}:
                 score += 1
+                print(score)
             else:
                 print(f"Sorry! The correct answer is {self.answers[question_number]['correct answer']}")
             question_number+= 1
-            #ans = user inputted answer
-            #if ans == correct answer:
-                #score +=1
-            #else:
-                #print "too bad" or smth
-            #qnum +=1
+    #why is it not returning as an integer?
+        return score, question_number
+    
+    def score(scorenum, question_number):
+        print(f"You got {scorenum} out of {question_number} correct!")
+        # print(f"That's {(scorenum/question_number)*100}%")
 
 # need to make the Quiz as its own module and put these in a different file
 roygbiv = Quiz("quiz.json")
 roygbiv.load_title()
 roygbiv.load_qs(2)
-roygbiv.run_quiz()
+roygbiv.score(roygbiv.run_quiz())
