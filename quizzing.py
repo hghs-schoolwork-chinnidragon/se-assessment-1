@@ -46,7 +46,12 @@ class Quiz():
 * {self.potentans[question_number]['potential answer'][random.randint(0, 5)]}
 * {self.potentans[question_number]['potential answer'][random.randint(0, 5)]}
 * {self.answers[question_number]['correct answer']}""")
-
+            playerans = input("")
+            if playerans == {str(self.answers[question_number]['correct answer'])}:
+                score += 1
+            else:
+                print(f"Sorry! The correct answer is {self.answers[question_number]['correct answer']}")
+            question_number+= 1
             #ans = user inputted answer
             #if ans == correct answer:
                 #score +=1
