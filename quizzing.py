@@ -44,7 +44,7 @@ class Quiz():
             else:
                 print(f"Sorry! The correct answer is {self.answers[question_number]['correct answer']}")
             question_number+= 1
-    #why is it not returning as an integer?
+    #how can i return them as 2 seperate numbers not a tuple
         return score, question_number
     
     def score(scorenum, question_number):
