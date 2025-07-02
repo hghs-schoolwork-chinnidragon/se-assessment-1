@@ -17,20 +17,27 @@ class Quiz():
     def load_title(self):
         load_quinfo(self.jsonf)
         self.title = info['title']
-        print(self.title)
+        # print(self.title)
 
-    def load_qs(self):
+    def load_qs(self, numq):
         load_quinfo(self.jsonf)
-        self.questions = info['questions']
+        # self.questions = info['questions']
         # print(self.questions)
         # qnum = 0
-        self.question1 = info['questions']['Question 1'][0]
-        # self.answer1 = 
+        self.questions = []
+        self.answers = []
+        self.potentans  = []
 
-        print(info['questions']['Question 1'][0]['question'])
-        print(info['questions']['Question 1'][1]['correct answer'])
-        for num in range(3):
-            print(info['questions']['Question 1'][2]['potential answer'][random.randint(0, 5)])
+        for i in range(1, numq+1):
+            self.questions.append(info['questions'][f'Question {i}'][0])
+            self.answers.append(info['questions'][f'Question {i}'][1])
+            self.potentans.append(info['questions'][f'Question {i}'][2])
+            # print(self.questions, self.answers, self.potentans)
+
+        # print(info['questions']['Question 1'][0]['question'])
+        # print(info['questions']['Question 1'][1]['correct answer'])
+        # for num in range(3):
+        #     print(info['questions']['Question 1'][2]['potential answer'][random.randint(0, 5)])
         # for num in info['questions']['Question 1'][2]['potential answer']:
         #     print(info['questions']['Question 1'][2]['potential answer'][num])
         # # for q in self.questions:
@@ -45,12 +52,12 @@ class Quiz():
         # print(self.questions)
     def run_quiz(self):
         print(f'Welcome to the {self.title} quiz!')
-        qnum = 0
+        question_number = 0
         score = 0
-        #for q in questions (when this works)
-            #print (f"Question {qnum}":)
-            #print (f"{question name}")
-            #print correct answer + random potential answers
+        for q in range(0, len(self.questions)):
+            print(f"Question {question_number+1}:")
+            print(f"""{self.questions[question_number]['question']}""")
+
 
             #ans = user inputted answer
             #if ans == correct answer:
@@ -63,4 +70,5 @@ class Quiz():
 
 roygbiv = Quiz("quiz.json")
 roygbiv.load_title()
-roygbiv.load_qs()
+roygbiv.load_qs(2)
+roygbiv.run_quiz()
