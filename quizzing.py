@@ -56,7 +56,12 @@ class Quiz():
         score = 0
         for q in range(0, len(self.questions)):
             print(f"Question {question_number+1}:")
-            print(f"""{self.questions[question_number]['question']}""")
+            print(f"""{self.questions[question_number]['question']}
+* {self.potentans[question_number]['potential answer'][random.randint(0, 5)]}
+* {self.potentans[question_number]['potential answer'][random.randint(0, 5)]}
+* {self.potentans[question_number]['potential answer'][random.randint(0, 5)]}
+* {self.answers[question_number]['correct answer']}""")
+
 
 
             #ans = user inputted answer
