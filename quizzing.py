@@ -20,16 +20,17 @@ class Quiz:
             self.__questions = []
             self.__answers = []
             self.__potentans  = []
-            for i in range(1, numq)):
-                self.__questions.append(info['questions'][f'Question {i}'][0])
-                self.__answers.append(info['questions'][f'Question {i}'][1])
-                self.__potentans.append(info['questions'][f'Question {i}'][2])
+            for i in range(0, numq):
+                self.__questions.append(self.__info['questions'][i])
+                self.__answers.append(self.__info['questions'][i])
+                self.__potentans.append(self.__info['questions'][i])
+                # print(self.__questions, self.__answers, self.__potentans)
         load_title(self)
         load_qs(self)
 
-#         print(f'Welcome to the {self.__title} quiz!')
-#         question_number = 0
-#         score = 0
+        print(f'Welcome to the {self.__title} quiz!')
+        question_number = 0
+        score = 0
 #         # needs to generate in random order + not show the same options (maybe just display all?)
 #         for q in range(0, len(self.__questions)):
 #             print(f"Question {question_number+1}:")
