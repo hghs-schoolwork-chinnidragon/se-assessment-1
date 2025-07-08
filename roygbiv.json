@@ -1,0 +1,23 @@
+{
+    "title": "What Colour is That?",
+	"questions":
+	[
+			{ 
+				"question": "What colour is the ocean?",
+				"correctAnswer": "Blue",
+				"choices": 
+				[
+					"Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet"
+				]
+			},
+			{ 
+				"question": "What colour is a lemon?",
+				"correctAnswer": "Yellow",
+				"choices": 
+				[
+					"Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet"
+				]
+			}
+	]
+        
+}
