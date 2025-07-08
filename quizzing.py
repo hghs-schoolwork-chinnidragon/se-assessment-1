@@ -41,7 +41,7 @@ class Quiz:
                 print(f'* {item}')
             #will change to tkinter
             player_choice = input("-> ")
-            if player_choice == {self.__answers[q]}:
+            if player_choice == self.__answers[q]:
                 print("CORRECTTT")
                 score +=1
             else:
