@@ -11,6 +11,8 @@ class Quiz:
         # print(self.__info)
 
     def run_quiz(self):
+        def get_score(score, numq):
+            print(f"You got {score} out of {numq}! That's {(score/numq)*100}%!")
         def load_title(self):
             self.__title = self.__info['title']
         def load_qs(self):
@@ -46,8 +48,6 @@ class Quiz:
                 score +=1
             else:
                 print("INCORRECT")
+        get_score(score, len(self.__info['questions']))
+        
 
-roygbiv = Quiz("quiz.json")
-# roygbiv.load_title()
-# roygbiv.load_qs(2)
-roygbiv.run_quiz()
