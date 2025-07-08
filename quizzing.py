@@ -13,7 +13,6 @@ class Quiz:
     def run_quiz(self):
         def load_title(self):
             self.__title = self.__info['title']
-
         def load_qs(self):
             #retrieving number of questions
             numq = len(self.__info['questions'])
@@ -26,45 +25,28 @@ class Quiz:
                 self.__answers.append(self.__info['questions'][i]['correctAnswer'])
                 self.__choices.append(self.__info['questions'][i]['choices'])
                 # print(self.__choices)
+        #loading the title and the questions
         load_title(self)
         load_qs(self)
-
         print(f'Welcome to the "{self.__title}" quiz!')
         score = 0
-#         # needs to generate in random order + not show the same options (maybe just display all?)
+        #main loop of the function
         for q in range(0, len(self.__questions)):
+            #so that it doesn't display "Question 0"
             print(f"Question {q+1}:")
             print(self.__questions[q])
+            #printing the items of the list in a random order
             shuffled_copy = random.sample(self.__choices[q], len(self.__choices[q]))
             for item in shuffled_copy:
                 print(f'* {item}')
+            #will change to tkinter
             player_choice = input("-> ")
-            
             if player_choice == {self.__answers[q]}:
                 print("CORRECTTT")
                 score +=1
             else:
                 print("INCORRECT")
-#             print(f"""{self.__questions[question_number]['question']}
-# * {self.__potentans[question_number]['potential answer'][random.randint(0, 5)]}
-# * {self.__potentans[question_number]['potential answer'][random.randint(0, 5)]}
-# * {self.__potentans[question_number]['potential answer'][random.randint(0, 5)]}
-# * {self.__answers[question_number]['correct answer']}""")
-#             playerans = input("")
-#             if playerans == {str(self.__answers[question_number]['correct answer'])}:
-#                 score += 1
-#                 print(score)
-#             else:
-#                 print(f"Sorry! The correct answer is {self.__answers[question_number]['correct answer']}")
-#             question_number+= 1
-#     #how can i return them as 2 seperate numbers not a tuple
-#         return score, question_number
-    
-#     def score(scorenum, question_number):
-#         print(f"You got {scorenum} out of {question_number} correct!")
-        # print(f"That's {(scorenum/question_number)*100}%")
 
-# need to make the Quiz as its own module and put these in a different file
 roygbiv = Quiz("quiz.json")
 # roygbiv.load_title()
 # roygbiv.load_qs(2)
