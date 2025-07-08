@@ -4,18 +4,18 @@
 	[
 			{ 
 				"question": "What colour is the ocean?",
-				"correct answer": "Blue" ,
-				"potential answer": 
+				"correctAnswer": "Blue",
+				"choices": 
 				[
-					"Red", "Orange", "Yellow", "Green", "Indigo", "Violet"
+					"Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet"
 				]
 			},
 			{ 
-				"question": "What colour is a lemon??",
-				"correct answer": "Yellow",
-				"potential answer": 
+				"question": "What colour is a lemon?",
+				"correctAnswer": "Yellow",
+				"choices": 
 				[
-					"Red", "Orange", "Blue", "Green", "Indigo", "Violet"
+					"Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet"
 				]
 			}
 	]

@@ -17,23 +17,34 @@ class Quiz:
         def load_qs(self):
             #retrieving number of questions
             numq = len(self.__info['questions'])
+            #retrieving the questions, answers and choices -- MUST be 'question', 'correctAnswer' and 'choices'
             self.__questions = []
             self.__answers = []
-            self.__potentans  = []
+            self.__choices  = []
             for i in range(0, numq):
-                self.__questions.append(self.__info['questions'][i])
-                self.__answers.append(self.__info['questions'][i])
-                self.__potentans.append(self.__info['questions'][i])
-                # print(self.__questions, self.__answers, self.__potentans)
+                self.__questions.append(self.__info['questions'][i]['question'])
+                self.__answers.append(self.__info['questions'][i]['correctAnswer'])
+                self.__choices.append(self.__info['questions'][i]['choices'])
+                # print(self.__choices)
         load_title(self)
         load_qs(self)
 
-        print(f'Welcome to the {self.__title} quiz!')
-        question_number = 0
+        print(f'Welcome to the "{self.__title}" quiz!')
         score = 0
 #         # needs to generate in random order + not show the same options (maybe just display all?)
-#         for q in range(0, len(self.__questions)):
-#             print(f"Question {question_number+1}:")
+        for q in range(0, len(self.__questions)):
+            print(f"Question {q+1}:")
+            print(self.__questions[q])
+            shuffled_copy = random.sample(self.__choices[q], len(self.__choices[q]))
+            for item in shuffled_copy:
+                print(f'* {item}')
+            player_choice = input("-> ")
+            
+            if player_choice == {self.__answers[q]}:
+                print("CORRECTTT")
+                score +=1
+            else:
+                print("INCORRECT")
 #             print(f"""{self.__questions[question_number]['question']}
 # * {self.__potentans[question_number]['potential answer'][random.randint(0, 5)]}
 # * {self.__potentans[question_number]['potential answer'][random.randint(0, 5)]}
