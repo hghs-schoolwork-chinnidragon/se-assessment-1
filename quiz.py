@@ -49,5 +49,9 @@ class Quiz:
             else:
                 print("INCORRECT")
         get_score(score, len(self.__info['questions']))
-        
+
+
+if __name__ == "__main__":
+    Quiz("roygbiv.json")
+
 
