@@ -1,7 +1,7 @@
 {
     "title": "What Colour is That?",
 	"questions":
-	[
+		[
 			{ 
 				"question": "What colour is the ocean?",
 				"correctAnswer": "Blue",
@@ -17,7 +17,47 @@
 				[
 					"Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet"
 				]
+			},    
+			{
+            	"question": "What colour is an apple?",
+				"correctAnswer": "Red",
+				"choices": 
+				[
+					"Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet"
+				]
+			},
+			{
+				"question": "What colour is a pumpkin?",
+				"correctAnswer": "Orange",
+				"choices": 
+				[
+					"Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet"
+				]
+			},
+			{
+				"question": "What colour is the grass?",
+				"correctAnswer": "Green",
+				"choices": 
+				[
+					"Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet"
+				]
+			},
+			{
+                "question": "What colour is a dark pair of jeans?",
+                "correctAnswer": "Indigo",
+                "choices": 
+				[
+                    "Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet"
+                ]
+            },
+			{
+				"question": "What colour is a grape?",
+				"correctAnswer": "Violet",
+				"choices": 
+				[
+					"Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet"
+				]
 			}
-	]
+		]
         
 }
