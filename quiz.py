@@ -20,27 +20,26 @@ class Quiz:
             self.__choices.append(self.__questiondata['questions'][i]['choices'])
 
     def run(self):
-        # print(f'Welcome to the "{self.__title}" quiz!')
-        # score = 0
-        # #main loop of the function
-        # for q in range(0, len(self.__questions)):
-        #     #so that it doesn't display "Question 0"
-        #     print(f"Question {q+1}:")
-        #     print(self.__questions[q])
-        #     #printing the items of the list in a random order
-        #     shuffled_copy = random.sample(self.__choices[q], len(self.__choices[q]))
-        #     for item in shuffled_copy:
-        #         print(f'* {item}')
-        #     #will change to tkinter
-        #     player_choice = input("-> ")
-        #     if player_choice.lower() == self.__answers[q].lower():
-        #         print("CORRECTTT")
-        #         score +=1
-        #     else:
-        #         print(f"INCORRECT its {self.__answers[q]}!")
-
-    #DEBUG
-        score = 7
+        print(f'Welcome to the "{self.__title}" quiz!')
+        score = 0
+        #main loop of the function
+        for q in range(0, len(self.__questions)):
+            #so that it doesn't display "Question 0"
+            print(f"Question {q+1}:")
+            print(self.__questions[q])
+            #printing the items of the list in a random order
+            shuffled_copy = random.sample(self.__choices[q], len(self.__choices[q]))
+            for item in shuffled_copy:
+                print(f'* {item}')
+            #will change to tkinter
+            player_choice = input("-> ")
+            if player_choice.lower() == self.__answers[q].lower():
+                print("CORRECTTT")
+                score +=1
+            else:
+                print(f"INCORRECT its {self.__answers[q]}!")
+    # #DEBUG
+    #     score = 7
         numq = len(self.__questiondata['questions'])
         print(f"You got {score} out of {numq}! That's {(score/numq)*100}%!")
         data = {
