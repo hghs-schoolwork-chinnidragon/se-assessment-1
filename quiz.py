@@ -19,7 +19,7 @@ class Quiz:
             self.__answers.append(self.__questiondata['questions'][i]['correctAnswer'])
             self.__choices.append(self.__questiondata['questions'][i]['choices'])
 
-    def run_quiz(self):
+    def run(self):
         print(f'Welcome to the "{self.__title}" quiz!')
         score = 0
         #main loop of the function
