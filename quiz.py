@@ -5,31 +5,21 @@ import random
 class Quiz:
     #retrieving data from provided file
     def __init__(self, jsfile):
-        self.__jsonf = jsfile
-        with open(self.__jsonf, "r") as file:
-            self.__info = json.load(file)
-        # print(self.__info)
+        with open(jsfile, "r") as file:
+            self.__questiondata = json.load(file)
+        #retrieving data
+        self.__title = self.__questiondata['title']
+        numq = len(self.__questiondata['questions'])
+        #retrieving the questions, answers and choices -- MUST be 'question', 'correctAnswer' and 'choices'
+        self.__questions = []
+        self.__answers = []
+        self.__choices  = []
+        for i in range(0, numq):
+            self.__questions.append(self.__questiondata['questions'][i]['question'])
+            self.__answers.append(self.__questiondata['questions'][i]['correctAnswer'])
+            self.__choices.append(self.__questiondata['questions'][i]['choices'])
 
     def run_quiz(self):
-        def get_score(score, numq):
-            print(f"You got {score} out of {numq}! That's {(score/numq)*100}%!")
-        def load_title(self):
-            self.__title = self.__info['title']
-        def load_qs(self):
-            #retrieving number of questions
-            numq = len(self.__info['questions'])
-            #retrieving the questions, answers and choices -- MUST be 'question', 'correctAnswer' and 'choices'
-            self.__questions = []
-            self.__answers = []
-            self.__choices  = []
-            for i in range(0, numq):
-                self.__questions.append(self.__info['questions'][i]['question'])
-                self.__answers.append(self.__info['questions'][i]['correctAnswer'])
-                self.__choices.append(self.__info['questions'][i]['choices'])
-                # print(self.__choices)
-        #loading the title and the questions
-        load_title(self)
-        load_qs(self)
         print(f'Welcome to the "{self.__title}" quiz!')
         score = 0
         #main loop of the function
@@ -48,7 +38,8 @@ class Quiz:
                 score +=1
             else:
                 print("INCORRECT")
-        get_score(score, len(self.__info['questions']))
+        numq = len(self.__questiondata['questions'])
+        print(f"You got {score} out of {numq}! That's {(score/numq)*100}%!")
 
 
 if __name__ == "__main__":
