@@ -1,4 +1,4 @@
 import quiz
-roygbiv = quiz.Quiz("roygbiv.json")
+q_whatColourIsThat = quiz.Quiz("whatColourIsThat.json")
 
-roygbiv.run()
+q_whatColourIsThat.run()
