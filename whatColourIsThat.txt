@@ -1,0 +1,13 @@
+ROYGBIV is a way to remember the colours of the rainbow.
+Each letter stands for a colour:
+    R is for Red (like an apple)
+    O is for Orange (like a pumpkin)
+    Y is for Yellow (like a lemon)
+    G is for Green (like grass)
+    B is for Blue (like the ocean)
+    I is for Indigo (like dark blue jeans)
+    *this one is pretty tricky, just remember it like dark blue!*
+    V is for Violet (like an eggplant)
+    *you could say it's another word for purple!*
+These are the seven colours you see in a rainbow, and they go in this order:
+Red, Orange, Yellow, Green, Blue, Indigo, Violet.

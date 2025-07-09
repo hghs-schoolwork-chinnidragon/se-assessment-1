@@ -9,6 +9,8 @@ class Quiz:
             self.__questiondata = json.load(file)
         #retrieving data
         self.__title = self.__questiondata['title']
+        #read the info from the text file that the key directs it to
+        self.__quizinfo = self.__questiondata['info']
         numq = len(self.__questiondata['questions'])
         #retrieving the questions, answers and choices -- MUST be 'question', 'correctAnswer' and 'choices'
         self.__questions = []
