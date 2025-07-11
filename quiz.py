@@ -11,6 +11,8 @@ class Quiz:
         self.__title = self.__questiondata['title']
         #read the info from the text file that the key directs it to
         self.__quizinfo = self.__questiondata['info']
+        with open(self.__quizinfo, "r") as file:
+            self.__quizinfo = file.read()
         numq = len(self.__questiondata['questions'])
         #retrieving the questions, answers and choices -- MUST be 'question', 'correctAnswer' and 'choices'
         self.__questions = []
@@ -23,6 +25,9 @@ class Quiz:
 
     def run(self):
         print(f'Welcome to the "{self.__title}" quiz!')
+        print("First, there are some things you need to know:")
+        print(self.__quizinfo)
+        input("Press enter to continue when you've finished reading!")
         score = 0
         #main loop of the function
         for q in range(0, len(self.__questions)):
