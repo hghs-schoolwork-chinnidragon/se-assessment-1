@@ -12,10 +12,17 @@ class Avatars:
         self.__hair = pathToHair
         self.__mouth = pathToMouth
         self.__accessories = pathToAccesory
-        
+
     def createAvatar(self):
-        #still working on this!!
-        print("Hello World girl idk")
+        #creating the images based on the path provided
+        base = Image.open(self.__base)
+        hair = Image.open(self.__hair)
+        mouth = Image.open(self.__mouth)
+        #putting all the images together as the avatar
+        accessories = Image.open(self.__accesories)
+        base.paste(hair, (0, 0), hair)
+        base.paste(mouth, (0, 0), mouth)
+        base.paste(accessories, (0, 0), accessories)
 
 def resize(height):
     width = height*517/600
@@ -30,7 +37,19 @@ chair = chair.resize((517, 600))
 crimson.paste(chair, (0, 0), chair)
 
 crimson =  ImageTk.PhotoImage(crimson)
+chair = ImageTk.PhotoImage(chair)
 test = tk.Label(window, image=crimson)
-test.pack()
+
+def addHair():
+    crimson = Image.open("images/crimson.png")
+    crimson = Image.open("images/crimson.png")
+    crimson = crimson.resize((517, 600))
+    chair = Image.open("images/chair.png")
+    chair = chair.resize((517, 600))
+    crimson.paste(chair, (0, 0), chair)
+
+# test.pack(padx=0,pady=0)
+# test2 = tk.Label(window, image=chair)
+# test2.pack(padx=0,pady=0)
 
 window.mainloop()
