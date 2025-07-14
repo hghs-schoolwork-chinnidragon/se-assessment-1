@@ -1,6 +1,10 @@
 {
     "title": "What Colour is That?",
-	"info": "whatColourIsThat.txt",
+	"info": 
+		[
+		"whatColourIsThat.txt",
+		"images/ROYGBIV-wikipedia.png"
+		],
 	"questions":
 		[
 			{ 

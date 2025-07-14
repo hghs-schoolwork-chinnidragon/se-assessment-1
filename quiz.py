@@ -1,5 +1,7 @@
 import json
 import random
+import tkinter as tk
+from PIL import Image, ImageTk
 
 
 class Quiz:
@@ -10,10 +12,12 @@ class Quiz:
         #retrieving data
         self.__title = self.__questiondata['title']
         #read the info from the text file that the key directs it to
-        self.__quizinfo = self.__questiondata['info']
+        self.__quizinfo = self.__questiondata['info'][0]
         with open(self.__quizinfo, "r") as file:
             self.__quizinfo = file.read()
         numq = len(self.__questiondata['questions'])
+        #retrieve the image associated with the info
+        self.__quizimage = Image.open(self.__questiondata['info'][1])
         #retrieving the questions, answers and choices -- MUST be 'question', 'correctAnswer' and 'choices'
         self.__questions = []
         self.__answers = []
@@ -24,8 +28,11 @@ class Quiz:
             self.__choices.append(self.__questiondata['questions'][i]['choices'])
 
     def run(self):
-        print(f'Welcome to the "{self.__title}" quiz!')
-        print("First, there are some things you need to know:")
+        window = tk.Tk()
+        introduction = tk.Label(window, text=f'Welcome to the "{self.__title}" quiz! First, there are some things you need to know:')
+        introduction.pack()
+        # print(f'Welcome to the "{self.__title}" quiz!')
+        # print("First, there are some things you need to know:")
         print(self.__quizinfo)
         input("Press enter to continue when you've finished reading!")
         score = 0
@@ -57,6 +64,7 @@ class Quiz:
         
         with open('scorehistory.json', 'a') as file:
             json.dump(data, file)
+        window.mainloop()
 
 
 
