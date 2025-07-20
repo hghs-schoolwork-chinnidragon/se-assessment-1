@@ -29,8 +29,11 @@ class Quiz:
 
     def run(self):
         window = tk.Tk()
-        introduction = tk.Label(window, text=f'Welcome to the "{self.__title}" quiz! First, there are some things you need to know:')
+        window.geometry("1440x1024")
+        introduction = tk.Label(window, text=f"""Welcome to the "{self.__title}" quiz! 
+                                First, there are some things you need to know:""", font=("Arial", 60))
         introduction.pack()
+
         # print(f'Welcome to the "{self.__title}" quiz!')
         # print("First, there are some things you need to know:")
         print(self.__quizinfo)
