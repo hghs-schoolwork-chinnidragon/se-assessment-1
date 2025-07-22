@@ -1,0 +1,53 @@
+{
+    "title": "Understanding Hue, Saturation and Value",
+	"info": 
+		[
+		"allAboutHSV.txt",
+		"images/HSV-sketchbook.png"
+		],
+        "questions":
+        [
+            {
+                "question": "If a colour has low saturation, is it bright or dull?",
+                "correctAnswer": "Dull",
+                "choices": [
+                    "Bright", "Dull"
+                ]
+            },
+            {
+                "question": "If a colour has high value, is it light or dark?",
+                "correctAnswer": "Light",
+                "choices": [
+                    "Light", "Dark"
+                ]
+            },
+            {
+                "question": "If a colour has low value, is it light or dark?",
+                "correctAnswer": "Dark",
+                "choices": [
+                    "Light", "Dark"
+                ]
+            },
+            {
+                "question": "What's another name for the name of a colour, like \"red\" or \"blue?\"",
+                "correctAnswer": "Hue",
+                "choices": [
+                    "Hue", "Saturation", "Value"
+                ]
+            },
+            {
+                "question": "If a colour is very bright and strong, does it have high or low saturation?",
+                "correctAnswer": "High",
+                "choices": [
+                    "High", "Low"
+                ]
+            },
+            {
+                "question": "What's another name for how bright/greyed out a colour is?",
+                "correctAnswer": "Saturation",
+                "choices": [
+                    "Hue", "Saturation", "Value"
+                ]
+            }
+        ]
+}
