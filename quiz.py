@@ -1,5 +1,6 @@
 import json
 import random
+from tkintermanipulation import config
 import tkinter as tk
 from PIL import Image, ImageTk
 
@@ -30,9 +31,11 @@ class Quiz:
     def run(self):
         window = tk.Tk()
         window.geometry("1440x1024")
-        introduction = tk.Label(window, text=f"""Welcome to the "{self.__title}" quiz! 
-                                First, there are some things you need to know:""", font=("Arial", 60))
-        introduction.pack()
+        qtext = tk.Label(window, text=f"""Welcome to the "{self.__title}" quiz! 
+First, there are some things you need to know:""", font=("Arial", 60), wraplength=1420)
+        qtext.pack()
+        nextbutton = tk.Button(text="Next!", command=config(qtext, self.__quizinfo, "Arial", 60))
+
 
         # print(f'Welcome to the "{self.__title}" quiz!')
         # print("First, there are some things you need to know:")
@@ -69,6 +72,11 @@ class Quiz:
             json.dump(data, file)
         window.mainloop()
 
+    def getTitle(self):
+        return(self.__title)
+    
+    def getImage(self):
+        return(self.__quizimage)
 
 
 
