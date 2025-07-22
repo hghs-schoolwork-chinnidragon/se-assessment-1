@@ -1,0 +1,11 @@
+Hue is the name of the colour, like red, blue, or green.
+
+Saturation is how bright or dull the colour is.
+If a colour is very bright, it has lots of saturation.
+If it looks more grey or faded, it has less saturation.
+
+Value is how light or dark the colour is.
+If a colour is very light, it has a high value.
+If it’s very dark, it has a low value.
+
+So, hue is the colour, saturation is how strong the colour is, and value is how light or dark it is!
