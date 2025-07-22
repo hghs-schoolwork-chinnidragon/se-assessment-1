@@ -1,6 +1,6 @@
 import json
 import random
-from tkintermanipulation import config
+# from tkintermanipulation import config
 import tkinter as tk
 from PIL import Image, ImageTk
 
@@ -34,7 +34,10 @@ class Quiz:
         qtext = tk.Label(window, text=f"""Welcome to the "{self.__title}" quiz! 
 First, there are some things you need to know:""", font=("Arial", 60), wraplength=1420)
         qtext.pack()
-        nextbutton = tk.Button(text="Next!", command=config(qtext, self.__quizinfo, "Arial", 60))
+        def config():
+            qtext.config(text=self.__quizinfo, font=("Arial", 24), wraplength=1440/2, anchor="e", justify="left" )
+        nextbutton = tk.Button(text="Next!", command=config)
+        nextbutton.pack()
 
 
         # print(f'Welcome to the "{self.__title}" quiz!')
