@@ -1,6 +1,5 @@
 import json
 import random
-# from tkintermanipulation import config
 import tkinter as tk
 from PIL import Image, ImageTk
 
@@ -36,6 +35,7 @@ First, there are some things you need to know:""", font=("Arial", 60), wraplengt
         qtext.pack()
         def config():
             qtext.config(text=self.__quizinfo, font=("Arial", 24), wraplength=1440/2, anchor="e", justify="left" )
+            qtext.place
         nextbutton = tk.Button(text="Next!", command=config)
         nextbutton.pack()
 
@@ -64,7 +64,7 @@ First, there are some things you need to know:""", font=("Arial", 60), wraplengt
     # #DEBUG
     #     score = 7
         numq = len(self.__questiondata['questions'])
-        print(f"You got {score} out of {numq}! That's {(score/numq)*100}%!")
+        print(f"You got {score} out of {numq}! That's {round((score/numq)*100)}%!")
         data = {
                 "quiz": self.__title,
                 "score": score,
