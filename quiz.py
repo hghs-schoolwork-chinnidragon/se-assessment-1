@@ -17,7 +17,7 @@ class Quiz:
             self.__quizinfo = file.read()
         numq = len(self.__questiondata['questions'])
         #retrieve the image associated with the info
-        self.__quizimage = Image.open(self.__questiondata['info'][1])
+        self.__quizimage = self.__questiondata['info'][1]
         #retrieving the questions, answers and choices -- MUST be 'question', 'correctAnswer' and 'choices'
         self.__questions = []
         self.__answers = []
@@ -33,17 +33,18 @@ class Quiz:
         qtext = tk.Label(window, text=f"""Welcome to the "{self.__title}" quiz! 
 First, there are some things you need to know:""", font=("Arial", 60), wraplength=1420)
         qtext.pack()
-        def config():
+        def config_info():
             qtext.config(text=self.__quizinfo, font=("Arial", 24), wraplength=1440/2, anchor="e", justify="left" )
             qtext.place
-        nextbutton = tk.Button(text="Next!", command=config)
+        
+        nextbutton = tk.Button(text="Next!", command=config_info)
         nextbutton.pack()
 
 
         # print(f'Welcome to the "{self.__title}" quiz!')
         # print("First, there are some things you need to know:")
-        print(self.__quizinfo)
-        input("Press enter to continue when you've finished reading!")
+        # print(self.__quizinfo)
+        # input("Press enter to continue when you've finished reading!")
         score = 0
         #main loop of the function
         for q in range(0, len(self.__questions)):
