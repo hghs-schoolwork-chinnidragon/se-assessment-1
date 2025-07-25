@@ -18,13 +18,13 @@ class Menu:
             #need to resize images
             quizWidget = tk.Label(window, text=f"{t}", image=f"{quizWidgetImage}", compound="bottom", font=("Arial", 36), wraplength="500")
             quizWidgets.append(quizWidget)
-            quizWidgets[i].grid()
+            quizWidgets[i].pack()
 
         window.mainloop()
     
 q_whatColourIsThat = quiz.Quiz("whatColourIsThat.json")
 q_allAboutHSV = quiz.Quiz("allAboutHSV.json")
-# q_whatColourIsThat.run()
-# q_allAboutHSV.run()
+q_whatColourIsThat.run()
+q_allAboutHSV.run()
 
-menu = Menu([q_allAboutHSV, q_whatColourIsThat])
+# menu = Menu([q_allAboutHSV, q_whatColourIsThat])

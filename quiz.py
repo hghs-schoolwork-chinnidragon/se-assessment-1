@@ -34,8 +34,9 @@ class Quiz:
 First, there are some things you need to know:""", font=("Arial", 60), wraplength=1420)
         qtext.pack()
         def config_info():
-            qtext.config(text=self.__quizinfo, font=("Arial", 24), wraplength=1440/2, anchor="e", justify="left" )
-            qtext.place
+            qtextImage = tk.PhotoImage(file=self.__quizimage)
+            qtext.config(text=self.__quizinfo, font=("Arial", 24), wraplength=1440/2, anchor="e", justify="left", image=qtextImage, compound="left" )
+            qtext.pack()
         
         nextbutton = tk.Button(text="Next!", command=config_info)
         nextbutton.pack()
