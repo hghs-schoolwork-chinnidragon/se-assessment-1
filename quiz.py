@@ -34,19 +34,22 @@ class Quiz:
         qtext = tk.Label(window, text=f"""Welcome to the "{self.__title}" quiz! 
 First, there are some things you need to know:""", font=("Arial", 60), wraplength=1420)
         qtext.pack()
-        def config_info():
-            qtextImage = tk.PhotoImage(file=self.__quizimage)
-            qtext.config(text=self.__quizinfo, font=("Arial", 24), wraplength=1440/2, anchor="e", justify="left", image=qtextImage, compound="left" )
-            qtext.pack()
-        
-        nextbutton = tk.Button(text="Next!", command=config_info)
+
+        config_info = QuestionTemplate.configInfo(self.__quizimage, self.__quizinfo, qtext)
+        config_questions = QuestionTemplate.createQuestionWindow()
+
+        # def config_info():
+        #     qtextImage = tk.PhotoImage(file=self.__quizimage)
+        #     qtext.config(text=self.__quizinfo, font=("Arial", 24), wraplength=1440/2, anchor="e", justify="left", image=qtextImage, compound="left" )
+        #     qtext.pack()
+
+        if qtext.cget("text") == f"""Welcome to the "{self.__title}" quiz! 
+First, there are some things you need to know:""":
+            nextbutton = tk.Button(text="Next!", command=config_info)
+        else:
+            nextbutton = tk.Button(text="Let's go!", command=config_questions)
         nextbutton.pack()
 
-
-        # print(f'Welcome to the "{self.__title}" quiz!')
-        # print("First, there are some things you need to know:")
-        # print(self.__quizinfo)
-        # input("Press enter to continue when you've finished reading!")
         score = 0
         #main loop of the function
         for q in range(0, len(self.__questions)):

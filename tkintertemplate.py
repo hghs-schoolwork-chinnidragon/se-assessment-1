@@ -8,7 +8,14 @@ class QuestionTemplate():
         self.__questionOptions = questionOptions
         self.__tkinterWindow = tkinterwindow
     def createQuestionWindow(self):
-        tk_questionTitle = tk.Label(self.__tkinterwindow, text=f"{self.__questionTitle}", font=("Arial", 60))
-        tk_questionTitle.grid()
+        tk_questionTitle = tk.Label(self.__tkinterwindow, text=f"{self.__questionTitle}", font=("Arial", 60), wraplength=1420)
+        tk_questionTitle.grid(
+            row=1,
+            column=2
+        )
+    def configInfo(quizImage, quizInfo, label):
+            labelImage = tk.PhotoImage(file=quizImage)
+            label.config(text=quizInfo, font=("Arial", 24), wraplength=1440/2, anchor="e", justify="left", image=labelImage, compound="left" )
+            label.pack()
 
         
