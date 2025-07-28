@@ -2,6 +2,7 @@ import json
 import random
 import tkinter as tk
 from PIL import Image, ImageTk
+from tkintertemplate import QuestionTemplate
 
 
 class Quiz:
