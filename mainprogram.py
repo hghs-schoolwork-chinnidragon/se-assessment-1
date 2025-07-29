@@ -1,4 +1,4 @@
-import quiz
+import quizmodule
 import tkinter as tk
 from PIL import Image, ImageTk
 class Menu:
@@ -18,12 +18,17 @@ class Menu:
             #need to resize images
             quizWidget = tk.Label(window, text=f"{t}", image=f"{quizWidgetImage}", compound="bottom", font=("Arial", 36), wraplength="500")
             quizWidgets.append(quizWidget)
-            quizWidgets[i].pack()
+            
+        for i in quizWidgets:
+            i.grid(
+                row=i,
+                column=i
+            )
 
         window.mainloop()
     
-q_whatColourIsThat = quiz.Quiz("whatColourIsThat.json")
-q_allAboutHSV = quiz.Quiz("allAboutHSV.json")
+q_whatColourIsThat = quizmodule.Quiz("whatColourIsThat.json")
+q_allAboutHSV = quizmodule.Quiz("allAboutHSV.json")
 q_whatColourIsThat.run()
 q_allAboutHSV.run()
 

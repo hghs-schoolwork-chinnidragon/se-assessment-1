@@ -2,7 +2,7 @@ import json
 import random
 import tkinter as tk
 from PIL import Image, ImageTk
-from tkintertemplate import QuestionTemplate
+import guitemplate
 
 
 class Quiz:
@@ -33,33 +33,33 @@ class Quiz:
         window.geometry("1440x1024")
         qtext = tk.Label(window, text=f"""Welcome to the "{self.__title}" quiz! 
 First, there are some things you need to know:""", font=("Arial", 60), wraplength=1420)
-        qtext.pack()
+        qtext.grid(
+            row=3
+        )
 
-        config_info = QuestionTemplate.configInfo(self.__quizimage, self.__quizinfo, qtext)
-        config_questions = QuestionTemplate.createQuestionWindow()
-
-        # def config_info():
-        #     qtextImage = tk.PhotoImage(file=self.__quizimage)
-        #     qtext.config(text=self.__quizinfo, font=("Arial", 24), wraplength=1440/2, anchor="e", justify="left", image=qtextImage, compound="left" )
-        #     qtext.pack()
-
+        config_info = guitemplate.QuestionTemplate.configInfo(self.__quizimage, self.__quizinfo, qtext)
+        # config = guitemplate.QuestionTemplate(window, self.__questions[q], shuffled_copy)
+        config_questions = print("hellow world")
         if qtext.cget("text") == f"""Welcome to the "{self.__title}" quiz! 
 First, there are some things you need to know:""":
             nextbutton = tk.Button(text="Next!", command=config_info)
         else:
             nextbutton = tk.Button(text="Let's go!", command=config_questions)
-        nextbutton.pack()
+        nextbutton.grid()
 
         score = 0
         #main loop of the function
         for q in range(0, len(self.__questions)):
-            #so that it doesn't display "Question 0"
             print(f"Question {q+1}:")
             print(self.__questions[q])
             #printing the items of the list in a random order
             shuffled_copy = random.sample(self.__choices[q], len(self.__choices[q]))
             for item in shuffled_copy:
                 print(f'* {item}')
+            config = guitemplate.QuestionTemplate(window, self.__questions[q], shuffled_copy)
+            config_questions = config.createQuestionWindow()
+            
+
             #will change to tkinter
             player_choice = input("-> ")
             if player_choice.lower() == self.__answers[q].lower():
