@@ -3,12 +3,13 @@ from PIL import Image, ImageTk
 from quizmodule import Quiz
 
 class QuestionTemplate():
-    def __init__(self, tkinterwindow,  questionTitle, questionOptions):
+    def __init__(self, tkinterwindow,  questionNumber, questionTitle, questionOptions):
         self.__questionTitle = questionTitle
         self.__questionOptions = questionOptions
         self.__tkinterWindow = tkinterwindow
+        self.__questionNumber = questionNumber
     def createQuestionWindow(self):
-        tk_questionTitle = tk.Label(self.__tkinterWindow, text=f"{self.__questionTitle}", font=("Arial", 60), wraplength=1420)
+        tk_questionTitle = tk.Label(self.__tkinterWindow, text=f"Question {self.__questionNumber}: {self.__questionTitle}", font=("Arial", 60), wraplength=1420)
         tk_questionTitle.grid(
             row=1,
             column=2
