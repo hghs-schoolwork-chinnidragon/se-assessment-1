@@ -54,25 +54,26 @@ class Quiz:
         score = 0
         #main loop of the function
         for q in range(0, len(self.__questions)):
-            config = guitemplate.QuestionTemplate(window, )
-            config.createQuestionWindow()
-            print(f"Question {q+1}:")
-            print(self.__questions[q])
-            #printing the items of the list in a random order
             shuffled_copy = random.sample(self.__choices[q], len(self.__choices[q]))
+            config = guitemplate.QuestionTemplate(window, q+1, self.__questions[q], shuffled_copy)
+            config.createQuestionWindow()
+            # print(f"Question {q+1}:")
+            # print(self.__questions[q])
+            #printing the items of the list in a random order
+            # shuffled_copy = random.sample(self.__choices[q], len(self.__choices[q]))
             for item in shuffled_copy:
                 print(f'* {item}')
-            config = guitemplate.QuestionTemplate(window, self.__questions[q], shuffled_copy)
-            config_questions = config.createQuestionWindow()
+            # config = guitemplate.QuestionTemplate(window, self.__questions[q], shuffled_copy)
+            config.createQuestionWindow()
             
 
             #will change to tkinter
-            player_choice = input("-> ")
-            if player_choice.lower() == self.__answers[q].lower():
-                print("CORRECTTT")
-                score +=1
-            else:
-                print(f"INCORRECT its {self.__answers[q]}!")
+            # player_choice = input("-> ")
+            # if player_choice.lower() == self.__answers[q].lower():
+            #     print("CORRECTTT")
+            #     score +=1
+            # else:
+            #     print(f"INCORRECT its {self.__answers[q]}!")
     # #DEBUG
     #     score = 7
         numq = len(self.__questiondata['questions'])
