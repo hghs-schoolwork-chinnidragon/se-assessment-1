@@ -17,7 +17,7 @@ class QuestionTemplate():
                 popup.config(self.__tkinterWindow, text="correct!!!", font=("arial", 20), fg="#0FB800")
             else:
                 popup.config(self.__tkinterWindow, text=f"wrong!!! its {self.__correctOption}", font=("arial", 20), fg="#B80000")
-        tk_questionTitle = tk.Label(self.__tkinterWindow, text=f"{self.__questionTitle}", font=("Arial", 60), wraplength=1420)
+        tk_questionTitle = tk.Label(self.__tkinterWindow, text=f"Question {self.__questionNumber}: {self.__questionTitle}", font=("Arial", 60), wraplength=1420)
         tk_questionTitle.grid(
             row=1,
             column=2
@@ -32,9 +32,18 @@ class QuestionTemplate():
                 column=i
             )
             
-    def configInfo(quizImage, quizInfo, label):
-            labelImage = tk.PhotoImage(file=quizImage)
-            label.config(text=quizInfo, font=("Arial", 24), wraplength=1440/2, anchor="e", justify="left", image=labelImage, compound="left" )
-            label.grid()
+    def configInfo(q_image, quizInfo, label):
+        labelImage = tk.PhotoImage(file=q_image)
+        label.config(
+            text=quizInfo,
+            font=("Arial", 24),
+            wraplength=1440/2,
+            anchor="e",
+            justify="left",
+            image=labelImage,
+            compound="left"
+        )
+        label.labelImage = labelImage  
+        label.grid()
 
-        
+

@@ -31,38 +31,41 @@ class Quiz:
     def run(self):
         window = tk.Tk()
         window.geometry("1440x1024")
-        while True:
-            qtext = tk.Label(window, text=f"""Welcome to the "{self.__title}" quiz! 
-    First, there are some things you need to know:""", font=("Arial", 60), wraplength=1420)
-            qtext.grid(
-                row=3
-            )
-
-            config_info = guitemplate.QuestionTemplate.configInfo(self.__quizimage, self.__quizinfo, qtext)
-            def clear_screen(window):
-                for widget in window.winfo_children():
-                    widget.destroy()       # config = guitemplate.QuestionTemplate(window, self.__questions[q], shuffled_copy)
-            # config_questions = config.createQuestionWindow()
-            if qtext.cget("text") == f"""Welcome to the "{self.__title}" quiz! 
-    First, there are some things you need to know:""":
-                nextbutton = tk.Button(text="Next!", command=config_info)
-            else:
-                nextbutton = tk.Button(text="Let's go!", command=clear_screen)
-                break
-            nextbutton.grid()
+        # while True:
+        qtext = tk.Label(window, text=f"""Welcome to the "{self.__title}" quiz! 
+First, there are some things you need to know:""", font=("Arial", 60), wraplength=1420)
+        qtext.grid(
+            row=3
+        )
+        # quizImage = Image.open(self.__quizimage)
+        # print(self.__quizimage)
+        def config_info():
+            guitemplate.QuestionTemplate.configInfo(self.__quizimage, self.__quizinfo, qtext)
+#         def clear_screen(window):
+#             for widget in window.winfo_children():
+#                 widget.destroy()       # config = guitemplate.QuestionTemplate(window, self.__questions[q], shuffled_copy)
+#         # config_questions = config.createQuestionWindow()
+#         if qtext.cget("text") == f"""Welcome to the "{self.__title}" quiz! 
+# First, there are some things you need to know:""":
+        nextbutton = tk.Button(text="Next!", command=config_info)
+        # else:
+        #     nextbutton = tk.Button(text="Let's go!", command=clear_screen)
+        nextbutton.grid(
+            row=4
+        )
 
         score = 0
         #main loop of the function
         for q in range(0, len(self.__questions)):
             shuffled_copy = random.sample(self.__choices[q], len(self.__choices[q]))
-            config = guitemplate.QuestionTemplate(window, q+1, self.__questions[q], shuffled_copy)
+            config = guitemplate.QuestionTemplate(window, q+1, self.__questions[q], shuffled_copy, self.__answers[q])
             config.createQuestionWindow()
             # print(f"Question {q+1}:")
             # print(self.__questions[q])
             #printing the items of the list in a random order
             # shuffled_copy = random.sample(self.__choices[q], len(self.__choices[q]))
-            for item in shuffled_copy:
-                print(f'* {item}')
+            # for item in shuffled_copy:
+            #     print(f'* {item}')
             # config = guitemplate.QuestionTemplate(window, self.__questions[q], shuffled_copy)
             config.createQuestionWindow()
             
@@ -76,16 +79,16 @@ class Quiz:
             #     print(f"INCORRECT its {self.__answers[q]}!")
     # #DEBUG
     #     score = 7
-        numq = len(self.__questiondata['questions'])
-        print(f"You got {score} out of {numq}! That's {round((score/numq)*100)}%!")
-        data = {
-                "quiz": self.__title,
-                "score": score,
-                "percentage": score/numq*100
-                }
+        # numq = len(self.__questiondata['questions'])
+        # print(f"You got {score} out of {numq}! That's {round((score/numq)*100)}%!")
+        # data = {
+        #         "quiz": self.__title,
+        #         "score": score,
+        #         "percentage": score/numq*100
+        #         }
         
-        with open('scorehistory.json', 'a') as file:
-            json.dump(data, file)
+        # with open('scorehistory.json', 'a') as file:
+        #     json.dump(data, file)
         window.mainloop()
 
     def getTitle(self):

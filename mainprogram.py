@@ -16,20 +16,30 @@ class Menu:
             quizWidgetImage = ImageTk.PhotoImage(quizWidgetImage)
             t = quizzes[i].getTitle()
             #need to resize images
-            quizWidget = tk.Label(window, text=f"{t}", image=f"{quizWidgetImage}", compound="bottom", font=("Arial", 36), wraplength="500")
+            def onClick():
+                return t
+            quizWidget = tk.Button(window, text=f"{t}", image=f"{quizWidgetImage}", compound="bottom", font=("Arial", 36), wraplength="500", command=onClick)
             quizWidgets.append(quizWidget)
             
-        for i in quizWidgets:
-            i.grid(
-                row=i,
-                column=i
-            )
+        for i in (quizWidgets):
+            for j in range(2, 8):
+                i.grid(
+                    row=j,
+                    column=j
+                )
 
         window.mainloop()
     
+
+
 q_whatColourIsThat = quizmodule.Quiz("whatColourIsThat.json")
 q_allAboutHSV = quizmodule.Quiz("allAboutHSV.json")
-q_whatColourIsThat.run()
-q_allAboutHSV.run()
 
 # menu = Menu([q_allAboutHSV, q_whatColourIsThat])
+# if menu == "whatColourIsThat.json":
+q_whatColourIsThat.run()
+
+# if menu == "allAboutHSV.json":
+q_allAboutHSV.run()
+
+
