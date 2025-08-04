@@ -16,6 +16,22 @@ class Avatars:
         self.__shirt = pathToShirt
         self.__accessories = pathToAccesory
         self.__active_attr = []
+        self.resizeParams = resizeParams
+
+    def resizeImg(self, newWidth, image):
+        newLength = self.resizeParams[1]*self.resizeParams[0]/newWidth
+        image = image.resize(newWidth, newLength)
+        return(image)
+    
+    def getImages(self):
+        return [self.__accessories, self.__hair, self.__mouth, self.__base, self.__shirt]
+    
+    def setImages(self, images):
+        self.__base = pathToBase
+        self.__hair = pathToHair
+        self.__mouth = pathToMouth
+        self.__shirt = pathToShirt
+        self.__accessories = pathToAccesory
 
     def createAvatar(self):
         #creating the images based on the path provided
@@ -25,10 +41,6 @@ class Avatars:
         self.__accessories = Image.open(self.__accessories)
         self.__shirt = Image.open(self.__shirt)
 
-        
-        # self.__base.paste(hair, (0, 0), hair)
-        # self.__base.paste(mouth, (0, 0), mouth)
-        # self.__base.paste(accessories, (0, 0), accessories)
     
     def toggleHair(self):
         if self.__hair in self.__active_attr:
@@ -68,6 +80,7 @@ class Avatars:
 
     def activateAvatar(self):
         for item in self.__active_attr:
+            print(item)
             self.__base.paste(item, (0,0), item)
         avatar =  ImageTk.PhotoImage(self.__base)
         avatarLabel = tk.Label(window, image=avatar)
@@ -96,9 +109,11 @@ crimsonAvatar = Avatars(
     "images/cmouth.png", 
     "images/caccess.png", 
     "images/cshirt.png", 
-    (517, 600)  # Resize parameters are not used in this code, but can be used for resizing images if needed
+    (464, 568)  # Resize parameters are not used in this code, but can be used for resizing images if needed
     )
 
+for image in crimsonAvatar.getImages():
+    crimsonAvatar.resizeImg(100, image)
 crimsonAvatar.createAvatar()
 
 # while True:
