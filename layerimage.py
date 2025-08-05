@@ -8,38 +8,48 @@ window = tk.Tk()
 # chair = tk.PhotoImage(file="images/chair.png")
 # print(crimson.width()/2, crimson.height()/2)
 # crimson = crimson.resize((517, 600))
+
+#['caccess.png', ' 
+# 'chair.png', 'cmouth.png', , 'cpant.png', 
+# 'crimson.png', 'cshirt.png', 'cshoe.png']
 class Avatars:
-    def __init__(self, pathToBase, pathToHair, pathToMouth, pathToAccesory, pathToShirt, resizeParams):
-        self.__base = pathToBase
-        self.__hair = pathToHair
-        self.__mouth = pathToMouth
-        self.__shirt = pathToShirt
-        self.__accessories = pathToAccesory
+    def __init__(self, image_paths, resizeParams):
+        self.__accessories = image_paths[0]
+        self.__hair = image_paths[1]
+        self.__mouth = image_paths[2]
+        self.__pant = image_paths[3]
+        self.__base = image_paths[4]
+        self.__shirt = image_paths[5]
+        self.__shoe = image_paths[6]
         self.__active_attr = []
         self.resizeParams = resizeParams
 
     def resizeImg(self, newWidth, image):
-        newLength = self.resizeParams[1]*self.resizeParams[0]/newWidth
-        image = image.resize(newWidth, newLength)
+        newLength = round(self.resizeParams[1]*self.resizeParams[0]/newWidth)
+        image = Image.open(image)
+        image = image.resize([newWidth, newLength])
         return(image)
     
     def getImages(self):
-        return [self.__accessories, self.__hair, self.__mouth, self.__base, self.__shirt]
+        return [self.__base, self.__hair, self.__mouth, self.__shirt, self.__accessories]
     
     def setImages(self, images):
-        self.__base = pathToBase
-        self.__hair = pathToHair
-        self.__mouth = pathToMouth
-        self.__shirt = pathToShirt
-        self.__accessories = pathToAccesory
+        self.__base = images[0]
+        self.__hair = images[1]
+        self.__mouth = images[2]
+        self.__shirt = images[3]
+        self.__accessories = images[4]
 
     def createAvatar(self):
         #creating the images based on the path provided
-        self.__base = Image.open(self.__base)
-        self.__hair = Image.open(self.__hair)
-        self.__mouth = Image.open(self.__mouth)
-        self.__accessories = Image.open(self.__accessories)
-        self.__shirt = Image.open(self.__shirt)
+        try:
+            self.__base = Image.open(self.__base)
+            self.__hair = Image.open(self.__hair)
+            self.__mouth = Image.open(self.__mouth)
+            self.__accessories = Image.open(self.__accessories)
+            self.__shirt = Image.open(self.__shirt)
+        except AttributeError: #raised when they are already images (eg resize function has been used)
+            pass
 
     
     def toggleHair(self):
@@ -102,18 +112,20 @@ class Avatars:
     #     return width
 
 # print(resize(600))
+print(f"images/crimson/{sorted(os.listdir("images/crimson"))}")
 
-crimsonAvatar = Avatars(
-    "images/crimson.png", 
-    "images/chair.png", 
-    "images/cmouth.png", 
-    "images/caccess.png", 
-    "images/cshirt.png", 
-    (464, 568)  # Resize parameters are not used in this code, but can be used for resizing images if needed
-    )
+crimsonImages = []
+for image in sorted(os.listdir("images/crimson")):
+    crimsonImages.append(f"images/crimson/{image}")
 
+crimsonAvatar = Avatars(crimsonImages,(464, 568))
+
+imglist = []
 for image in crimsonAvatar.getImages():
-    crimsonAvatar.resizeImg(100, image)
+    print(image)
+    imglist.append(crimsonAvatar.resizeImg(100, image))
+
+crimsonAvatar.setImages(imglist)
 crimsonAvatar.createAvatar()
 
 # while True:
