@@ -92,13 +92,13 @@ class Avatars:
         for item in self.__active_attr:
             print(item)
             self.__base.paste(item, (0,0), item)
-        avatar =  ImageTk.PhotoImage(self.__base)
-        avatarLabel = tk.Label(window, image=avatar)
-        avatarLabel.grid(
-            row=0,
-            column=0,
-            # columnspan=5
-        )
+            print(self.__base)
+
+        # avatar =  ImageTk.PhotoImage(self.__base)
+        avatar = Image.open("images/oof.png")
+        newavatar = ImageTk.PhotoImage(avatar)
+        avatarLabel = tk.Label(window, image=newavatar, text="sweet fading star", compound="top")
+        avatarLabel.grid(sticky="s", rowspan="5", column=6)
     
     def saveAvatar(self, filename):
         data = {
@@ -107,11 +107,6 @@ class Avatars:
         with open(f'{filename}', 'w') as file:
             json.dump(data, file)
 
-    # def resize(height):
-    #     width = height*517/600
-    #     return width
-
-# print(resize(600))
 print(f"images/crimson/{sorted(os.listdir("images/crimson"))}")
 
 crimsonImages = []
@@ -143,48 +138,5 @@ accessoryButton.grid(row=7, column=3)
 
 saveButton = tk.Button(window, text="Save", command=crimsonAvatar.activateAvatar)
 saveButton.grid(row=7, column=4)
-
-
-
-window.mainloop()
-
-print(os.access("images", 1))
-# crimson = Image.open("images/crimson.png")
-# crimson = crimson.resize((517, 600))
-# chair = Image.open("images/chair.png")
-# chair = chair.resize((517, 600))
-# cmouth = Image.open("images/cmouth.png")
-# cmouth = cmouth.resize((517, 600))
-# cshirt = Image.open("images/cshirt.png")
-# cshirt = cshirt.resize((517, 600))
-
-
-
-# def addremoveHair(currentattributes):
-#     for item in currentattributes:
-#         crimson.paste(item, (0,0), item)
-#     crimson.paste(chair, (0,0), chair)
-    
-
-
-# for item in self.__active_attr:
-#     crimson.paste(item, (0, 0), item)
-
-
-
-# def reset():
-#     crimson = Image.open("images/crimson.png")
-
-# def addHair():
-#     crimson = Image.open("images/crimson.png")
-#     crimson = Image.open("images/crimson.png")
-#     crimson = crimson.resize((517, 600))
-#     chair = Image.open("images/chair.png")
-#     chair = chair.resize((517, 600))
-#     crimson.paste(chair, (0, 0), chair)
-
-
-# test2 = tk.Label(window, image=chair)
-# test2.pack(padx=0,pady=0)
 
 window.mainloop()
