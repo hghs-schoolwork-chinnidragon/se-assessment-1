@@ -25,10 +25,16 @@ class Avatars:
         self.resizeParams = resizeParams
 
     def resizeImg(self, newWidth, image):
-        newLength = round(self.resizeParams[1]*self.resizeParams[0]/newWidth)
-        image = Image.open(image)
-        image = image.resize([newWidth, newLength])
-        return(image)
+        # ratio = width : height = width/height
+        #newwidth divided by width/height OR newwidth * height/width
+        pilImage = Image.open(image)
+        print (f"{pilImage.width}x{pilImage.height}")
+        ratio = pilImage.width/pilImage.height
+        newHeight = round(newWidth*ratio)
+        resizedImage = pilImage.resize([newWidth, newHeight])
+        # print(f"resized! dimensions {resizedImage.width}x{resizedImage.height}")
+        return(resizedImage)
+ 
     
     def getImages(self):
         return [self.__base, self.__hair, self.__mouth, self.__shirt, self.__accessories]
@@ -94,11 +100,12 @@ class Avatars:
             self.__base.paste(item, (0,0), item)
             print(self.__base)
 
-        # avatar =  ImageTk.PhotoImage(self.__base)
-        avatar = Image.open("images/oof.png")
-        newavatar = ImageTk.PhotoImage(avatar)
-        avatarLabel = tk.Label(window, image=newavatar, text="sweet fading star", compound="top")
-        avatarLabel.grid(sticky="s", rowspan="5", column=6)
+        avatar =  ImageTk.PhotoImage(self.__base)
+        # avatar = Image.open("images/oof.png")
+        # newavatar = ImageTk.PhotoImage(avatar)
+        avatarLabel = tk.Label(window, image=avatar, text="sweet fading star", compound="top")
+        avatarLabel.image=avatar
+        avatarLabel.grid(sticky="s", column=6)
     
     def saveAvatar(self, filename):
         data = {
