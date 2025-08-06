@@ -14,7 +14,8 @@ window = tk.Tk()
 # 'crimson.png', 'cshirt.png', 'cshoe.png']
 class Avatars:
     def __init__(self, image_paths):
-        print(image_paths)
+        #DEBUG
+        # print(image_paths)
         self.__accessories = image_paths[0]
         self.__hair = image_paths[1]
         self.__mouth = image_paths[2]
@@ -23,7 +24,8 @@ class Avatars:
         self.__shirt = image_paths[5]
         self.__shoe = image_paths[6]
         self.__active_attr = []
-        print(self.getImages())
+        #DEBUG
+        # print(self.getImages())
 
     def resizeImg(self, newWidth, image):
         #newwidth divided by width/height OR newwidth * height/width
@@ -49,11 +51,13 @@ class Avatars:
         ]
     
     def setImages(self, images):
-        self.__base = images[0]
+        self.__accessories = images[0]
         self.__hair = images[1]
         self.__mouth = images[2]
-        self.__shirt = images[3]
-        self.__accessories = images[4]
+        self.__pant = images[3]
+        self.__base = images[4]
+        self.__shirt = images[5]
+        self.__shoe = images [6]
 
     def createAvatar(self):
         #creating the images based on the path provided
@@ -140,9 +144,9 @@ for image in sorted(os.listdir("images/crimson")):
 crimsonAvatar = Avatars(crimsonImages)
 
 imglist = []
-# for image in crimsonAvatar.getImages():
-#     print(image)
-#     imglist.append(crimsonAvatar.resizeImg(100, image))
+for image in crimsonAvatar.getImages():
+    print(image)
+    imglist.append(crimsonAvatar.resizeImg(100, image))
 
 crimsonAvatar.setImages(imglist)
 crimsonAvatar.createAvatar()
@@ -162,7 +166,7 @@ shirtButton.grid(row=7, column=2)
 accessoryButton = tk.Button(window, text="Accessory", command=crimsonAvatar.toggleAccessory)
 accessoryButton.grid(row=7, column=3)
 
-saveButton = tk.Button(window, text="Save", command=crimsonAvatar.activateAvatar)
+saveButton = tk.Button(window, text="Save", command=crimsonAvatar.saveAvatar)
 saveButton.grid(row=7, column=4)
 
 
