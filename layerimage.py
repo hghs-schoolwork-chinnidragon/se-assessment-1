@@ -19,6 +19,15 @@ class Avatars:
         self.__base = image_paths[4]
         self.__shirt = image_paths[5]
         self.__shoe = image_paths[6]
+        self.__attr_map = {
+                    "accessories": self.__accessories,
+                    "hair": self.__hair,
+                    "mouth": self.__mouth,
+                    "pant": self.__pant,
+                    "base": self.__base,
+                    "shirt": self.__shirt,
+                    "shoe": self.__shoe,
+                }
         try:
             with open(jsonfile, "r") as file:
                 attributes = json.load(file)
@@ -45,7 +54,7 @@ class Avatars:
     def resizeImg(self, newWidth, image):
         #newwidth divided by width/height OR newwidth * height/width
         #resizing the image while keeping the aspect ratio
-        pilImage = Image.open(image).convert("RGBA")
+        pilImage = Image.open(image)
         print (f"{pilImage.width}/{pilImage.height}")
         # ratio = pilImage.width/pilImage.height
         orig_width, orig_height = pilImage.size
@@ -89,42 +98,42 @@ class Avatars:
 
     #toggling various outfit options
     def togglePant(self):
-        if str(self.__pant) in self.__active_attr:
-            self.__active_attr.remove(str(self.__pant))
+        if "pant" in self.__active_attr:
+            self.__active_attr.remove("pant")
         else:
-            self.__active_attr.append(self.__pant)
+            self.__active_attr.append("pant")
         print(self.__active_attr)
         self.activateAvatar()
 
     def toggleMouth(self):
-        if str(self.__mouth) in self.__active_attr:
-            self.__active_attr.remove(str(self.__mouth))
+        if "mouth" in self.__active_attr:
+            self.__active_attr.remove("mouth")
         else:
-            self.__active_attr.append(str(self.__mouth))
+            self.__active_attr.append("mouth")
         print(self.__active_attr)
         self.activateAvatar()
 
     def toggleHair(self):
-        if str(self.__hair) in self.__active_attr:
-            self.__active_attr.remove(str(self.__hair))
+        if "hair" in self.__active_attr:
+            self.__active_attr.remove("hair")
         else:
-            self.__active_attr.append(str(self.__hair))
+            self.__active_attr.append("hair")
         print(self.__active_attr)
         self.activateAvatar()
 
     def toggleShirt(self):
-        if str(self.__shirt) in self.__active_attr:
-            self.__active_attr.remove(str(self.__shirt))
+        if "shirt" in self.__active_attr:
+            self.__active_attr.remove("shirt")
         else:
-            self.__active_attr.append(str(self.__shirt))
+            self.__active_attr.append("shirt")
         print(self.__active_attr)
         self.activateAvatar()
 
     def toggleAccessory(self):
-        if str(self.__accessories) in self.__active_attr:
-            self.__active_attr.remove(str(self.__accessories))
+        if "accessories" in self.__active_attr:
+            self.__active_attr.remove("accessories")
         else:
-            self.__active_attr.append(str(self.__accessories))
+            self.__active_attr.append("accessories")
         print(self.__active_attr)
         self.activateAvatar()
 
@@ -134,20 +143,12 @@ class Avatars:
             avatar =  ImageTk.PhotoImage(base) #Default to the bare base
         else:
             for item in self.__active_attr:
-                # attr_map = {
-                #     str(self.__accessories): self.__accessories,
-                #     str(self.__hair): self.__hair,
-                #     str(self.__mouth): self.__mouth,
-                #     str(self.__pant): self.__pant,
-                #     str(self.__base): self.__base,
-                #     str(self.__shirt): self.__shirt,
-                #     str(self.__shoe): self.__shoe,
-                # }
+                mappedItem = self.__attr_map[item]
                 # # print(item)
                 # # base = self.getImages()
                 # # base = base[4]
                 # base.paste(attr_map[str(item)], (0,0), (attr_map[str(item)]))
-                base.paste(item), (0,0), (item)
+                base.paste(mappedItem), (0,0), (mappedItem)
                 # print(base)
                 avatar =  ImageTk.PhotoImage(base)
 
