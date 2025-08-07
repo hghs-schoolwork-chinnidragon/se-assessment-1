@@ -13,7 +13,7 @@ window = tk.Tk()
 # 'chair.png', 'cmouth.png', , 'cpant.png', 
 # 'crimson.png', 'cshirt.png', 'cshoe.png']
 class Avatars:
-    def __init__(self, image_paths):
+    def __init__(self, image_paths, jsonfile):
         #DEBUG
         # print(image_paths)
         self.__accessories = image_paths[0]
@@ -23,7 +23,13 @@ class Avatars:
         self.__base = image_paths[4]
         self.__shirt = image_paths[5]
         self.__shoe = image_paths[6]
-        self.__active_attr = []
+        try:
+            with open(jsonfile, "r") as file:
+                attributes = json.load(file)
+            self.__active_attr = attributes["attributes"]
+        except TypeError: #no file has been passed
+            print("CAN YOU KYS HAHAH!!!")
+            self.__active_attr = []
         #DEBUG
         # print(self.getImages())
 
@@ -31,7 +37,7 @@ class Avatars:
         #newwidth divided by width/height OR newwidth * height/width
         #resizing the image while keeping the aspect ratio
         pilImage = Image.open(image)
-        print (f"{pilImage.width}x{pilImage.height}")
+        print (f"{pilImage.width}/{pilImage.height}")
         ratio = pilImage.width/pilImage.height
         newHeight = round(newWidth*ratio)
         resizedImage = pilImage.resize([newWidth, newHeight])
@@ -70,12 +76,12 @@ class Avatars:
         except AttributeError: #raised when they are already images (eg resize function has been used)
             pass
 
-    
-    def toggleHair(self):
-        if self.__hair in self.__active_attr:
-            self.__active_attr.remove(self.__hair)
+    #toggling various outfit options
+    def togglePant(self):
+        if self.__pant in self.__active_attr:
+            self.__active_attr.remove(self.__pant)
         else:
-            self.__active_attr.append(self.__hair)
+            self.__active_attr.append(self.__pant)
         print(self.__active_attr)
         self.activateAvatar()
 
@@ -103,7 +109,6 @@ class Avatars:
         print(self.__active_attr)
         self.activateAvatar()
 
-
     def toggleAccessory(self):
         if self.__accessories in self.__active_attr:
             self.__active_attr.remove(self.__accessories)
@@ -113,27 +118,37 @@ class Avatars:
         self.activateAvatar()
 
     def activateAvatar(self):
+        base = self.__base.copy() 
+        if not self.__active_attr: #If there aren't any active attributes
+            avatar =  ImageTk.PhotoImage(base) #Default to the bare base
+        else:
+            for item in self.__active_attr:
+                # print(item)
+                # base = self.getImages()
+                # base = base[4]
+                base.paste(item, (0,0), item)
+                print(base)
+                avatar =  ImageTk.PhotoImage(base)
+
+        if not hasattr(self, 'avatarLabel'):
+            self.avatarLabel = tk.Label(window, image=avatar)
+            self.avatarLabel.grid(column=6, columnspan=1)
+        else:
+            self.avatarLabel.config(image=avatar)
+        self.avatarLabel.image = avatar 
+        # avatarLabel = tk.Label(window, image=avatar)
+        # avatarLabel.image=avatar
+        # avatarLabel.grid(column=6, columnspan=1)
+    
+    #for saving the current attributes (so that the avatar will look the same wherever)
+    def saveAvatar(self, filename):
         for item in self.__active_attr:
             print(item)
-            base = self.getImages()
-            base = base[4]
-            base.paste(item, (0,0), item)
-            print(base)
-
-        avatar =  ImageTk.PhotoImage(base)
-        try:
-            avatarLabel.config(window, image=avatar)
-        except NameError:
-            avatarLabel = tk.Label(window, image=avatar)
-        avatarLabel.image=avatar
-        avatarLabel.grid(sticky="s", column=6, columnspan=1)
-    
-    def saveAvatar(self, filename):
-        data = {
-            "attributes":self.__active_attr
-        }
-        with open(f'{filename}', 'w') as file:
-            json.dump(data, file)
+        # data = {
+        #     "attributes":self.__active_attr
+        # }
+        # with open(filename, 'w') as file:
+        #     json.dump(data, file)
 
 
 crimsonImages = []
@@ -141,7 +156,7 @@ for image in sorted(os.listdir("images/crimson")):
     crimsonImages.append(f"images/crimson/{image}")
 
 
-crimsonAvatar = Avatars(crimsonImages)
+crimsonAvatar = Avatars(crimsonImages, None)
 
 imglist = []
 for image in crimsonAvatar.getImages():
@@ -149,7 +164,7 @@ for image in crimsonAvatar.getImages():
     imglist.append(crimsonAvatar.resizeImg(100, image))
 
 crimsonAvatar.setImages(imglist)
-crimsonAvatar.createAvatar()
+# crimsonAvatar.createAvatar()
 
 
 
@@ -163,11 +178,18 @@ mouthButton.grid(row=7, column=1)
 shirtButton = tk.Button(window, text="Shirt", command=crimsonAvatar.toggleShirt)
 shirtButton.grid(row=7, column=2)
 
-accessoryButton = tk.Button(window, text="Accessory", command=crimsonAvatar.toggleAccessory)
-accessoryButton.grid(row=7, column=3)
+pantButton = tk.Button(window, text="Pant", command=crimsonAvatar.togglePant)
+pantButton.grid(row=7, column=3)
 
-saveButton = tk.Button(window, text="Save", command=crimsonAvatar.saveAvatar)
-saveButton.grid(row=7, column=4)
+
+accessoryButton = tk.Button(window, text="Accessory", command=crimsonAvatar.toggleAccessory)
+accessoryButton.grid(row=7, column=4)
+
+def save():
+    crimsonAvatar.saveAvatar("activeattributes.json")
+
+saveButton = tk.Button(window, text="Save", command=save)
+saveButton.grid(row=7, column=5)
 
 
 
