@@ -32,9 +32,13 @@ class QuestionTemplate():
                 column=i
             )
             
-    def configInfo(quizImage, quizInfo, label):
-            labelImage = tk.PhotoImage(file=quizImage)
-            label.config(text=quizInfo, font=("Arial", 10), wraplength=1440, image=labelImage, compound="top")
+    def configInfo(quizImage, quizInfo, label, PIL):
+            if not PIL == None:
+                labelImage = ImageTk.PhotoImage(quizImage)
+            else:
+                labelImage = tk.PhotoImage(file=quizImage)
+            label.image=labelImage
+            label.config(text=quizInfo, font=("Arial", 10), wraplength=1440, image=labelImage, compound="right")
             label.image=labelImage
             label.grid(columnspan=2, column=1)
 

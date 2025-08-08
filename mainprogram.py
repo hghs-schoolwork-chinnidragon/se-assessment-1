@@ -31,6 +31,10 @@ from PIL import Image, ImageTk
 #         window.mainloop()
     
 
+root = tk.Tk()
+
+welcome = tk.Label(text="Welcome to.....", font=("Arial", 24))
+
 
 q_whatColourIsThat = quizmodule.Quiz("whatColourIsThat.json")
 q_allAboutHSV = quizmodule.Quiz("allAboutHSV.json")
@@ -41,5 +45,7 @@ q_whatColourIsThat.run()
 
 # if menu == "allAboutHSV.json":
 q_allAboutHSV.run()
+
+root.mainloop
 
 

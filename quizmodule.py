@@ -5,6 +5,7 @@ from PIL import Image, ImageTk
 import guitemplate
 
 
+
 class Quiz:
     #retrieving data from provided file
     def __init__(self, jsfile):
@@ -28,17 +29,33 @@ class Quiz:
             self.__answers.append(self.__questiondata['questions'][i]['correctAnswer'])
             self.__choices.append(self.__questiondata['questions'][i]['choices'])
 
+    def resizeImg(self, newWidth, image):
+        #newwidth divided by width/height OR newwidth * height/width
+        #resizing the image while keeping the aspect ratio
+        pilImage = Image.open(image).convert("RGBA")
+        print (f"{pilImage.width}/{pilImage.height}")
+        # ratio = pilImage.width/pilImage.height
+        orig_width, orig_height = pilImage.size
+        ratio = orig_width / orig_height
+        newHeight = round(newWidth/ratio)
+        resizedImage = pilImage.resize([newWidth, newHeight])
+        # print(f"resized! dimensions {resizedImage.width}x{resizedImage.height}")
+        return(resizedImage)
     def run(self):
         window = tk.Tk()
         window.geometry("1440x1024")
         
         # while True:
         qtext = tk.Label(window, text=f"""Welcome to the "{self.__title}" quiz! 
-First, there are some things you need to know:""", font=("Arial", 48))
+First, there are some things you need to know:""", font=("Arial", 48), wraplength=500)
         qtext.grid(padx=50, pady=100, columnspan=10)
 
+
+        resizedQuizImage = self.resizeImg(50, self.__quizimage)
         def config_info():
-            guitemplate.QuestionTemplate.configInfo(self.__quizimage, self.__quizinfo, qtext)
+            guitemplate.QuestionTemplate.configInfo(resizedQuizImage, self.__quizinfo, qtext, "yes")
+            qtext.image = resizedQuizImage
+        
         # def clear_screen(window):
         #     for widget in window.winfo_children():
         #         widget.destroy()  

@@ -1,53 +1,51 @@
 {
     "title": "Understanding Hue, Saturation and Value",
-	"info": 
-		[
-		"allAboutHSV.txt",
-		"images/HSV-sketchbook.png"
-		],
-        "questions":
-        [
-            {
-                "question": "If a colour has low saturation, is it bright or dull?",
-                "correctAnswer": "Dull",
-                "choices": [
-                    "Bright", "Dull"
-                ]
-            },
-            {
-                "question": "If a colour has high value, is it light or dark?",
-                "correctAnswer": "Light",
-                "choices": [
-                    "Light", "Dark"
-                ]
-            },
-            {
-                "question": "If a colour has low value, is it light or dark?",
-                "correctAnswer": "Dark",
-                "choices": [
-                    "Light", "Dark"
-                ]
-            },
-            {
-                "question": "What's another name for the name of a colour, like \"red\" or \"blue?\"",
-                "correctAnswer": "Hue",
-                "choices": [
-                    "Hue", "Saturation", "Value"
-                ]
-            },
-            {
-                "question": "If a colour is very bright and strong, does it have high or low saturation?",
-                "correctAnswer": "High",
-                "choices": [
-                    "High", "Low"
-                ]
-            },
-            {
-                "question": "What's another name for how bright/greyed out a colour is?",
-                "correctAnswer": "Saturation",
-                "choices": [
-                    "Hue", "Saturation", "Value"
-                ]
-            }
-        ]
+    "info": [
+        "allAboutHSV.txt",
+        "images/HSV-sketchbook.png"
+    ],
+    "questions": [
+        {
+            "question": "If a colour looks a bit grey and not very colourful, is it bright or dull?",
+            "correctAnswer": "Dull",
+            "choices": [
+                "Bright", "Dull"
+            ]
+        },
+        {
+            "question": "If a colour is very light, does it have high value or low value?",
+            "correctAnswer": "High value",
+            "choices": [
+                "High value", "Low value"
+            ]
+        },
+        {
+            "question": "If a colour is very dark, does it have high value or low value?",
+            "correctAnswer": "Low value",
+            "choices": [
+                "High value", "Low value"
+            ]
+        },
+        {
+            "question": "What do we call the name of a colour, like 'red' or 'blue'?",
+            "correctAnswer": "Hue",
+            "choices": [
+                "Hue", "Saturation", "Value"
+            ]
+        },
+        {
+            "question": "If a colour is super bright and strong, does it have high or low saturation?",
+            "correctAnswer": "High",
+            "choices": [
+                "High", "Low"
+            ]
+        },
+        {
+            "question": "What word do we use for how colourful or grey a colour is?",
+            "correctAnswer": "Saturation",
+            "choices": [
+                "Hue", "Saturation", "Value"
+            ]
+        }
+    ]
 }

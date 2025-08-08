@@ -31,17 +31,6 @@ class Avatars:
         try:
             with open(jsonfile, "r") as file:
                 attributes = json.load(file)
-            # attr_map = {
-            #     str(self.__accessories): self.__accessories,
-            #     str(self.__hair): self.__hair,
-            #     str(self.__mouth): self.__mouth,
-            #     str(self.__pant): self.__pant,
-            #     str(self.__base): self.__base,
-            #     str(self.__shirt): self.__shirt,
-            #     str(self.__shoe): self.__shoe,
-            # }
-            # self.__active_attr = [attr_map[path] for path in attributes["attributes"] if path in attr_map]
-            # print(self.__active_attr)
             self.__active_attr = attributes["attributes"]
             print(self.__active_attr)
         except TypeError: #no file has been passed
