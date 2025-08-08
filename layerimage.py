@@ -2,6 +2,7 @@ import tkinter as tk
 from PIL import Image, ImageTk
 
 window = tk.Tk()
+window.title("Avatar")
 # crimson = tk.PhotoImage(file="images/crimson.png")
 # chair = tk.PhotoImage(file="images/chair.png")
 # print(crimson.width()/2, crimson.height()/2)
