@@ -5,7 +5,7 @@ import json
 
 window = tk.Tk()
 window.title = "avatar customisation"
-window.config(background="#D5FBFF")
+# window.config(background="#D5FBFF")
 window.geometry("600x600+450+50")
 
 class Avatars:
@@ -84,6 +84,15 @@ class Avatars:
         self.__base = images[4]
         self.__shirt = images[5]
         self.__shoe = images [6]
+        self.__attr_map = {
+                    "accessories": self.__accessories,
+                    "hair": self.__hair,
+                    "mouth": self.__mouth,
+                    "pant": self.__pant,
+                    "base": self.__base,
+                    "shirt": self.__shirt,
+                    "shoe": self.__shoe,
+                }
 
     def createAvatar(self):
         #creating the images based on the path provided
@@ -144,7 +153,7 @@ class Avatars:
         else:
             for item in self.__active_attr:
                 mappedItem = self.__attr_map[item]
-                # # print(item)
+                print(mappedItem)
                 # # base = self.getImages()
                 # # base = base[4]
                 # base.paste(attr_map[str(item)], (0,0), (attr_map[str(item)]))
