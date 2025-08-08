@@ -31,43 +31,45 @@ class Quiz:
     def run(self):
         window = tk.Tk()
         window.geometry("1440x1024")
+        
         # while True:
         qtext = tk.Label(window, text=f"""Welcome to the "{self.__title}" quiz! 
-First, there are some things you need to know:""", font=("Arial", 60), wraplength=1420)
-        qtext.grid(
-            row=3
-        )
-        # quizImage = Image.open(self.__quizimage)
-        # print(self.__quizimage)
+First, there are some things you need to know:""", font=("Arial", 48))
+        qtext.grid(padx=50, pady=100, columnspan=10)
+
         def config_info():
             guitemplate.QuestionTemplate.configInfo(self.__quizimage, self.__quizinfo, qtext)
-#         def clear_screen(window):
-#             for widget in window.winfo_children():
-#                 widget.destroy()       # config = guitemplate.QuestionTemplate(window, self.__questions[q], shuffled_copy)
-#         # config_questions = config.createQuestionWindow()
-#         if qtext.cget("text") == f"""Welcome to the "{self.__title}" quiz! 
-# First, there are some things you need to know:""":
+        # def clear_screen(window):
+        #     for widget in window.winfo_children():
+        #         widget.destroy()  
+        
         nextbutton = tk.Button(text="Next!", command=config_info)
-        # else:
-        #     nextbutton = tk.Button(text="Let's go!", command=clear_screen)
-        nextbutton.grid(
-            row=4
-        )
+        nextbutton.grid(row=2, column=5)
+        # window.mainloop()
 
-        score = 0
-        #main loop of the function
-        for q in range(0, len(self.__questions)):
-            shuffled_copy = random.sample(self.__choices[q], len(self.__choices[q]))
-            config = guitemplate.QuestionTemplate(window, q+1, self.__questions[q], shuffled_copy, self.__answers[q])
-            config.createQuestionWindow()
-            # print(f"Question {q+1}:")
-            # print(self.__questions[q])
-            #printing the items of the list in a random order
-            # shuffled_copy = random.sample(self.__choices[q], len(self.__choices[q]))
-            # for item in shuffled_copy:
-            #     print(f'* {item}')
-            # config = guitemplate.QuestionTemplate(window, self.__questions[q], shuffled_copy)
-            config.createQuestionWindow()
+        # config_questions = config.createQuestionWindow()
+    #         if qtext.cget("text") == f"""Welcome to the "{self.__title}" quiz! 
+    # First, there are some things you need to know:""":
+    #             nextbutton = tk.Button(text="Next!", command=config_info)
+    #         else:
+    #             nextbutton = tk.Button(text="Let's go!", command=clear_screen)
+    #             break
+    #         nextbutton.grid()
+
+        # score = 0
+        # #main loop of the function
+        # for q in range(0, len(self.__questions)):
+        #     shuffled_copy = random.sample(self.__choices[q], len(self.__choices[q]))
+        #     config = guitemplate.QuestionTemplate(window, q+1, self.__questions[q], shuffled_copy, self.__answers[q])
+        #     config.createQuestionWindow()
+        #     # print(f"Question {q+1}:")
+        #     # print(self.__questions[q])
+        #     #printing the items of the list in a random order
+        #     # shuffled_copy = random.sample(self.__choices[q], len(self.__choices[q]))
+        #     for item in shuffled_copy:
+        #         print(f'* {item}')
+        #     # config = guitemplate.QuestionTemplate(window, self.__questions[q], shuffled_copy)
+        #     config.createQuestionWindow()
             
 
             #will change to tkinter
@@ -96,6 +98,7 @@ First, there are some things you need to know:""", font=("Arial", 60), wraplengt
     
     def getImage(self):
         return(self.__quizimage)
+
 
 
 
