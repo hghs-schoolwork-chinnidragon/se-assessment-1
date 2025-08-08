@@ -54,7 +54,7 @@ class Avatars:
     def resizeImg(self, newWidth, image):
         #newwidth divided by width/height OR newwidth * height/width
         #resizing the image while keeping the aspect ratio
-        pilImage = Image.open(image)
+        pilImage = Image.open(image).convert("RGBA")
         print (f"{pilImage.width}/{pilImage.height}")
         # ratio = pilImage.width/pilImage.height
         orig_width, orig_height = pilImage.size
@@ -153,7 +153,7 @@ class Avatars:
         else:
             for item in self.__active_attr:
                 mappedItem = self.__attr_map[item]
-                print(mappedItem)
+                # print(mappedItem)
                 # # base = self.getImages()
                 # # base = base[4]
                 # base.paste(attr_map[str(item)], (0,0), (attr_map[str(item)]))
