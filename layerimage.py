@@ -36,13 +36,16 @@ class Avatars:
     def resizeImg(self, newWidth, image):
         #newwidth divided by width/height OR newwidth * height/width
         #resizing the image while keeping the aspect ratio
-        pilImage = Image.open(image)
-        print (f"{pilImage.width}*{pilImage.height}")
-        ratio = pilImage.width/pilImage.height
+        pilImage = Image.open(image).convert("RGBA")
+        print (f"{pilImage.width}/{pilImage.height}")
+        # ratio = pilImage.width/pilImage.height
+        orig_width, orig_height = pilImage.size
+        ratio = orig_width / orig_height
         newHeight = round(newWidth/ratio)
         resizedImage = pilImage.resize([newWidth, newHeight])
         # print(f"resized! dimensions {resizedImage.width}x{resizedImage.height}")
         return(resizedImage)
+
 
     
     def getImages(self):
