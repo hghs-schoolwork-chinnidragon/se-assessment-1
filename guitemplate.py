@@ -32,18 +32,9 @@ class QuestionTemplate():
                 column=i
             )
             
-    def configInfo(q_image, quizInfo, label):
-        labelImage = tk.PhotoImage(file=q_image)
-        label.config(
-            text=quizInfo,
-            font=("Arial", 24),
-            wraplength=1440/2,
-            anchor="e",
-            justify="left",
-            image=labelImage,
-            compound="left"
-        )
-        label.labelImage = labelImage  
-        label.grid()
-
+    def configInfo(quizImage, quizInfo, label):
+            labelImage = tk.PhotoImage(file=quizImage)
+            label.config(text=quizInfo, font=("Arial", 10), wraplength=1440, image=labelImage, compound="top")
+            label.image=labelImage
+            label.grid(columnspan=2, column=1)
 
