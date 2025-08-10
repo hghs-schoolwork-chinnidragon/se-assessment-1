@@ -9,7 +9,8 @@ import guitemplate
 class Quiz:
     #retrieving data from provided file
     def __init__(self, jsfile):
-        with open(jsfile, "r") as file:
+        self.__jsfile = jsfile
+        with open(self.__jsfile, "r") as file:
             self.__questiondata = json.load(file)
         #retrieving data
         self.__title = self.__questiondata['title']
@@ -29,10 +30,13 @@ class Quiz:
             self.__answers.append(self.__questiondata['questions'][i]['correctAnswer'])
             self.__choices.append(self.__questiondata['questions'][i]['choices'])
 
-    def resizeImg(self, newWidth, image):
+    def resizeImg(newWidth, image):
         #newwidth divided by width/height OR newwidth * height/width
         #resizing the image while keeping the aspect ratio
-        pilImage = Image.open(image).convert("RGBA")
+        try:
+            pilImage = Image.open(image).convert("RGBA")
+        except AttributeError: #already a PIL image
+            pilImage = image
         print (f"{pilImage.width}/{pilImage.height}")
         # ratio = pilImage.width/pilImage.height
         orig_width, orig_height = pilImage.size
@@ -42,7 +46,7 @@ class Quiz:
         # print(f"resized! dimensions {resizedImage.width}x{resizedImage.height}")
         return(resizedImage)
     def run(self):
-        window = tk.Tk()
+        window = tk.Toplevel()
         window.geometry("1440x1024")
         
         # while True:
@@ -115,6 +119,9 @@ First, there are some things you need to know:""", font=("Arial", 48), wraplengt
     
     def getImage(self):
         return(self.__quizimage)
+    
+    def getFile(self):
+        return(self.__jsfile)
 
 
 
