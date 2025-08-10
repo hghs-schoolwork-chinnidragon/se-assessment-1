@@ -19,9 +19,12 @@ class Menu:
             quizWidgetImage = ImageTk.PhotoImage(quizWidgetImage)
             title = quizzes[i].getTitle()
             file = quizzes[i].getFile()
+            print(file)
             #need to resize images
-            def runQuiz():
-                q_whatColourIsThat = quizmodule.Quiz(file)
+            def runQuiz(file=file):
+                quiz = quizmodule.Quiz(file)
+                print(file)
+                quiz.run()
             quizWidget = tk.Button(
                 window,
                 text=title,
@@ -37,7 +40,6 @@ class Menu:
         columnNum=1
         rowNum=1
         for i in (quizWidgets):
-            print(f"sweet fading star {columnNum}, {rowNum}")
             i.grid(
                 row=rowNum, 
                 column=columnNum,
