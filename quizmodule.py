@@ -21,6 +21,7 @@ class Quiz:
         numq = len(self.__questiondata['questions'])
         #retrieve the image associated with the info
         self.__quizimage = self.__questiondata['info'][1]
+        
         #retrieving the questions, answers and choices -- MUST be 'question', 'correctAnswer' and 'choices'
         self.__questions = []
         self.__answers = []
@@ -29,7 +30,8 @@ class Quiz:
             self.__questions.append(self.__questiondata['questions'][i]['question'])
             self.__answers.append(self.__questiondata['questions'][i]['correctAnswer'])
             self.__choices.append(self.__questiondata['questions'][i]['choices'])
-
+        self.__images = []
+    @staticmethod
     def resizeImg(newWidth, image):
         #newwidth divided by width/height OR newwidth * height/width
         #resizing the image while keeping the aspect ratio
@@ -47,25 +49,43 @@ class Quiz:
         return(resizedImage)
     def run(self):
         window = tk.Toplevel()
-        window.geometry("1440x1024")
-        
+        # window.geometry("1440x1024")
+        window.title(f"{self.__title}")
         # while True:
-        qtext = tk.Label(window, text=f"""Welcome to the "{self.__title}" quiz! 
-First, there are some things you need to know:""", font=("Arial", 48), wraplength=500)
-        qtext.grid(padx=50, pady=100, columnspan=10)
-
-
-        resizedQuizImage = self.resizeImg(50, self.__quizimage)
+        print(self.__quizimage)
+        quizImage = Image.open(self.__questiondata['info'][2])
+        resizedQuizImage = self.resizeImg(200, quizImage)
+        self.__images.append(resizedQuizImage)
+        qtext = tk.Label(
+            window, 
+            text=f"""Welcome to the "{self.__title}" quiz! 
+First, there are some things you need to know:""",
+            font=("Arial", 48), 
+            wraplength=500
+            )
+        # qtext.grid(row=5, column=5,  columnspan=10, rowspan=10)
+        qtext.grid()
         def config_info():
-            guitemplate.QuestionTemplate.configInfo(resizedQuizImage, self.__quizinfo, qtext, "yes")
-            qtext.image = resizedQuizImage
+            qt = guitemplate.QuestionTemplate(window, None, None, None)
+            qt.configInfo(resizedQuizImage, self.__quizinfo, qtext, True, nextbutton, run_questions)
+        def run_questions():
+            for q in range(0, len(self.__questions)):
+                shuffled_copy = random.sample(self.__choices[q], len(self.__choices[q]))
+                config = guitemplate.QuestionTemplate(q+1, self.__questions[q], shuffled_copy, self.__answers[q])
+                # config.createQuestionWindow()
+            #     for item in shuffled_copy:
+            #         print(f'* {item}')
+                # config = guitemplate.QuestionTemplate(window, self.__questions[q], shuffled_copy)
+            
+            
+            # qtext.image = resizedQuizImage
         
         # def clear_screen(window):
         #     for widget in window.winfo_children():
         #         widget.destroy()  
         
-        nextbutton = tk.Button(text="Next!", command=config_info)
-        nextbutton.grid(row=2, column=5)
+        nextbutton = tk.Button(window, text="Next!", command=config_info)
+        nextbutton.grid(column=5)
         # window.mainloop()
 
         # config_questions = config.createQuestionWindow()
