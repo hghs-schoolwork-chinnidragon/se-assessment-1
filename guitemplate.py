@@ -43,7 +43,7 @@ class QuestionTemplate():
         label.config(
             text=quizInfo,
             font=("Arial", 16), 
-            wraplength=1440, 
+            wraplength=500, 
             image=labelImage,
             justify="left", 
             compound="right",
