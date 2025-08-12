@@ -66,13 +66,24 @@ First, there are some things you need to know:""",
         # qtext.grid(row=5, column=5,  columnspan=10, rowspan=10)
         qtext.grid()
         def config_info():
-            qt = guitemplate.QuestionTemplate(window, None, None, None)
-            qt.configInfo(resizedQuizImage, self.__quizinfo, qtext, True, nextbutton, run_questions)
+            qt = guitemplate.QuestionTemplate(
+                window,
+                None,
+                None, 
+                None,
+                None)
+            qt.configInfo(
+                resizedQuizImage,
+                self.__quizinfo, 
+                qtext, 
+                True, 
+                nextbutton, 
+                run_questions)
         def run_questions():
             for q in range(0, len(self.__questions)):
                 shuffled_copy = random.sample(self.__choices[q], len(self.__choices[q]))
-                config = guitemplate.QuestionTemplate(q+1, self.__questions[q], shuffled_copy, self.__answers[q])
-                # config.createQuestionWindow()
+                config = guitemplate.QuestionTemplate(window, q+1, self.__questions[q], shuffled_copy, self.__answers[q])
+                config.createQuestionWindow()
             #     for item in shuffled_copy:
             #         print(f'* {item}')
                 # config = guitemplate.QuestionTemplate(window, self.__questions[q], shuffled_copy)
