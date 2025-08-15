@@ -1,6 +1,8 @@
 import quizmodule
 import tkinter as tk
 from PIL import Image, ImageTk
+import layerimage
+import os
 class Menu:
     # @staticmethod
     # def createwindow():
@@ -56,33 +58,31 @@ class Menu:
             canvas.create_window(coordinates[widgetNum][0], coordinates[widgetNum][1], anchor="nw", window=widget)
         
         canvas.create_text(1420/2-500, 100, text="Choose your challenge:", font=("Arial", 65, "bold", "italic"), fill="#141615", width=445, anchor="nw")
-            
-        # columnNum=1
-        # rowNum=1
-        # def motion(event):
-        #     crimson = ImageTk.PhotoImage(quizmodule.Quiz.resizeImg(10, "images/crimson/crimson.png"))
-            # crimson.pack(x=event.x, y=event.y)
-        #     canvas.create_image(event.x(), event.y(), image=crimson, anchor="nw")
-        # root.bind("<Motion>", motion)
-            # window.after(100, dante_jumpscare.place(x=event.x-10, y=event.y-10))
-            # window.after(100, dante_jumpscare.place(x=event.x-100, y=event.y-100))
-            # window.after(100, dante_jumpscare.place(x=event.x-1000, y=event.y-1000))
-
-        # for i, j in (quizWidgets), range(0, len(quizWidgets)):
-        #     #0 0
-        #     # 208 1
-        #     # 0 237
-        #     # 208 238
         
-        #     canvas.create_window(coordinates[j][0], coordinates[j][1], i)
-            # i.grid(
-            #     row=rowNum, 
-            #     column=columnNum,
-            # )
-            # columnNum +=1
-            # if columnNum>2:
-            #     rowNum+=1
-            #     columnNum=1
+        avatarimg = Image.open("images/avatarcustomisation.png")
+        avatarimg = quizmodule.Quiz.resizeImg(300, avatarimg)
+        avatar_photo = ImageTk.PhotoImage(avatarimg)  # Create photo image
+        def avatar():
+            window = tk.Toplevel(root)
+            crimsonImages = []
+            for image in sorted(os.listdir("images/crimson")):
+                crimsonImages.append(f"images/crimson/{image}")
+            # Creating canvas
+            canvas = tk.Canvas(window, width=400, height=400, bg="#FFA1A1")
+            canvas.grid(row=0, column=6, rowspan=6, padx=10, pady=10)
+            #Creating the avatar on the canvas
+            crimsonAvatar = layerimage.Avatars(crimsonImages, "activeattributes.json", window=window, canvas=canvas)
+            imglist = []
+            for image in crimsonAvatar.getImages():
+                imglist.append(crimsonAvatar.resizeImg(200, image))
+            crimsonAvatar.setImages(imglist)
+            crimsonAvatar.create_Buttons()
+            crimsonAvatar.activateAvatar()
+
+        avatarimg_button = tk.Button(root, image=avatar_photo, text="Customise your avatar!!", command=avatar)  # Create label with image
+        avatarimg_button.image = avatar_photo
+
+        canvas.create_window(500-200, 500+50, window=avatarimg_button)
         
         def debug():
             for i in (quizWidgets):
@@ -100,15 +100,17 @@ canvas = tk.Canvas(root, width=1420, height=1200)
 
 canvas.grid()
 
-
 bg_img = Image.open("images/welcomebg.png")
 bg_img = quizmodule.Quiz.resizeImg(1420, bg_img)  
+print("yay")
 bg_imgtk = ImageTk.PhotoImage(bg_img)
+print("yay")
 canvas.create_image(0, 0, image=bg_imgtk, anchor="nw")
-canvas.bg_imgtk = bg_imgtk
+canvas.bg_imgtk = bg_imgtk 
 
 def menu():
     Menu([q_allAboutHSV, q_whatColourIsThat, q_colourRelationships, q_tiersOfColours], root=root)
+
 
 menubutton = tk.Button(text="Begin the Crusade", bg="#15A702", command=menu)
 
@@ -131,19 +133,12 @@ canvas.create_window(
     window=menubutton)
 
 
-
 q_whatColourIsThat = quizmodule.Quiz("whatColourIsThat.json")
 q_allAboutHSV = quizmodule.Quiz("allAboutHSV.json")
 q_colourRelationships = quizmodule.Quiz("colourRelationships.json")
 q_tiersOfColours = quizmodule.Quiz("tiersOfColours.json")
 
 
-
-# if menu == "whatColourIsThat.json":
-#     q_whatColourIsThat.run()
-
-# if menu == "allAboutHSV.json":
-# q_allAboutHSV.run()
 
 root.mainloop()
 
