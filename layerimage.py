@@ -186,28 +186,35 @@ class Avatars:
         with open(filename, 'w') as file:
             json.dump(data, file)
         quit()
+    
+    def reset(self):
+        self.__active_attr = []
+        self.activateAvatar()
 
 def create_Buttons(avatar):
     hairButton = tk.Button(window, text="Hair", command=avatar.toggleHair)
-    canvas.create_window(500, 0, anchor="nw", window=hairButton)
+    canvas.create_window(300, 0, anchor="nw", window=hairButton)
 
     mouthButton = tk.Button(window, text="Mouth", command=avatar.toggleMouth)
-    canvas.create_window(500, 50, anchor="nw", window=mouthButton)
+    canvas.create_window(300, 50, anchor="nw", window=mouthButton)
 
     shirtButton = tk.Button(window, text="Shirt", command=avatar.toggleShirt)
-    canvas.create_window(500, 100, anchor="nw", window=shirtButton)
+    canvas.create_window(300, 100, anchor="nw", window=shirtButton)
 
     pantButton = tk.Button(window, text="Pant", command=avatar.togglePant)
-    canvas.create_window(500, 150, anchor="nw", window=pantButton)
+    canvas.create_window(300, 150, anchor="nw", window=pantButton)
 
     accessoryButton = tk.Button(window, text="Accessory", command=avatar.toggleAccessory)
-    canvas.create_window(500, 200, anchor="nw", window=accessoryButton)
+    canvas.create_window(300, 200, anchor="nw", window=accessoryButton)
 
+    resetButton = tk.Button(window, text="Reset", command=avatar.reset)
+    canvas.create_window(300, 250, anchor="nw", window=resetButton)
+    
     def save():
         avatar.saveAvatar("activeattributes.json")
 
     saveButton = tk.Button(window, text="Save", command=save)
-    canvas.create_window(500, 250, anchor="nw", window=saveButton)
+    canvas.create_window(300, 300, anchor="nw", window=saveButton)
 
 crimsonImages = []
 for image in sorted(os.listdir("images/crimson")):
