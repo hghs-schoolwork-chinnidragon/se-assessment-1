@@ -59,28 +59,28 @@ class Menu:
         
         canvas.create_text(1420/2-500, 100, text="Choose your challenge:", font=("Arial", 65, "bold", "italic"), fill="#141615", width=445, anchor="nw")
         
-        # avatarimg = Image.open("images/avatarcustomisation.png")
-        # avatarimg = quizmodule.Quiz.resizeImg(300, avatarimg)
-        # avatar_photo = ImageTk.PhotoImage(avatarimg)  # Create photo image
-        # def avatar():
-        #     window = tk.Toplevel(root)
-        #     crimsonImages = []
-        #     for image in sorted(os.listdir("images/crimson")):
-        #         crimsonImages.append(f"images/crimson/{image}")
-        #     # Creating canvas
-        #     canvas = tk.Canvas(window, width=400, height=400, bg="#FFA1A1")
-        #     canvas.grid(row=0, column=6, rowspan=6, padx=10, pady=10)
-        #     #Creating the avatar on the canvas
-        #     crimsonAvatar = layerimage.Avatars(crimsonImages, "activeattributes.json", window=window, canvas=canvas)
-        #     imglist = []
-        #     for image in crimsonAvatar.getImages():
-        #         imglist.append(crimsonAvatar.resizeImg(200, image))
-        #     crimsonAvatar.setImages(imglist)
-        #     crimsonAvatar.create_Buttons()
-        #     crimsonAvatar.activateAvatar()
+        avatarimg = Image.open("images/avatarcustomisation.png")
+        avatarimg = quizmodule.Quiz.resizeImg(300, avatarimg)
+        avatar_photo = ImageTk.PhotoImage(avatarimg)  # Create photo image
+        def avatar():
+            window = tk.Toplevel(root)
+            crimsonImages = []
+            for image in sorted(os.listdir("images/crimson")):
+                crimsonImages.append(f"images/crimson/{image}")
+            # Creating canvas
+            canvas = tk.Canvas(window, width=400, height=400, bg="#FFA1A1")
+            canvas.grid(row=0, column=6, rowspan=6, padx=10, pady=10)
+            #Creating the avatar on the canvas
+            crimsonAvatar = layerimage.Avatars(crimsonImages, "activeattributes.json", window=window, canvas=canvas)
+            imglist = []
+            for image in crimsonAvatar.getImages():
+                imglist.append(crimsonAvatar.resizeImg(200, image))
+            crimsonAvatar.setImages(imglist)
+            crimsonAvatar.create_Buttons()
+            crimsonAvatar.activateAvatar()
 
-        # avatarimg_button = tk.Button(root, image=avatar_photo, text="Customise your avatar!!", command=avatar)  # Create label with image
-        # avatarimg_button.image = avatar_photo
+        avatarimg_button = tk.Button(root, image=avatar_photo, text="Customise your avatar!!", command=avatar)  # Create label with image
+        avatarimg_button.image = avatar_photo
 
         canvas.create_window(500-200, 500+50, window=avatarimg_button)
         

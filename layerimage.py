@@ -180,28 +180,28 @@ class Avatars:
 
     def create_Buttons(self):
         hairButton = tk.Button(self.__window, text="Hair", command=self.toggleHair)
-        canvas.create_window(300, 0, anchor="nw", window=hairButton)
+        self.__canvas.create_window(300, 0, anchor="nw", window=hairButton)
 
         mouthButton = tk.Button(self.__window, text="Mouth", command=self.toggleMouth)
-        canvas.create_window(300, 50, anchor="nw", window=mouthButton)
+        self.__canvas.create_window(300, 50, anchor="nw", window=mouthButton)
 
         shirtButton = tk.Button(self.__window, text="Shirt", command=self.toggleShirt)
-        canvas.create_window(300, 100, anchor="nw", window=shirtButton)
+        self.__canvas.create_window(300, 100, anchor="nw", window=shirtButton)
 
         pantButton = tk.Button(self.__window, text="Pant", command=self.togglePant)
-        canvas.create_window(300, 150, anchor="nw", window=pantButton)
+        self.__canvas.create_window(300, 150, anchor="nw", window=pantButton)
 
         accessoryButton = tk.Button(self.__window, text="Accessory", command=self.toggleAccessory)
-        canvas.create_window(300, 200, anchor="nw", window=accessoryButton)
+        self.__canvas.create_window(300, 200, anchor="nw", window=accessoryButton)
 
         resetButton = tk.Button(self.__window, text="Reset", command=self.reset)
-        canvas.create_window(300, 250, anchor="nw", window=resetButton)
+        self.__canvas.create_window(300, 250, anchor="nw", window=resetButton)
         
         def save():
             self.saveAvatar("activeattributes.json")
 
         saveButton = tk.Button(self.__window, text="Save", command=save)
-        canvas.create_window(300, 300, anchor="nw", window=saveButton)
+        self.__canvas.create_window(300, 300, anchor="nw", window=saveButton)
 
 crimsonImages = []
 for image in sorted(os.listdir("images/crimson")):
@@ -228,4 +228,4 @@ crimsonAvatar.activateAvatar()
 
 
 
-# window.mainloop()
+window.mainloop()
