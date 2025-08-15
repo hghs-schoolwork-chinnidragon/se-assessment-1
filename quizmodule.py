@@ -82,7 +82,14 @@ First, there are some things you need to know:""",
         def run_questions():
             for q in range(0, len(self.__questions)):
                 shuffled_copy = random.sample(self.__choices[q], len(self.__choices[q]))
-                config = guitemplate.QuestionTemplate(window, q+1, self.__questions[q], shuffled_copy, self.__answers[q])
+                config = guitemplate.QuestionTemplate
+                (
+                    window,
+                    q+1, 
+                    self.__questions[q], 
+                    shuffled_copy, 
+                    self.__answers[q]
+                )
                 config.createQuestionWindow()
             #     for item in shuffled_copy:
             #         print(f'* {item}')

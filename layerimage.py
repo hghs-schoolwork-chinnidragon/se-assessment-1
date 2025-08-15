@@ -9,9 +9,10 @@ window.title = "avatar customisation"
 window.geometry("600x600+450+50")
 
 class Avatars:
-    def __init__(self, image_paths, jsonfile):
+    def __init__(self, image_paths, jsonfile, canvas=None):
         #DEBUG
         # print(image_paths)
+        self.__canvas = canvas
         self.__accessories = image_paths[0]
         self.__hair = image_paths[1]
         self.__mouth = image_paths[2]
@@ -147,16 +148,29 @@ class Avatars:
                 # # base = self.getImages()
                 # # base = base[4]
                 # base.paste(attr_map[str(item)], (0,0), (attr_map[str(item)]))
-                base.paste(mappedItem), (0,0), (mappedItem)
+                base.paste(mappedItem, (0,0), mappedItem)
                 # print(base)
                 avatar =  ImageTk.PhotoImage(base)
-
-        if not hasattr(self, 'avatarLabel'):
-            self.avatarLabel = tk.Label(window, image=avatar)
-            self.avatarLabel.grid(column=6, columnspan=1)
+        if self.__canvas:
+            # Clear previous image
+            self.__canvas.delete("avatar")
+            # Create image on canvas
+            self.__canvas.create_image(200, 200, image=avatar, tags="avatar")
+            self.__canvas.image = avatar
+            # if not hasattr(self, 'avatarLabel'):
+            #     self.avatarLabel = tk.Label(window, image=avatar)
+            #     # self.avatarLabel.grid(column=6, columnspan=1)
+            # else:
+            #     self.avatarLabel.config(image=avatar)
+            # self.__canvas.create_window(0, 0, anchor="nw", window=self.avatarLabel)
         else:
-            self.avatarLabel.config(image=avatar)
-        self.avatarLabel.image = avatar 
+            self.avatarLabel.image = avatar 
+            if not hasattr(self, 'avatarLabel'):
+                self.avatarLabel = tk.Label(window, image=avatar)
+                self.avatarLabel.grid(column=6, columnspan=1)
+            else:
+                self.avatarLabel.config(image=avatar)
+            self.avatarLabel.image = avatar 
         # avatarLabel = tk.Label(window, image=avatar)
         # avatarLabel.image=avatar
         # avatarLabel.grid(column=6, columnspan=1)
@@ -180,7 +194,12 @@ for image in sorted(os.listdir("images/crimson")):
     crimsonImages.append(f"images/crimson/{image}")
 
 
-crimsonAvatar = Avatars(crimsonImages, "activeattributes.json")
+# Creating canvas
+canvas = tk.Canvas(window, width=600, height=600)
+canvas.grid(row=0, column=6, rowspan=6, padx=10, pady=10)
+
+#Creating the avatar on the canvas
+crimsonAvatar = Avatars(crimsonImages, "activeattributes.json", canvas)
 
 imglist = []
 for image in crimsonAvatar.getImages():
@@ -194,26 +213,25 @@ crimsonAvatar.setImages(imglist)
 
 # while True:
 hairButton = tk.Button(window, text="Hair", command=crimsonAvatar.toggleHair)
-hairButton.grid(row=7, column=0)
+canvas.create_window(500, 0, anchor="nw", window=hairButton)
 
 mouthButton = tk.Button(window, text="Mouth", command=crimsonAvatar.toggleMouth)
-mouthButton.grid(row=7, column=1)
+canvas.create_window(500, 50, anchor="nw", window=mouthButton)
 
 shirtButton = tk.Button(window, text="Shirt", command=crimsonAvatar.toggleShirt)
-shirtButton.grid(row=7, column=2)
+canvas.create_window(500, 100, anchor="nw", window=shirtButton)
 
 pantButton = tk.Button(window, text="Pant", command=crimsonAvatar.togglePant)
-pantButton.grid(row=7, column=3)
-
+canvas.create_window(500, 150, anchor="nw", window=pantButton)
 
 accessoryButton = tk.Button(window, text="Accessory", command=crimsonAvatar.toggleAccessory)
-accessoryButton.grid(row=7, column=4)
+canvas.create_window(500, 200, anchor="nw", window=accessoryButton)
 
 def save():
     crimsonAvatar.saveAvatar("activeattributes.json")
 
 saveButton = tk.Button(window, text="Save", command=save)
-saveButton.grid(row=7, column=5)
+canvas.create_window(500, 250, anchor="nw", window=accessoryButton)
 
 # crimsonAvatar.activateAvatar()
 

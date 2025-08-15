@@ -20,22 +20,22 @@ class QuestionTemplate():
                 popup.config(text="correct!!!", font=("Arial", 20), fg="#0FB800")
             else:
                 popup.config(text=f"wrong!!! its {self.__correctOption}", font=("Arial", 20), fg="#B80000")
-        tk_questionTitle = tk.Label(self.__tkinterWindow, text=f"Question {self.__questionNumber}: {self.__questionTitle}", font=("Arial", 60), wraplength=500)
+        tk_questionTitle = tk.Label(self.__tkinterWindow, text=f"Question {self.__questionNumber}: {self.__questionTitle}", font=("Arial", 36, "italic"), wraplength=500)
         tk_questionTitle.grid(
             rowspan=10,
             columnspan=10,
             row=1,
-            column=2
+            column=0
         )
         tk_questionOptions = []
         for i in self.__questionOptions:
-            button = tk.Button(self.__tkinterWindow, text=f"{i}", font=("Arial", 24))
-            button.config(command=checkIfCorrect(button))
+            button = tk.Button(self.__tkinterWindow, text=f"{i}", font=("Arial", 16))
+            button.config(command=checkIfCorrect(optionButton=button))
             tk_questionOptions.append(button)
         
         for i in range (0, len(tk_questionOptions)):
             tk_questionOptions[i].grid(
-                row=5,
+                row=7,
                 column=i
             )
     def configInfo(self, quizImage, quizInfo, label, PIL, button, buttoncommand):
