@@ -188,6 +188,27 @@ class Avatars:
             json.dump(data, file)
         quit()
 
+def create_Buttons(avatar):
+    hairButton = tk.Button(window, text="Hair", command=avatar.toggleHair)
+    canvas.create_window(500, 0, anchor="nw", window=hairButton)
+
+    mouthButton = tk.Button(window, text="Mouth", command=avatar.toggleMouth)
+    canvas.create_window(500, 50, anchor="nw", window=mouthButton)
+
+    shirtButton = tk.Button(window, text="Shirt", command=avatar.toggleShirt)
+    canvas.create_window(500, 100, anchor="nw", window=shirtButton)
+
+    pantButton = tk.Button(window, text="Pant", command=avatar.togglePant)
+    canvas.create_window(500, 150, anchor="nw", window=pantButton)
+
+    accessoryButton = tk.Button(window, text="Accessory", command=avatar.toggleAccessory)
+    canvas.create_window(500, 200, anchor="nw", window=accessoryButton)
+
+    def save():
+        avatar.saveAvatar("activeattributes.json")
+
+    saveButton = tk.Button(window, text="Save", command=save)
+    canvas.create_window(500, 250, anchor="nw", window=accessoryButton)
 
 crimsonImages = []
 for image in sorted(os.listdir("images/crimson")):
@@ -207,33 +228,11 @@ for image in crimsonAvatar.getImages():
     imglist.append(crimsonAvatar.resizeImg(200, image))
 
 crimsonAvatar.setImages(imglist)
-# crimsonAvatar.createAvatar()
 
+create_Buttons(crimsonAvatar)
 
+crimsonAvatar.activateAvatar()
 
-# while True:
-hairButton = tk.Button(window, text="Hair", command=crimsonAvatar.toggleHair)
-canvas.create_window(500, 0, anchor="nw", window=hairButton)
-
-mouthButton = tk.Button(window, text="Mouth", command=crimsonAvatar.toggleMouth)
-canvas.create_window(500, 50, anchor="nw", window=mouthButton)
-
-shirtButton = tk.Button(window, text="Shirt", command=crimsonAvatar.toggleShirt)
-canvas.create_window(500, 100, anchor="nw", window=shirtButton)
-
-pantButton = tk.Button(window, text="Pant", command=crimsonAvatar.togglePant)
-canvas.create_window(500, 150, anchor="nw", window=pantButton)
-
-accessoryButton = tk.Button(window, text="Accessory", command=crimsonAvatar.toggleAccessory)
-canvas.create_window(500, 200, anchor="nw", window=accessoryButton)
-
-def save():
-    crimsonAvatar.saveAvatar("activeattributes.json")
-
-saveButton = tk.Button(window, text="Save", command=save)
-canvas.create_window(500, 250, anchor="nw", window=accessoryButton)
-
-# crimsonAvatar.activateAvatar()
 
 
 window.mainloop()
