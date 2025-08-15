@@ -179,7 +179,6 @@ class Avatars:
     def saveAvatar(self, filename):
         data = {
                 "attributes": []
-                
             }
         for i in range(0, len(self.__active_attr)):
             data["attributes"].append(str(self.__active_attr[i]))
@@ -208,7 +207,7 @@ def create_Buttons(avatar):
         avatar.saveAvatar("activeattributes.json")
 
     saveButton = tk.Button(window, text="Save", command=save)
-    canvas.create_window(500, 250, anchor="nw", window=accessoryButton)
+    canvas.create_window(500, 250, anchor="nw", window=saveButton)
 
 crimsonImages = []
 for image in sorted(os.listdir("images/crimson")):
