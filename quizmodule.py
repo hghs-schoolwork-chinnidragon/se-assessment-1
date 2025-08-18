@@ -51,11 +51,14 @@ class Quiz:
         window = tk.Toplevel()
         # window.geometry("1440x1024")
         window.title(f"{self.__title}")
+        self.current_question = 0
+        self.score = 0
         # while True:
         print(self.__quizimage)
         quizImage = Image.open(self.__questiondata['info'][2])
         resizedQuizImage = self.resizeImg(200, quizImage)
         self.__images.append(resizedQuizImage)
+        
         qtext = tk.Label(
             window, 
             text=f"""Welcome to the "{self.__title}" quiz! 
@@ -63,8 +66,8 @@ First, there are some things you need to know:""",
             font=("Arial", 48), 
             wraplength=500
             )
-        # qtext.grid(row=5, column=5,  columnspan=10, rowspan=10)
         qtext.grid()
+
         def config_info():
             qt = guitemplate.QuestionTemplate(
                 window,
@@ -78,78 +81,96 @@ First, there are some things you need to know:""",
                 qtext, 
                 True, 
                 nextbutton, 
-                run_questions)
-        def run_questions():
-            for q in range(0, len(self.__questions)):
-                shuffled_copy = random.sample(self.__choices[q], len(self.__choices[q]))
-                config = guitemplate.QuestionTemplate
-                (
-                    window,
-                    q+1, 
-                    self.__questions[q], 
-                    shuffled_copy, 
-                    self.__answers[q]
-                )
-                config.createQuestionWindow()
+                show_next_question)
+
             #     for item in shuffled_copy:
-            #         print(f'* {item}')
-                # config = guitemplate.QuestionTemplate(window, self.__questions[q], shuffled_copy)
+        def show_next_question():
+            # Clear previous question widgets if any
+            for widget in window.winfo_children():
+                if widget != nextbutton:  # Keep the next button
+                    widget.destroy()
             
+            # If all questions answered, show results
+            if self.current_question >= len(self.__questions):
+                show_results()
+                return
             
-            # qtext.image = resizedQuizImage
+            # Show current question
+            q = self.current_question
+            shuffled_copy = random.sample(self.__choices[q], len(self.__choices[q]))
+            
+            # Create question template with answer callback
+            self.config = guitemplate.QuestionTemplate(
+                window,
+                q+1, 
+                self.__questions[q], 
+                shuffled_copy, 
+                self.__answers[q]
+            )
+            
+            # Pass callback function to handle when answer is selected
+            self.config.createQuestionWindow(on_answer_selected)
+            
+            # Hide next button until answer is selected
+            nextbutton.grid_remove()
+            # nextbutton = tk.Button(window, text="Next!", command=config_info)
+            # nextbutton.grid(column=5)
+        # def run_questions():
+        #     for q in range(0, len(self.__questions)):
+        #         shuffled_copy = random.sample(self.__choices[q], len(self.__choices[q]))
+        #         config = guitemplate.QuestionTemplate(
+        #             window,
+        #             q+1, 
+        #             self.__questions[q], 
+        #             shuffled_copy, 
+        #             self.__answers[q]
+        #         )
+        #         config.createQuestionWindow()
         
-        # def clear_screen(window):
-        #     for widget in window.winfo_children():
-        #         widget.destroy()  
+        def on_answer_selected(is_correct):
+            if is_correct:
+                self.score += 1
+            
+            # Show next button to proceed to next question
+            nextbutton.config(text="Next Question", command=show_next_question)
+            nextbutton.grid()
         
+        # Show final results
+        def show_results():
+            for widget in window.winfo_children():
+                widget.destroy()
+            
+            result_text = f"Quiz Complete!\nYou got {self.score} out of {len(self.__questions)}."
+            result_text += f"\nThat's {round((self.score/len(self.__questions))*100)}%!"
+            
+            result_label = tk.Label(
+                window,
+                text=result_text,
+                font=("Arial", 24),
+                wraplength=500
+            )
+            result_label.pack(pady=50)
+            
+            # Save score data
+            data = {
+                "quiz": self.__title,
+                "score": self.score,
+                "percentage": (self.score/len(self.__questions))*100
+            }
+            
+            with open('scorehistory.json', 'a') as file:
+                json.dump(data, file)
+                file.write('\n') 
+            
+            close_button = tk.Button(window, text="Close", command=window.destroy)
+            close_button.pack(pady=20)
+        
+        # Initialize the Next button
         nextbutton = tk.Button(window, text="Next!", command=config_info)
         nextbutton.grid(column=5)
-        # window.mainloop()
-
-        # config_questions = config.createQuestionWindow()
-    #         if qtext.cget("text") == f"""Welcome to the "{self.__title}" quiz! 
-    # First, there are some things you need to know:""":
-    #             nextbutton = tk.Button(text="Next!", command=config_info)
-    #         else:
-    #             nextbutton = tk.Button(text="Let's go!", command=clear_screen)
-    #             break
-    #         nextbutton.grid()
-
-        # score = 0
-        # #main loop of the function
-        # for q in range(0, len(self.__questions)):
-        #     shuffled_copy = random.sample(self.__choices[q], len(self.__choices[q]))
-        #     config = guitemplate.QuestionTemplate(window, q+1, self.__questions[q], shuffled_copy, self.__answers[q])
-        #     config.createQuestionWindow()
-        #     # print(f"Question {q+1}:")
-        #     # print(self.__questions[q])
-        #     #printing the items of the list in a random order
-        #     # shuffled_copy = random.sample(self.__choices[q], len(self.__choices[q]))
-        #     for item in shuffled_copy:
-        #         print(f'* {item}')
-        #     # config = guitemplate.QuestionTemplate(window, self.__questions[q], shuffled_copy)
-        #     config.createQuestionWindow()
             
-
-            #will change to tkinter
-            # player_choice = input("-> ")
-            # if player_choice.lower() == self.__answers[q].lower():
-            #     print("CORRECTTT")
-            #     score +=1
-            # else:
-            #     print(f"INCORRECT its {self.__answers[q]}!")
-    # #DEBUG
-    #     score = 7
-        # numq = len(self.__questiondata['questions'])
-        # print(f"You got {score} out of {numq}! That's {round((score/numq)*100)}%!")
-        # data = {
-        #         "quiz": self.__title,
-        #         "score": score,
-        #         "percentage": score/numq*100
-        #         }
-        
-        # with open('scorehistory.json', 'a') as file:
-        #     json.dump(data, file)
+        # Keep track of images to prevent garbage collection
+        window.images = self.__images
         window.mainloop()
 
     def getTitle(self):

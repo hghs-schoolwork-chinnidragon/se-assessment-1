@@ -4,22 +4,30 @@ import quizmodule
 
 class QuestionTemplate():
     def __init__(self, window, questionNumber:int,  questionTitle:str, questionOptions:list, correctOption):
-        window2 = tk.Toplevel(window)
-        window2.withdraw()
         self.__questionTitle = questionTitle
         self.__questionOptions = questionOptions
-        self.__tkinterWindow = window2
+        self.__tkinterWindow = window
         self.__questionNumber = questionNumber
         self.__correctOption = correctOption
-    def createQuestionWindow(self):
-        self.__tkinterWindow.deiconify()
+    def createQuestionWindow(self, selection_made=None):
+        for widget in self.__tkinterWindow.winfo_children():
+            widget.destroy()
         popup = tk.Label(self.__tkinterWindow)
         popup.grid(sticky="s")
+
         def checkIfCorrect(optionButton):
+            is_correct = False
             if optionButton.cget("text") == self.__correctOption:
+                is_correct = True
                 popup.config(text="correct!!!", font=("Arial", 20), fg="#0FB800")
             else:
                 popup.config(text=f"wrong!!! its {self.__correctOption}", font=("Arial", 20), fg="#B80000")
+            
+            for option in tk_questionOptions:
+                option.config(state="disabled")
+            if selection_made:
+                selection_made(is_correct)
+
         tk_questionTitle = tk.Label(self.__tkinterWindow, text=f"Question {self.__questionNumber}: {self.__questionTitle}", font=("Arial", 36, "italic"), wraplength=500)
         tk_questionTitle.grid(
             rowspan=10,
@@ -30,7 +38,9 @@ class QuestionTemplate():
         tk_questionOptions = []
         for i in self.__questionOptions:
             button = tk.Button(self.__tkinterWindow, text=f"{i}", font=("Arial", 16))
-            button.config(command=checkIfCorrect(optionButton=button))
+            def check():
+                checkIfCorrect(optionButton=button)
+            button.config(command=check)
             tk_questionOptions.append(button)
         
         for i in range (0, len(tk_questionOptions)):
