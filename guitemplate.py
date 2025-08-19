@@ -14,13 +14,13 @@ class QuestionTemplate():
             widget.destroy()
         popup = tk.Label(self.__tkinterWindow)
         popup.grid(sticky="s")
-
         def checkIfCorrect(optionButton):
-            is_correct = False
+            print(f"{optionButton.cget("text")}, {self.__correctOption}")
             if optionButton.cget("text") == self.__correctOption:
                 is_correct = True
                 popup.config(text="correct!!!", font=("Arial", 20), fg="#0FB800")
             else:
+                is_correct = False
                 popup.config(text=f"wrong!!! its {self.__correctOption}", font=("Arial", 20), fg="#B80000")
             
             for option in tk_questionOptions:
@@ -36,12 +36,31 @@ class QuestionTemplate():
             column=0
         )
         tk_questionOptions = []
+
+        # def create_check_function(specific_button):
+        #     def check_this_button():
+        #         checkIfCorrect(specific_button)
+        #     return check_this_button
+
         for i in self.__questionOptions:
             button = tk.Button(self.__tkinterWindow, text=f"{i}", font=("Arial", 16))
-            def check():
-                checkIfCorrect(optionButton=button)
-            button.config(command=check)
+            
+            button.option_text = i  # Add an attribute to the button
+    
+            # Simple function that uses self to identify which button was clicked
+            def check_answer(event):
+                checkIfCorrect(event.widget)
+            
+            # Bind to the click event instead of using command
+            button.bind("<Button-1>", check_answer)
             tk_questionOptions.append(button)
+            
+            # def check():
+            #     checkIfCorrect(button)
+            # print(button.cget("text"))
+            # print(self.__correctOption)
+            # button.config(command=check)
+            # tk_questionOptions.append(button)
         
         for i in range (0, len(tk_questionOptions)):
             tk_questionOptions[i].grid(

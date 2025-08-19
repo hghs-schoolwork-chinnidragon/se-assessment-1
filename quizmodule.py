@@ -54,7 +54,9 @@ class Quiz:
         self.current_question = 0
         self.score = 0
         # while True:
-        print(self.__quizimage)
+        self.nextbutton = tk.Button(window, text="Next!")
+        self.nextbutton.grid(column=5)
+
         quizImage = Image.open(self.__questiondata['info'][2])
         resizedQuizImage = self.resizeImg(200, quizImage)
         self.__images.append(resizedQuizImage)
@@ -80,16 +82,18 @@ First, there are some things you need to know:""",
                 self.__quizinfo, 
                 qtext, 
                 True, 
-                nextbutton, 
+                self.nextbutton, 
                 show_next_question)
 
             #     for item in shuffled_copy:
         def show_next_question():
             # Clear previous question widgets if any
             for widget in window.winfo_children():
-                if widget != nextbutton:  # Keep the next button
+                if widget != self.nextbutton:  # Keep the next button
                     widget.destroy()
             
+
+
             # If all questions answered, show results
             if self.current_question >= len(self.__questions):
                 show_results()
@@ -112,29 +116,24 @@ First, there are some things you need to know:""",
             self.config.createQuestionWindow(on_answer_selected)
             
             # Hide next button until answer is selected
-            nextbutton.grid_remove()
-            # nextbutton = tk.Button(window, text="Next!", command=config_info)
-            # nextbutton.grid(column=5)
-        # def run_questions():
-        #     for q in range(0, len(self.__questions)):
-        #         shuffled_copy = random.sample(self.__choices[q], len(self.__choices[q]))
-        #         config = guitemplate.QuestionTemplate(
-        #             window,
-        #             q+1, 
-        #             self.__questions[q], 
-        #             shuffled_copy, 
-        #             self.__answers[q]
-        #         )
-        #         config.createQuestionWindow()
+            self.nextbutton.grid_remove()
+            
+        self.nextbutton.config(command=config_info)
         
         def on_answer_selected(is_correct):
+            self.current_question += 1
             if is_correct:
                 self.score += 1
             
-            # Show next button to proceed to next question
-            nextbutton.config(text="Next Question", command=show_next_question)
-            nextbutton.grid()
-        
+            try:
+                # Show next button to proceed to next question
+                self.nextbutton.config(text="Next Question", command=show_next_question)
+                self.nextbutton.grid()
+            except tk.TclError:
+                # Button was destroyed, create a new one
+                self.nextbutton = tk.Button(window, text="Next Question", command=show_next_question)
+                self.nextbutton.grid()
+            
         # Show final results
         def show_results():
             for widget in window.winfo_children():
@@ -160,14 +159,11 @@ First, there are some things you need to know:""",
             
             with open('scorehistory.json', 'a') as file:
                 json.dump(data, file)
-                file.write('\n') 
+                print("", file=file)
             
             close_button = tk.Button(window, text="Close", command=window.destroy)
             close_button.pack(pady=20)
         
-        # Initialize the Next button
-        nextbutton = tk.Button(window, text="Next!", command=config_info)
-        nextbutton.grid(column=5)
             
         # Keep track of images to prevent garbage collection
         window.images = self.__images
