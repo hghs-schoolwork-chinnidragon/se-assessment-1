@@ -49,7 +49,7 @@ class Quiz:
         return(resizedImage)
     def run(self):
         window = tk.Toplevel()
-        # window.geometry("1440x1024")
+        window.geometry("+50+50")
         window.title(f"{self.__title}")
         self.current_question = 0
         self.score = 0
@@ -92,8 +92,6 @@ First, there are some things you need to know:""",
                 if widget != self.nextbutton:  # Keep the next button
                     widget.destroy()
             
-
-
             # If all questions answered, show results
             if self.current_question >= len(self.__questions):
                 show_results()
@@ -125,22 +123,16 @@ First, there are some things you need to know:""",
             if is_correct:
                 self.score += 1
             
-            try:
-                # Show next button to proceed to next question
-                self.nextbutton.config(text="Next Question", command=show_next_question)
-                self.nextbutton.grid()
-            except tk.TclError:
-                # Button was destroyed, create a new one
-                self.nextbutton = tk.Button(window, text="Next Question", command=show_next_question)
-                self.nextbutton.grid()
+            self.nextbutton = tk.Button(window, text="Next Question", command=show_next_question)
+            self.nextbutton.grid()
             
         # Show final results
         def show_results():
             for widget in window.winfo_children():
                 widget.destroy()
             
-            result_text = f"Quiz Complete!\nYou got {self.score} out of {len(self.__questions)}."
-            result_text += f"\nThat's {round((self.score/len(self.__questions))*100)}%!"
+            result_text = f"""Quiz Complete!\nYou got {self.score} out of {len(self.__questions)}.
+\nThat's {round((self.score/len(self.__questions))*100)}%!"""
             
             result_label = tk.Label(
                 window,
@@ -165,7 +157,7 @@ First, there are some things you need to know:""",
             close_button.pack(pady=20)
         
             
-        # Keep track of images to prevent garbage collection
+        # Keeping track of images to prevent garbage collection
         window.images = self.__images
         window.mainloop()
 

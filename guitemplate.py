@@ -23,50 +23,37 @@ class QuestionTemplate():
                 is_correct = False
                 popup.config(text=f"wrong!!! its {self.__correctOption}", font=("Arial", 20), fg="#B80000")
             
+            #Disabling the button
             for option in tk_questionOptions:
-                option.config(state="disabled")
+                option.unbind("<Button-1>")  
+                option.config(relief="sunken", bg="#CCCCCC", fg="#888888")
             if selection_made:
                 selection_made(is_correct)
 
-        tk_questionTitle = tk.Label(self.__tkinterWindow, text=f"Question {self.__questionNumber}: {self.__questionTitle}", font=("Arial", 36, "italic"), wraplength=500)
-        tk_questionTitle.grid(
-            rowspan=10,
-            columnspan=10,
-            row=1,
-            column=0
-        )
+        tk_questionTitle = tk.Label(
+            self.__tkinterWindow, 
+            text=f"Question {self.__questionNumber}: {self.__questionTitle}", 
+            font=("Arial", 36, "italic"), 
+            justify="center",
+            wraplength="750")
+        tk_questionTitle.grid(row=2, column=0, columnspan=10, pady=(0, 20))
         tk_questionOptions = []
-
-        # def create_check_function(specific_button):
-        #     def check_this_button():
-        #         checkIfCorrect(specific_button)
-        #     return check_this_button
 
         for i in self.__questionOptions:
             button = tk.Button(self.__tkinterWindow, text=f"{i}", font=("Arial", 16))
-            
-            button.option_text = i  # Add an attribute to the button
-    
-            # Simple function that uses self to identify which button was clicked
+  
             def check_answer(event):
                 checkIfCorrect(event.widget)
             
-            # Bind to the click event instead of using command
+            # Check answer on click
             button.bind("<Button-1>", check_answer)
             tk_questionOptions.append(button)
-            
-            # def check():
-            #     checkIfCorrect(button)
-            # print(button.cget("text"))
-            # print(self.__correctOption)
-            # button.config(command=check)
-            # tk_questionOptions.append(button)
         
-        for i in range (0, len(tk_questionOptions)):
-            tk_questionOptions[i].grid(
-                row=7,
-                column=i
-            )
+        j = 0
+        for i in tk_questionOptions:
+            print(i)
+            i.grid(columnspan=1,row=7,column=j, padx=10, pady=10)
+            j+=1
     def configInfo(self, quizImage, quizInfo, label, PIL, button, buttoncommand):
         if not PIL == None:
             labelImage = ImageTk.PhotoImage(quizImage)
