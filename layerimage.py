@@ -3,15 +3,14 @@ from PIL import Image, ImageTk
 import os
 import json
 
-window = tk.Tk()
-window.title = "avatar customisation"
-# window.config(background="#D5FBFF")
-window.geometry("600x600+450+50")
 
+window = tk.Toplevel()
 class Avatars:
-    def __init__(self, image_paths, jsonfile, canvas=None):
-        #DEBUG
-        # print(image_paths)
+    def __init__(self, image_paths, jsonfile, window, canvas=None):
+        self.__window = window
+        self.__window.title = "avatar customisation"
+        # window.config(background="#D5FBFF")
+        self.__window.geometry("+500+100")
         self.__canvas = canvas
         self.__accessories = image_paths[0]
         self.__hair = image_paths[1]
@@ -33,28 +32,22 @@ class Avatars:
             with open(jsonfile, "r") as file:
                 attributes = json.load(file)
             self.__active_attr = attributes["attributes"]
-            print(self.__active_attr)
         except TypeError: #no file has been passed
             print("no file has been provided :(")
             self.__active_attr = []
-        # self.activateAvatar()
-        #DEBUG
-        # print(self.getImages())
+
 
     def resizeImg(self, newWidth, image):
         #newwidth divided by width/height OR newwidth * height/width
         #resizing the image while keeping the aspect ratio
         pilImage = Image.open(image).convert("RGBA")
-        print (f"{pilImage.width}/{pilImage.height}")
-        # ratio = pilImage.width/pilImage.height
+
         orig_width, orig_height = pilImage.size
         ratio = orig_width / orig_height
         newHeight = round(newWidth/ratio)
         resizedImage = pilImage.resize([newWidth, newHeight])
-        # print(f"resized! dimensions {resizedImage.width}x{resizedImage.height}")
+
         return(resizedImage)
-
-
     
     def getImages(self):
         return [
@@ -102,7 +95,6 @@ class Avatars:
             self.__active_attr.remove("pant")
         else:
             self.__active_attr.append("pant")
-        print(self.__active_attr)
         self.activateAvatar()
 
     def toggleMouth(self):
@@ -110,7 +102,6 @@ class Avatars:
             self.__active_attr.remove("mouth")
         else:
             self.__active_attr.append("mouth")
-        print(self.__active_attr)
         self.activateAvatar()
 
     def toggleHair(self):
@@ -118,7 +109,6 @@ class Avatars:
             self.__active_attr.remove("hair")
         else:
             self.__active_attr.append("hair")
-        print(self.__active_attr)
         self.activateAvatar()
 
     def toggleShirt(self):
@@ -126,7 +116,6 @@ class Avatars:
             self.__active_attr.remove("shirt")
         else:
             self.__active_attr.append("shirt")
-        print(self.__active_attr)
         self.activateAvatar()
 
     def toggleAccessory(self):
@@ -134,7 +123,6 @@ class Avatars:
             self.__active_attr.remove("accessories")
         else:
             self.__active_attr.append("accessories")
-        print(self.__active_attr)
         self.activateAvatar()
 
     def activateAvatar(self):
@@ -182,7 +170,6 @@ class Avatars:
             }
         for i in range(0, len(self.__active_attr)):
             data["attributes"].append(str(self.__active_attr[i]))
-        print(data)
         with open(filename, 'w') as file:
             json.dump(data, file)
         quit()
@@ -191,30 +178,30 @@ class Avatars:
         self.__active_attr = []
         self.activateAvatar()
 
-def create_Buttons(avatar):
-    hairButton = tk.Button(window, text="Hair", command=avatar.toggleHair)
-    canvas.create_window(300, 0, anchor="nw", window=hairButton)
+    def create_Buttons(self):
+        hairButton = tk.Button(self.__window, text="Hair", command=self.toggleHair)
+        self.__canvas.create_window(300, 0, anchor="nw", window=hairButton)
 
-    mouthButton = tk.Button(window, text="Mouth", command=avatar.toggleMouth)
-    canvas.create_window(300, 50, anchor="nw", window=mouthButton)
+        mouthButton = tk.Button(self.__window, text="Mouth", command=self.toggleMouth)
+        self.__canvas.create_window(300, 50, anchor="nw", window=mouthButton)
 
-    shirtButton = tk.Button(window, text="Shirt", command=avatar.toggleShirt)
-    canvas.create_window(300, 100, anchor="nw", window=shirtButton)
+        shirtButton = tk.Button(self.__window, text="Shirt", command=self.toggleShirt)
+        self.__canvas.create_window(300, 100, anchor="nw", window=shirtButton)
 
-    pantButton = tk.Button(window, text="Pant", command=avatar.togglePant)
-    canvas.create_window(300, 150, anchor="nw", window=pantButton)
+        pantButton = tk.Button(self.__window, text="Pant", command=self.togglePant)
+        self.__canvas.create_window(300, 150, anchor="nw", window=pantButton)
 
-    accessoryButton = tk.Button(window, text="Accessory", command=avatar.toggleAccessory)
-    canvas.create_window(300, 200, anchor="nw", window=accessoryButton)
+        accessoryButton = tk.Button(self.__window, text="Accessory", command=self.toggleAccessory)
+        self.__canvas.create_window(300, 200, anchor="nw", window=accessoryButton)
 
-    resetButton = tk.Button(window, text="Reset", command=avatar.reset)
-    canvas.create_window(300, 250, anchor="nw", window=resetButton)
-    
-    def save():
-        avatar.saveAvatar("activeattributes.json")
+        resetButton = tk.Button(self.__window, text="Reset", command=self.reset)
+        self.__canvas.create_window(300, 250, anchor="nw", window=resetButton)
+        
+        def save():
+            self.saveAvatar("activeattributes.json")
 
-    saveButton = tk.Button(window, text="Save", command=save)
-    canvas.create_window(300, 300, anchor="nw", window=saveButton)
+        saveButton = tk.Button(self.__window, text="Save", command=save)
+        self.__canvas.create_window(300, 300, anchor="nw", window=saveButton)
 
 crimsonImages = []
 for image in sorted(os.listdir("images/crimson")):
@@ -222,20 +209,20 @@ for image in sorted(os.listdir("images/crimson")):
 
 
 # Creating canvas
-canvas = tk.Canvas(window, width=600, height=600)
+canvas = tk.Canvas(window, width=400, height=400, bg="#FFA1A1")
+
 canvas.grid(row=0, column=6, rowspan=6, padx=10, pady=10)
 
 #Creating the avatar on the canvas
-crimsonAvatar = Avatars(crimsonImages, "activeattributes.json", canvas)
+crimsonAvatar = Avatars(crimsonImages, "activeattributes.json", window, canvas=canvas)
 
 imglist = []
 for image in crimsonAvatar.getImages():
-    print(image)
     imglist.append(crimsonAvatar.resizeImg(200, image))
 
 crimsonAvatar.setImages(imglist)
 
-create_Buttons(crimsonAvatar)
+crimsonAvatar.create_Buttons()
 
 crimsonAvatar.activateAvatar()
 
