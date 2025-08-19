@@ -1,10 +1,17 @@
 import quizmodule
 import tkinter as tk
 from PIL import Image, ImageTk
+from pygame import mixer
+
+mixer.init()
+
 class Menu:
     # @staticmethod
     # def createwindow():
     #     window = tk.Tk()
+    mixer.music.load("audio/Pookatori and Friends.mp3")
+    mixer.music.play(-1,0.0)
+
 
     def __init__(self, quizzes, root):
         # window = tk.tk()
@@ -15,21 +22,20 @@ class Menu:
         quizWidgets = []
         self.images = []
         canvas = tk.Canvas(root, width=1420, height=1200)
+        buttonSFX = mixer.Sound("audio/button.mp3")
         
         canvas.grid()
+        def onClick(event):
+            buttonSFX.play()
         for i in range(0, len(quizzes)):
-            print(quizzes[i].getImage())
             quizWidgetImage = Image.open(f"{quizzes[i].getImage()}")
-            print(quizWidgetImage)
             quizWidgetImage = quizmodule.Quiz.resizeImg(200, quizWidgetImage)
             quizWidgetImage = ImageTk.PhotoImage(quizWidgetImage)
             title = quizzes[i].getTitle()
             file = quizzes[i].getFile()
-            print(file)
             #need to resize images
             def runQuiz(file=file):
                 quiz = quizmodule.Quiz(file)
-                print(file)
                 quiz.run()
 
             quizWidget = tk.Button(
@@ -41,7 +47,8 @@ class Menu:
                 wraplength="200", 
                 command=runQuiz)
             self.images.append(quizWidgetImage)
-            print(self.images)
+            # Make sound on click
+            quizWidget.bind("<Button-1>", onClick)
             quizWidgets.append(quizWidget)
 
         coordinates = [[1420/2+100, 100], [1420/2+100, 400], [1420/2+400, 100], [1420/2+400, 400]]
@@ -57,39 +64,6 @@ class Menu:
         
         canvas.create_text(1420/2-500, 100, text="Choose your challenge:", font=("Arial", 65, "bold", "italic"), fill="#141615", width=445, anchor="nw")
             
-        # columnNum=1
-        # rowNum=1
-        # def motion(event):
-        #     crimson = ImageTk.PhotoImage(quizmodule.Quiz.resizeImg(10, "images/crimson/crimson.png"))
-            # crimson.pack(x=event.x, y=event.y)
-        #     canvas.create_image(event.x(), event.y(), image=crimson, anchor="nw")
-        # root.bind("<Motion>", motion)
-            # window.after(100, dante_jumpscare.place(x=event.x-10, y=event.y-10))
-            # window.after(100, dante_jumpscare.place(x=event.x-100, y=event.y-100))
-            # window.after(100, dante_jumpscare.place(x=event.x-1000, y=event.y-1000))
-
-        # for i, j in (quizWidgets), range(0, len(quizWidgets)):
-        #     #0 0
-        #     # 208 1
-        #     # 0 237
-        #     # 208 238
-        
-        #     canvas.create_window(coordinates[j][0], coordinates[j][1], i)
-            # i.grid(
-            #     row=rowNum, 
-            #     column=columnNum,
-            # )
-            # columnNum +=1
-            # if columnNum>2:
-            #     rowNum+=1
-            #     columnNum=1
-        
-        def debug():
-            for i in (quizWidgets):
-                print(i.winfo_x(), i.winfo_y())
-        root.after(100, debug)
-            
-
         root.mainloop()
     
 
@@ -137,13 +111,6 @@ q_allAboutHSV = quizmodule.Quiz("allAboutHSV.json")
 q_colourRelationships = quizmodule.Quiz("colourRelationships.json")
 q_tiersOfColours = quizmodule.Quiz("tiersOfColours.json")
 
-
-
-# if menu == "whatColourIsThat.json":
-#     q_whatColourIsThat.run()
-
-# if menu == "allAboutHSV.json":
-# q_allAboutHSV.run()
 
 root.mainloop()
 

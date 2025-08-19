@@ -1,6 +1,7 @@
 import tkinter as tk
 from PIL import Image, ImageTk
 import quizmodule
+from pygame import mixer
 
 class QuestionTemplate():
     def __init__(self, window, questionNumber:int,  questionTitle:str, questionOptions:list, correctOption):
@@ -38,15 +39,15 @@ class QuestionTemplate():
             wraplength="750")
         tk_questionTitle.grid(row=2, column=0, columnspan=10, pady=(0, 20))
         tk_questionOptions = []
-
+        buttonSFX = mixer.Sound("audio/button.mp3")
         for i in self.__questionOptions:
             button = tk.Button(self.__tkinterWindow, text=f"{i}", font=("Arial", 16))
-  
-            def check_answer(event):
+            def onClick(event):
+                buttonSFX.play()
                 checkIfCorrect(event.widget)
             
             # Check answer on click
-            button.bind("<Button-1>", check_answer)
+            button.bind("<Button-1>", onClick)
             tk_questionOptions.append(button)
         
         j = 0

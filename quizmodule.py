@@ -3,12 +3,14 @@ import random
 import tkinter as tk
 from PIL import Image, ImageTk
 import guitemplate
+from pygame import mixer
 
 
 
 class Quiz:
     #retrieving data from provided file
     def __init__(self, jsfile):
+        
         self.__jsfile = jsfile
         with open(self.__jsfile, "r") as file:
             self.__questiondata = json.load(file)
@@ -47,7 +49,10 @@ class Quiz:
         resizedImage = pilImage.resize([newWidth, newHeight])
         # print(f"resized! dimensions {resizedImage.width}x{resizedImage.height}")
         return(resizedImage)
+
     def run(self):
+        mixer.music.load("audio/Kick Shock.mp3")
+        mixer.music.play(-1,0.0)
         window = tk.Toplevel()
         window.geometry("+50+50")
         window.title(f"{self.__title}")
@@ -153,7 +158,12 @@ First, there are some things you need to know:""",
                 json.dump(data, file)
                 print("", file=file)
             
-            close_button = tk.Button(window, text="Close", command=window.destroy)
+            def close():
+                mixer.music.load("audio/Pookatori and Friends.mp3")
+                mixer.music.play(-1,0.0)
+                window.destroy()
+
+            close_button = tk.Button(window, text="Close", command=close)
             close_button.pack(pady=20)
         
             
