@@ -70,14 +70,15 @@ class Menu:
         
         def avatar():
             crimsonwindow = tk.Toplevel(root)
+            crimsonwindow.title("Crimson's Avatar")
             crimsonImages = []
             for image in sorted(os.listdir("images/crimson")):
                 crimsonImages.append(f"images/crimson/{image}")
             # Creating canvas
-            canvas = tk.Canvas(crimsonwindow, width=400, height=400, bg="#FFA1A1")
-            canvas.grid(row=0, column=6, rowspan=6, padx=10, pady=10)
+            crimsoncanvas = tk.Canvas(crimsonwindow, width=400, height=400, bg="#FFA1A1")
+            crimsoncanvas.grid(row=0, column=6, rowspan=6, padx=10, pady=10)
             #Creating the avatar on the canvas
-            crimsonAvatar = layerimage.Avatars(crimsonImages, "cactiveattributes.json", crimsonwindow, canvas=canvas)
+            crimsonAvatar = layerimage.Avatars(crimsonImages, "cactiveattributes.json", crimsonwindow, canvas=crimsoncanvas)
             imglist = []
             for image in crimsonAvatar.getImages():
                 imglist.append(crimsonAvatar.resizeImg(200, image))
@@ -86,16 +87,17 @@ class Menu:
             crimsonAvatar.activateAvatar()
             
             cobaltwindow = tk.Toplevel(root)
+            cobaltwindow.title("Cobalt's Avatar")
             cobaltImages = []
             for image in sorted(os.listdir("images/cobalt")):
                 # Skip .DS_Store and any other hidden files
                 if not image.startswith('.'):
                     cobaltImages.append(f"images/cobalt/{image}")
             # Creating canvas
-            canvas = tk.Canvas(cobaltwindow, width=400, height=400, bg="#A1E3FF")
-            canvas.grid(row=0, column=6, rowspan=6, padx=10, pady=10)
+            cobaltcanvas = tk.Canvas(cobaltwindow, width=400, height=400, bg="#A1E3FF")
+            cobaltcanvas.grid(row=0, column=6, rowspan=6, padx=10, pady=10)
             #Creating the avatar on the canvas
-            cobaltAvatar = layerimage.Avatars(cobaltImages, "bactiveattributes.json", cobaltwindow, canvas=canvas)
+            cobaltAvatar = layerimage.Avatars(cobaltImages, "bactiveattributes.json", cobaltwindow, canvas=cobaltcanvas)
             imglist = []
             for image in cobaltAvatar.getImages():
                 imglist.append(cobaltAvatar.resizeImg(750, image))
@@ -130,8 +132,9 @@ canvas.grid()
 bg_img = Image.open("images/welcomebg.png")
 bg_img = quizmodule.Quiz.resizeImg(1420, bg_img)  
 bg_imgtk = ImageTk.PhotoImage(bg_img)
-canvas.create_image(0, 0, image=bg_imgtk, anchor="nw")
 canvas.bg_imgtk = bg_imgtk
+canvas.create_image(0, 0, image=bg_imgtk, anchor="nw")
+
 
 def menu():
     Menu([q_allAboutHSV, q_whatColourIsThat, q_colourRelationships, q_tiersOfColours], root=root)
