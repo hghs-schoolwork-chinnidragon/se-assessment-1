@@ -4,7 +4,7 @@ import os
 import json
 
 
-window = tk.Toplevel()
+# window = tk.Toplevel()
 class Avatars:
     def __init__(self, image_paths, jsonfile, window, canvas=None):
         self.__window = window
@@ -154,7 +154,7 @@ class Avatars:
         else:
             self.avatarLabel.image = avatar 
             if not hasattr(self, 'avatarLabel'):
-                self.avatarLabel = tk.Label(window, image=avatar)
+                self.avatarLabel = tk.Label(self.__window, image=avatar)
                 self.avatarLabel.grid(column=6, columnspan=1)
             else:
                 self.avatarLabel.config(image=avatar)
@@ -172,7 +172,8 @@ class Avatars:
             data["attributes"].append(str(self.__active_attr[i]))
         with open(filename, 'w') as file:
             json.dump(data, file)
-        quit()
+        # quit()
+        self.__window.destroy()
     
     def reset(self):
         self.__active_attr = []
@@ -203,29 +204,29 @@ class Avatars:
         saveButton = tk.Button(self.__window, text="Save", command=save)
         self.__canvas.create_window(300, 300, anchor="nw", window=saveButton)
 
-crimsonImages = []
-for image in sorted(os.listdir("images/crimson")):
-    crimsonImages.append(f"images/crimson/{image}")
+# crimsonImages = []
+# for image in sorted(os.listdir("images/crimson")):
+#     crimsonImages.append(f"images/crimson/{image}")
 
 
-# Creating canvas
-canvas = tk.Canvas(window, width=400, height=400, bg="#FFA1A1")
+# # Creating canvas
+# canvas = tk.Canvas(window, width=400, height=400, bg="#FFA1A1")
 
-canvas.grid(row=0, column=6, rowspan=6, padx=10, pady=10)
+# canvas.grid(row=0, column=6, rowspan=6, padx=10, pady=10)
 
-#Creating the avatar on the canvas
-crimsonAvatar = Avatars(crimsonImages, "activeattributes.json", window, canvas=canvas)
+# #Creating the avatar on the canvas
+# crimsonAvatar = Avatars(crimsonImages, "activeattributes.json", window, canvas=canvas)
 
-imglist = []
-for image in crimsonAvatar.getImages():
-    imglist.append(crimsonAvatar.resizeImg(200, image))
+# imglist = []
+# for image in crimsonAvatar.getImages():
+#     imglist.append(crimsonAvatar.resizeImg(200, image))
 
-crimsonAvatar.setImages(imglist)
+# crimsonAvatar.setImages(imglist)
 
-crimsonAvatar.create_Buttons()
+# crimsonAvatar.create_Buttons()
 
-crimsonAvatar.activateAvatar()
+# crimsonAvatar.activateAvatar()
 
 
 
-window.mainloop()
+# window.mainloop()
