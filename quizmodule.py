@@ -158,6 +158,14 @@ First, there are some things you need to know:""",
                 json.dump(data, file)
                 print("", file=file)
             
+            if (self.score/len(self.__questions))*100 > 80:
+                data = "pass"
+            else:
+                data="fail"
+            with open(f'{self.__title}.txt', 'a') as file:
+                json.dump(data, file)
+                print("", file=file)
+
             def close():
                 mixer.music.load("audio/Pookatori and Friends.mp3")
                 mixer.music.play(-1,0.0)

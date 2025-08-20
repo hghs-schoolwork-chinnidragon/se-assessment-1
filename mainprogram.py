@@ -4,6 +4,8 @@ from PIL import Image, ImageTk
 from pygame import mixer
 import layerimage
 import os
+import tkinter.font as tkFont
+
 
 mixer.init()
 
@@ -64,24 +66,46 @@ class Menu:
         for widgetNum, widget in enumerate(quizWidgets):
             canvas.create_window(coordinates[widgetNum][0], coordinates[widgetNum][1], anchor="nw", window=widget)
         
-        canvas.create_text(1420/2-500, 100, text="Choose your challenge:", font=("Arial", 65, "bold", "italic"), fill="#141615", width=445, anchor="nw")
+        canvas.create_text(1420/2-500, 100, text="Choose your challenge:", font=tkFont.Font(family="Comic Sans MS", size=64, weight="bold"), fill="#141615", width=450, anchor="nw")
         
         def avatar():
-            window = tk.Toplevel()
+            crimsonwindow = tk.Toplevel(root)
             crimsonImages = []
             for image in sorted(os.listdir("images/crimson")):
                 crimsonImages.append(f"images/crimson/{image}")
             # Creating canvas
-            canvas = tk.Canvas(window, width=400, height=400, bg="#FFA1A1")
+            canvas = tk.Canvas(crimsonwindow, width=400, height=400, bg="#FFA1A1")
             canvas.grid(row=0, column=6, rowspan=6, padx=10, pady=10)
             #Creating the avatar on the canvas
-            crimsonAvatar = layerimage.Avatars(crimsonImages, "activeattributes.json", window, canvas=canvas)
+            crimsonAvatar = layerimage.Avatars(crimsonImages, "cactiveattributes.json", crimsonwindow, canvas=canvas)
             imglist = []
             for image in crimsonAvatar.getImages():
                 imglist.append(crimsonAvatar.resizeImg(200, image))
             crimsonAvatar.setImages(imglist)
             crimsonAvatar.create_Buttons()
             crimsonAvatar.activateAvatar()
+            
+            cobaltwindow = tk.Toplevel(root)
+            cobaltImages = []
+            for image in sorted(os.listdir("images/cobalt")):
+                # Skip .DS_Store and any other hidden files
+                if not image.startswith('.'):
+                    cobaltImages.append(f"images/cobalt/{image}")
+            # Creating canvas
+            canvas = tk.Canvas(cobaltwindow, width=400, height=400, bg="#A1E3FF")
+            canvas.grid(row=0, column=6, rowspan=6, padx=10, pady=10)
+            #Creating the avatar on the canvas
+            cobaltAvatar = layerimage.Avatars(cobaltImages, "bactiveattributes.json", cobaltwindow, canvas=canvas)
+            imglist = []
+            for image in cobaltAvatar.getImages():
+                imglist.append(cobaltAvatar.resizeImg(750, image))
+            cobaltAvatar.setImages(imglist)
+            cobaltAvatar.create_Buttons()
+            cobaltAvatar.activateAvatar()
+
+
+            # crimsonwindow.mainloop()
+            # cobaltwindow.mainloop()
 
 
         avatarbutton = tk.Button(text="customise avatar!!!", command=avatar)
@@ -95,6 +119,8 @@ class Menu:
 
 root = tk.Tk()
 root.title("Welcome")
+title_font = tkFont.Font(family="Comic Sans MS", size=72, weight="bold")
+subtitle_font = tkFont.Font(family="Papyrus", size=36, slant="italic")
 
 canvas = tk.Canvas(root, width=1420, height=1200)
 
@@ -110,19 +136,19 @@ canvas.bg_imgtk = bg_imgtk
 def menu():
     Menu([q_allAboutHSV, q_whatColourIsThat, q_colourRelationships, q_tiersOfColours], root=root)
 
-menubutton = tk.Button(text="Begin the Crusade", bg="#15A702", command=menu)
+menubutton = tk.Button(text="Begin the Crusade", fg="#15A702", bg="#15A702", command=menu)
 
 canvas.create_text(
     1420/2, 300, 
     text="Welcome to....",
-    font=("Arial", 24, "italic"), 
+    font=subtitle_font, 
     fill="#141615"
     )
 canvas.create_text(
     1420/2, 
     400, 
     text="Colour Crusaders", 
-    font=("Arial", 72, "bold"), 
+    font=title_font, 
     fill="#141615"
     )
 canvas.create_window(
