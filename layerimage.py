@@ -3,8 +3,6 @@ from PIL import Image, ImageTk
 import os
 import json
 
-
-# window = tk.Toplevel()
 class Avatars:
     def __init__(self, image_paths, jsonfile, window, canvas=None):
         self.__window = window
@@ -132,12 +130,7 @@ class Avatars:
         else:
             for item in self.__active_attr:
                 mappedItem = self.__attr_map[item]
-                # print(mappedItem)
-                # # base = self.getImages()
-                # # base = base[4]
-                # base.paste(attr_map[str(item)], (0,0), (attr_map[str(item)]))
                 base.paste(mappedItem, (0,0), mappedItem)
-                # print(base)
                 avatar =  ImageTk.PhotoImage(base)
         if self.__canvas:
             # Clear previous image
@@ -145,12 +138,6 @@ class Avatars:
             # Create image on canvas
             self.__canvas.create_image(200, 200, image=avatar, tags="avatar")
             self.__canvas.image = avatar
-            # if not hasattr(self, 'avatarLabel'):
-            #     self.avatarLabel = tk.Label(window, image=avatar)
-            #     # self.avatarLabel.grid(column=6, columnspan=1)
-            # else:
-            #     self.avatarLabel.config(image=avatar)
-            # self.__canvas.create_window(0, 0, anchor="nw", window=self.avatarLabel)
         else:
             self.avatarLabel.image = avatar 
             if not hasattr(self, 'avatarLabel'):
@@ -159,9 +146,6 @@ class Avatars:
             else:
                 self.avatarLabel.config(image=avatar)
             self.avatarLabel.image = avatar 
-        # avatarLabel = tk.Label(window, image=avatar)
-        # avatarLabel.image=avatar
-        # avatarLabel.grid(column=6, columnspan=1)
     
     #for saving the current attributes (so that the avatar will look the same wherever)
     def saveAvatar(self, filename):
@@ -172,7 +156,6 @@ class Avatars:
             data["attributes"].append(str(self.__active_attr[i]))
         with open(filename, 'w') as file:
             json.dump(data, file)
-        # quit()
         self.__window.destroy()
     
     def reset(self):
@@ -203,30 +186,3 @@ class Avatars:
 
         saveButton = tk.Button(self.__window, text="Save", command=save)
         self.__canvas.create_window(300, 300, anchor="nw", window=saveButton)
-
-# crimsonImages = []
-# for image in sorted(os.listdir("images/crimson")):
-#     crimsonImages.append(f"images/crimson/{image}")
-
-
-# # Creating canvas
-# canvas = tk.Canvas(window, width=400, height=400, bg="#FFA1A1")
-
-# canvas.grid(row=0, column=6, rowspan=6, padx=10, pady=10)
-
-# #Creating the avatar on the canvas
-# crimsonAvatar = Avatars(crimsonImages, "activeattributes.json", window, canvas=canvas)
-
-# imglist = []
-# for image in crimsonAvatar.getImages():
-#     imglist.append(crimsonAvatar.resizeImg(200, image))
-
-# crimsonAvatar.setImages(imglist)
-
-# crimsonAvatar.create_Buttons()
-
-# crimsonAvatar.activateAvatar()
-
-
-
-# window.mainloop()
