@@ -3,7 +3,7 @@ from PIL import Image, ImageTk
 import os
 import json
 
-window = tk.Tk()
+# window = tk.Tk()
 class Avatars:
     def __init__(self, image_paths, jsonfile, window, canvas=None):
         self.__window = window

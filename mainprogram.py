@@ -69,7 +69,7 @@ class Menu:
         canvas.create_text(1420/2-500, 100, text="Choose your challenge:", font=tkFont.Font(family="Comic Sans MS", size=64, weight="bold"), fill="#141615", width=450, anchor="nw")
         
         def avatar():
-            crimsonwindow = tk.Toplevel(root)
+            crimsonwindow = tk.Toplevel()
             crimsonwindow.title("Crimson's Avatar")
             crimsonImages = []
             for image in sorted(os.listdir("images/crimson")):
@@ -79,14 +79,14 @@ class Menu:
             crimsoncanvas.grid(row=0, column=6, rowspan=6, padx=10, pady=10)
             #Creating the avatar on the canvas
             crimsonAvatar = layerimage.Avatars(crimsonImages, "cactiveattributes.json", crimsonwindow, canvas=crimsoncanvas)
-            imglist = []
+            cimglist = []
             for image in crimsonAvatar.getImages():
-                imglist.append(crimsonAvatar.resizeImg(200, image))
-            crimsonAvatar.setImages(imglist)
+                cimglist.append(crimsonAvatar.resizeImg(200, image))
+            crimsonAvatar.setImages(cimglist)
             crimsonAvatar.create_Buttons()
             crimsonAvatar.activateAvatar()
             
-            cobaltwindow = tk.Toplevel(root)
+            cobaltwindow = tk.Toplevel()
             cobaltwindow.title("Cobalt's Avatar")
             cobaltImages = []
             for image in sorted(os.listdir("images/cobalt")):
@@ -98,27 +98,16 @@ class Menu:
             cobaltcanvas.grid(row=0, column=6, rowspan=6, padx=10, pady=10)
             #Creating the avatar on the canvas
             cobaltAvatar = layerimage.Avatars(cobaltImages, "bactiveattributes.json", cobaltwindow, canvas=cobaltcanvas)
-            imglist = []
+            bimglist = []
             for image in cobaltAvatar.getImages():
-                imglist.append(cobaltAvatar.resizeImg(750, image))
-            cobaltAvatar.setImages(imglist)
+                bimglist.append(cobaltAvatar.resizeImg(750, image))
+            cobaltAvatar.setImages(bimglist)
             cobaltAvatar.create_Buttons()
             cobaltAvatar.activateAvatar()
 
-
-            # crimsonwindow.mainloop()
-            # cobaltwindow.mainloop()
-
-
         avatarbutton = tk.Button(text="customise avatar!!!", command=avatar)
         canvas.create_window(500, 500, window=avatarbutton)
-
-
-
-
-        root.mainloop()
     
-
 root = tk.Tk()
 root.title("Welcome")
 title_font = tkFont.Font(family="Comic Sans MS", size=72, weight="bold")
@@ -127,7 +116,6 @@ subtitle_font = tkFont.Font(family="Papyrus", size=36, slant="italic")
 canvas = tk.Canvas(root, width=1420, height=1200)
 
 canvas.grid()
-
 
 bg_img = Image.open("images/welcomebg.png")
 bg_img = quizmodule.Quiz.resizeImg(1420, bg_img)  
@@ -158,8 +146,6 @@ canvas.create_window(
     1420/2,
     700,
     window=menubutton)
-
-
 
 q_whatColourIsThat = quizmodule.Quiz("whatColourIsThat.json")
 q_allAboutHSV = quizmodule.Quiz("allAboutHSV.json")
