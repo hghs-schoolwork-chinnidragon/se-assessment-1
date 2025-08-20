@@ -2,6 +2,8 @@ import quizmodule
 import tkinter as tk
 from PIL import Image, ImageTk
 from pygame import mixer
+import layerimage
+import os
 
 mixer.init()
 
@@ -63,7 +65,31 @@ class Menu:
             canvas.create_window(coordinates[widgetNum][0], coordinates[widgetNum][1], anchor="nw", window=widget)
         
         canvas.create_text(1420/2-500, 100, text="Choose your challenge:", font=("Arial", 65, "bold", "italic"), fill="#141615", width=445, anchor="nw")
-            
+        
+        def avatar():
+            window = tk.Toplevel()
+            crimsonImages = []
+            for image in sorted(os.listdir("images/crimson")):
+                crimsonImages.append(f"images/crimson/{image}")
+            # Creating canvas
+            canvas = tk.Canvas(window, width=400, height=400, bg="#FFA1A1")
+            canvas.grid(row=0, column=6, rowspan=6, padx=10, pady=10)
+            #Creating the avatar on the canvas
+            crimsonAvatar = layerimage.Avatars(crimsonImages, "activeattributes.json", window, canvas=canvas)
+            imglist = []
+            for image in crimsonAvatar.getImages():
+                imglist.append(crimsonAvatar.resizeImg(200, image))
+            crimsonAvatar.setImages(imglist)
+            crimsonAvatar.create_Buttons()
+            crimsonAvatar.activateAvatar()
+
+
+        avatarbutton = tk.Button(text="customise avatar!!!", command=avatar)
+        canvas.create_window(500, 500, window=avatarbutton)
+
+
+
+
         root.mainloop()
     
 
