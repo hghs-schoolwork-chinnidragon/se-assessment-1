@@ -10,7 +10,6 @@ from pygame import mixer
 class Quiz:
     #retrieving data from provided file
     def __init__(self, jsfile):
-        
         self.__jsfile = jsfile
         with open(self.__jsfile, "r") as file:
             self.__questiondata = json.load(file)

@@ -68,45 +68,45 @@ class Menu:
         
         canvas.create_text(1420/2-500, 100, text="Choose your challenge:", font=tkFont.Font(family="Comic Sans MS", size=64, weight="bold"), fill="#141615", width=450, anchor="nw")
         
-        # def avatar():
-            # crimsonwindow = tk.Toplevel()
-            # crimsonwindow.title("Crimson's Avatar")
-            # crimsonImages = []
-            # for image in sorted(os.listdir("images/crimson")):
-            #     crimsonImages.append(f"images/crimson/{image}")
-            # # Creating canvas
-            # crimsoncanvas = tk.Canvas(crimsonwindow, width=400, height=400, bg="#FFA1A1")
-            # crimsoncanvas.grid(row=0, column=6, rowspan=6, padx=10, pady=10)
-            # #Creating the avatar on the canvas
-            # crimsonAvatar = layerimage.Avatars(crimsonImages, "cactiveattributes.json", crimsonwindow, canvas=crimsoncanvas)
-            # cimglist = []
-            # for image in crimsonAvatar.getImages():
-            #     cimglist.append(crimsonAvatar.resizeImg(200, image))
-            # crimsonAvatar.setImages(cimglist)
-            # crimsonAvatar.create_Buttons()
-            # crimsonAvatar.activateAvatar()
+        def avatar():
+            crimsonwindow = tk.Toplevel()
+            crimsonwindow.title("Crimson's Avatar")
+            crimsonImages = []
+            for image in sorted(os.listdir("images/crimson")):
+                crimsonImages.append(f"images/crimson/{image}")
+            # Creating canvas
+            crimsoncanvas = tk.Canvas(crimsonwindow, width=400, height=400, bg="#FFA1A1")
+            crimsoncanvas.grid(row=0, column=6, rowspan=6, padx=10, pady=10)
+            #Creating the avatar on the canvas
+            crimsonAvatar = layerimage.Avatars(crimsonImages, "cactiveattributes.json", crimsonwindow, canvas=crimsoncanvas)
+            cimglist = []
+            for image in crimsonAvatar.getImages():
+                cimglist.append(crimsonAvatar.resizeImg(200, image))
+            crimsonAvatar.setImages(cimglist)
+            crimsonAvatar.create_Buttons()
+            crimsonAvatar.activateAvatar()
             
-        #     cobaltwindow = tk.Toplevel()
-        #     cobaltwindow.title("Cobalt's Avatar")
-        #     cobaltImages = []
-        #     for image in sorted(os.listdir("images/cobalt")):
-        #         # Skip .DS_Store and any other hidden files
-        #         if not image.startswith('.'):
-        #             cobaltImages.append(f"images/cobalt/{image}")
-        #     # Creating canvas
-        #     cobaltcanvas = tk.Canvas(cobaltwindow, width=400, height=400, bg="#A1E3FF")
-        #     cobaltcanvas.grid(row=0, column=6, rowspan=6, padx=10, pady=10)
-        #     #Creating the avatar on the canvas
-        #     cobaltAvatar = layerimage.Avatars(cobaltImages, "bactiveattributes.json", cobaltwindow, canvas=cobaltcanvas)
-        #     bimglist = []
-        #     for image in cobaltAvatar.getImages():
-        #         bimglist.append(cobaltAvatar.resizeImg(750, image))
-        #     cobaltAvatar.setImages(bimglist)
-        #     cobaltAvatar.create_Buttons()
-        #     cobaltAvatar.activateAvatar()
+            cobaltwindow = tk.Toplevel()
+            cobaltwindow.title("Cobalt's Avatar")
+            cobaltImages = []
+            for image in sorted(os.listdir("images/cobalt")):
+                # Skip .DS_Store and any other hidden files
+                if not image.startswith('.'):
+                    cobaltImages.append(f"images/cobalt/{image}")
+            # Creating canvas
+            cobaltcanvas = tk.Canvas(cobaltwindow, width=400, height=400, bg="#A1E3FF")
+            cobaltcanvas.grid(row=0, column=6, rowspan=6, padx=10, pady=10)
+            #Creating the avatar on the canvas
+            cobaltAvatar = layerimage.Avatars(cobaltImages, "bactiveattributes.json", cobaltwindow, canvas=cobaltcanvas)
+            bimglist = []
+            for image in cobaltAvatar.getImages():
+                bimglist.append(cobaltAvatar.resizeImg(750, image))
+            cobaltAvatar.setImages(bimglist)
+            cobaltAvatar.create_Buttons()
+            cobaltAvatar.activateAvatar()
 
-        # avatarbutton = tk.Button(text="customise avatar!!!", command=avatar)
-        # canvas.create_window(500, 500, window=avatarbutton)
+        avatarbutton = tk.Button(text="customise avatar!!!", command=avatar)
+        canvas.create_window(500, 500, window=avatarbutton)
     
 root = tk.Tk()
 root.title("Welcome")
