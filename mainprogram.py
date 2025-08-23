@@ -6,31 +6,30 @@ import layerimage
 import os
 import tkinter.font as tkFont
 
-
 mixer.init()
 root = tk.Tk()
 class Menu:
-    # @staticmethod
-    # def createwindow():
-    #     window = tk.Tk()
+    #Loading main menu music
     mixer.music.load("audio/Pookatori and Friends.mp3")
     mixer.music.play(-1,0.0)
 
-
     def __init__(self, quizzes, root):
+    #Destroying the Welcome Page widgets
         for widget in root.winfo_children():
             widget.destroy()
         root.title("Quiz Menu")
         root.geometry("1440x1024")
+    #Creating image references
         quizWidgets = []
         self.images = []
         canvas = tk.Canvas(root, width=1420, height=1200)
         buttonSFX = mixer.Sound("audio/button.mp3")
-        
         canvas.grid()
+    #Button sound
         def onClick(event):
             buttonSFX.play()
         for i in range(0, len(quizzes)):
+            #Retrieving and resizing the image used for the quizzes
             quizWidgetImage = Image.open(f"{quizzes[i].getImage()}")
             quizWidgetImage = quizmodule.Quiz.resizeImg(200, quizWidgetImage)
             quizWidgetImage = ImageTk.PhotoImage(quizWidgetImage)
@@ -40,13 +39,13 @@ class Menu:
             def runQuiz(file=file):
                 quiz = quizmodule.Quiz(file)
                 quiz.run()
-
+            #Creating the buttons for each quiz 
             quizWidget = tk.Button(
                 canvas,
                 text=title,
                 image=quizWidgetImage, 
                 compound="bottom", 
-                font=("Noteworthy", 16, "italic"), 
+                font=("Chalkboard", 16, "italic"), 
                 wraplength="200", 
                 command=runQuiz)
             self.images.append(quizWidgetImage)
@@ -75,82 +74,87 @@ class Menu:
             
             crimsonImages = []
             for image in sorted(os.listdir("images/crimson")):
-                if not image.startswith('.'):  # Skip .DS_Store files
+                if not image.startswith('.'):  # Skip non image files
                     crimsonImages.append(f"images/crimson/{image}")
             
-            # Creating canvas for crimson
+            # Create canvas for crimson
             crimson_canvas = tk.Canvas(crimsonwindow, width=400, height=400, bg="#FFA1A1")
             crimson_canvas.grid(row=0, column=6, rowspan=6, padx=10, pady=10)
             
             # Creating the crimson avatar
             crimsonAvatar = layerimage.Avatars(crimsonImages, "crimson_attributes.json", crimsonwindow, canvas=crimson_canvas)
             crimson_imglist = []
+            #Resizing all layers 
             for image in crimsonAvatar.getImages():
                 img = crimsonAvatar.resizeImg(200, image)
                 crimson_imglist.append(img)
                 crimsonwindow.image_refs.append(img)  # Store reference
             
             crimsonAvatar.setImages(crimson_imglist)
-            
             crimsonAvatar.create_Buttons()
+            #Creates avatar
             crimsonAvatar.activateAvatar()
-            # Creating Cobalt avatar window
+            #--- COBALT ---
+            # Create Cobalt avatar window
             cobaltwindow = tk.Toplevel(root)
             cobaltwindow.title("Cobalt Avatar")
             cobaltwindow.image_refs = []  # Store image references
                         
             cobaltImages = []
             for image in sorted(os.listdir("images/cobalt")):
-                if not image.startswith('.'):  # Skip .DS_Store files
+                if not image.startswith('.'):  # Skip non image files
                     cobaltImages.append(f"images/cobalt/{image}")
                         
-            # Creating canvas for cobalt
+            # Create canvas for cobalt
             cobalt_canvas = tk.Canvas(cobaltwindow, width=400, height=400, bg="#A1E3FF")
             cobalt_canvas.grid(row=0, column=6, rowspan=6, padx=10, pady=10)
                         
-            # Creating the cobalt avatar
+            # Create the cobalt avatar
             cobaltAvatar = layerimage.Avatars(cobaltImages, "cobalt_attributes.json", cobaltwindow, canvas=cobalt_canvas)
             cobalt_imglist = []
+            #Resizing all layers 
             for image in cobaltAvatar.getImages():
-                img = cobaltAvatar.resizeImg(750, image)
+                img = cobaltAvatar.resizeImg(600, image)
                 cobalt_imglist.append(img)
                 cobaltwindow.image_refs.append(img)  # Store reference
                         
             cobaltAvatar.setImages(cobalt_imglist)
-                        
             cobaltAvatar.create_Buttons()
+            #Creates avatar
             cobaltAvatar.activateAvatar()
             
 
         avatarimg = Image.open("images/avatarcustomisation.png")
         avatarimg = quizmodule.Quiz.resizeImg(300, avatarimg)
         avatar_tk = ImageTk.PhotoImage(avatarimg)
-        avatarbutton = tk.Button(text="Customise your Avatar", font=tkFont.Font(family="Marker Felt", size=24), command=avatar, image=avatar_tk, compound="bottom")
+        avatarbutton = tk.Button(text="Customise your Avatar", font=tkFont.Font(family="Chalkboard", size=24), fg="#1A2178", command=avatar, image=avatar_tk, compound="bottom")
         avatarbutton.image = avatar_tk 
-        quitbutton = tk.Button(text="Quit", command=quit)
+        quitbutton = tk.Button(text="Quit", command=quit, font=tk.font.Font(family="Chalkboard", size=16), fg="#870F29")
         def go_back():
-            # Code to return to welcome screen
+        # Code to "return" to welcome screen (changing all the widgets to the welcome screen ones)
             self.welcome()
-        backbutton = tk.Button(text="Back", command=go_back)
+        backbutton = tk.Button(text="Back", command=go_back, font=tk.font.Font(family="Chalkboard", size=16), fg="#085C80")
         canvas.create_window(350, 600, window=avatarbutton)
         canvas.create_window(50, 50, window=quitbutton)
         canvas.create_window(150, 50, window=backbutton)
         root.mainloop()
     @staticmethod
     def welcome():
-        for widget in root.winfo_children():
+    #Welcome screen (in the class so that init can easily call it)
+        for widget in root.winfo_children(): #Clearing the screen
             widget.destroy()
         root.title("Welcome")
         title_font = tkFont.Font(family="Phosphate", size=72, weight="bold")
         subtitle_font = tkFont.Font(family="Noteworthy", size=36, slant="italic")
 
         canvas = tk.Canvas(root, width=1420, height=1200)
-
         canvas.grid()
 
         bg_img = Image.open("images/welcomebg.png")
+        #Resize background image to fit the dimensions of the canvas
         bg_img = quizmodule.Quiz.resizeImg(1420, bg_img)  
         bg_imgtk = ImageTk.PhotoImage(bg_img)
+        #Keep background images
         canvas.bg_imgtk = bg_imgtk
         canvas.create_image(0, 0, image=bg_imgtk, anchor="nw")
 
@@ -163,8 +167,9 @@ class Menu:
         def menu():
             Menu([q_allAboutHSV, q_whatColourIsThat, q_colourRelationships, q_tiersOfColours], root=root)
 
-
-        menubutton = tk.Button(text="Begin the Crusade", fg="#5E0083", font=tk.font.Font(family="Noteworthy", size=24), command=menu)
+        #Button for initialising menu
+        menubutton = tk.Button(text="Begin the Crusade", fg="#5E0083", font=tk.font.Font(family="Chalkboard", size=24), command=menu)
+        #Title/subtitle
         canvas.create_text(
             1420/2, 300, 
             text="Welcome to....",
@@ -183,7 +188,7 @@ class Menu:
             700,
             window=menubutton)
 
-
+#Starting the program
 Menu.welcome()
 root.mainloop()
 
