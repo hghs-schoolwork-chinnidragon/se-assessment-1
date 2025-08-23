@@ -68,7 +68,7 @@ class Menu:
         canvas.create_text(1420/2-500, 100, text="Choose your challenge:", font=tkFont.Font(family="Comic Sans MS", size=64, weight="bold"), fill="#141615", width=450, anchor="nw")
         
         def avatar():
-    # Create Crimson Avatar Window
+            #--- CRIMSON ---
             crimsonwindow = tk.Toplevel(root)
             crimsonwindow.title("Crimson Avatar")
             crimsonwindow.image_refs = []  # Store image references
@@ -91,36 +91,53 @@ class Menu:
                 crimsonwindow.image_refs.append(img)  # Store reference
             
             crimsonAvatar.setImages(crimson_imglist)
+            
             crimsonAvatar.create_Buttons()
             crimsonAvatar.activateAvatar()
-            
-            cobaltwindow = tk.Toplevel()
-            cobaltwindow.title("Cobalt's Avatar")
+            # Creating Cobalt avatar window
+            cobaltwindow = tk.Toplevel(root)
+            cobaltwindow.title("Cobalt Avatar")
+            cobaltwindow.image_refs = []  # Store image references
+                        
             cobaltImages = []
             for image in sorted(os.listdir("images/cobalt")):
-                # Skip .DS_Store and any other hidden files
-                if not image.startswith('.'):
+                if not image.startswith('.'):  # Skip .DS_Store files
                     cobaltImages.append(f"images/cobalt/{image}")
-            # Creating canvas
-            cobaltcanvas = tk.Canvas(cobaltwindow, width=400, height=400, bg="#A1E3FF")
-            cobaltcanvas.grid(row=0, column=6, rowspan=6, padx=10, pady=10)
-            #Creating the avatar on the canvas
-            cobaltAvatar = layerimage.Avatars(cobaltImages, "cobalt_attributes.json", cobaltwindow, canvas=cobaltcanvas)
-            bimglist = []
+                        
+            # Creating canvas for cobalt
+            cobalt_canvas = tk.Canvas(cobaltwindow, width=400, height=400, bg="#A1E3FF")
+            cobalt_canvas.grid(row=0, column=6, rowspan=6, padx=10, pady=10)
+                        
+            # Creating the cobalt avatar
+            cobaltAvatar = layerimage.Avatars(cobaltImages, "cobalt_attributes.json", cobaltwindow, canvas=cobalt_canvas)
+            cobalt_imglist = []
             for image in cobaltAvatar.getImages():
-                bimglist.append(cobaltAvatar.resizeImg(750, image))
-            cobaltAvatar.setImages(bimglist)
+                img = cobaltAvatar.resizeImg(750, image)
+                cobalt_imglist.append(img)
+                cobaltwindow.image_refs.append(img)  # Store reference
+                        
+            cobaltAvatar.setImages(cobalt_imglist)
+                        
             cobaltAvatar.create_Buttons()
             cobaltAvatar.activateAvatar()
+            
 
         avatarimg = Image.open("images/avatarcustomisation.png")
         avatarimg = quizmodule.Quiz.resizeImg(300, avatarimg)
-        avatarbutton = tk.Button(text="customise avatar!!!", command=avatar, image=ImageTk.PhotoImage(avatarimg))
+        avatar_tk = ImageTk.PhotoImage(avatarimg)
+        avatarbutton = tk.Button(text="customise avatar!!!", command=avatar, image=avatar_tk, compound="bottom")
+        avatarbutton.image = avatar_tk 
         quitbutton = tk.Button(text="Quit", command=quit)
-        canvas.create_window(450, 600, window=avatarbutton)
-        canvas.create_window(0, 0, window=quitbutton)
+        def go_back():
+            # Code to return to welcome screen
+            pass
+        backbutton = tk.Button(text="Back", command=go_back)
+        canvas.create_window(400, 650, window=avatarbutton)
+        canvas.create_window(50, 50, window=quitbutton)
+        canvas.create_window(150, 50, window=backbutton)
         root.mainloop()
     
+
 root = tk.Tk()
 root.title("Welcome")
 title_font = tkFont.Font(family="Comic Sans MS", size=72, weight="bold")
