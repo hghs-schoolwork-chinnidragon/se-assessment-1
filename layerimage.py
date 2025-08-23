@@ -36,17 +36,6 @@ class Avatars:
         except TypeError: #no file has been passed
             print("no file has been provided :(")
             self.__active_attr = []
-        # self.attribute_check("scorehistory.json")
-    # def attribute_check(self, quizzes):
-    #     quizzes_passed = 0
-    #     for item in quizzes:
-    #         with open(f"{item}.txt", "r") as file:
-    #             score = file
-    #         if "pass" in score:
-    #             quizzes_passed+=1
-    #     for number in range(0, quizzes_passed):
-    #         self.__allowed_attr.append(self.__attr[number])
-    #     print(self.__allowed_attr)
 
 
 
@@ -108,7 +97,6 @@ class Avatars:
             self.__active_attr.remove("pant")
         else:
             self.__active_attr.append("pant")
-        print(self.__active_attr)
         self.activateAvatar()
 
     def toggleMouth(self):
@@ -176,6 +164,9 @@ class Avatars:
             else:
                 self.avatarLabel.config(image=avatar)
             self.avatarLabel.image = avatar 
+        if self.__active_attr == ["accessories","hair","mouth","pant","base","shirt","shoe"]:
+            ssstylish = tk.Label(text="Stylish!!!!", font=tk.Font.Font(family="Apple Chancery", size=36))
+            self.canvas.create_window(150, 300, window=ssstylish)
     
     #for saving the current attributes (so that the avatar will look the same wherever)
     def saveAvatar(self, filename):

@@ -8,22 +8,22 @@ from pygame import mixer
 
 
 class Quiz:
-    #retrieving data from provided file
+    #Retrieve data from provided file
     def __init__(self, jsfile):
         self.__jsfile = jsfile
         with open(self.__jsfile, "r") as file:
             self.__questiondata = json.load(file)
-        #retrieving data
+        #Retrieve data
         self.__title = self.__questiondata['title']
-        #read the info from the text file that the key directs it to
+        #Read the info from the text file that the key directs it to
         self.__quizinfo = self.__questiondata['info'][0]
         with open(self.__quizinfo, "r") as file:
             self.__quizinfo = file.read()
         numq = len(self.__questiondata['questions'])
-        #retrieve the image associated with the info
+        #Retrieve the image associated with the info
         self.__quizimage = self.__questiondata['info'][1]
         
-        #retrieving the questions, answers and choices -- MUST be 'question', 'correctAnswer' and 'choices'
+        #Retrieving the questions, answers and choices -- MUST be 'question', 'correctAnswer' and 'choices'
         self.__questions = []
         self.__answers = []
         self.__choices  = []
@@ -31,6 +31,7 @@ class Quiz:
             self.__questions.append(self.__questiondata['questions'][i]['question'])
             self.__answers.append(self.__questiondata['questions'][i]['correctAnswer'])
             self.__choices.append(self.__questiondata['questions'][i]['choices'])
+        #img referencing for garbage collection
         self.__images = []
     @staticmethod
     def resizeImg(newWidth, image):
@@ -40,13 +41,10 @@ class Quiz:
             pilImage = Image.open(image).convert("RGBA")
         except AttributeError: #already a PIL image
             pilImage = image
-        print (f"{pilImage.width}/{pilImage.height}")
-        # ratio = pilImage.width/pilImage.height
         orig_width, orig_height = pilImage.size
         ratio = orig_width / orig_height
         newHeight = round(newWidth/ratio)
         resizedImage = pilImage.resize([newWidth, newHeight])
-        # print(f"resized! dimensions {resizedImage.width}x{resizedImage.height}")
         return(resizedImage)
 
     def run(self):
@@ -89,7 +87,6 @@ First, there are some things you need to know:""",
                 self.nextbutton, 
                 show_next_question)
 
-            #     for item in shuffled_copy:
         def show_next_question():
             # Clear previous question widgets if any
             for widget in window.winfo_children():
@@ -155,7 +152,6 @@ First, there are some things you need to know:""",
             
             with open('scorehistory.json', 'a') as file:
                 json.dump(data, file)
-                print("", file=file)
 
             def close():
                 mixer.music.load("audio/Pookatori and Friends.mp3")

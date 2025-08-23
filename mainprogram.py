@@ -8,7 +8,7 @@ import tkinter.font as tkFont
 
 
 mixer.init()
-
+root = tk.Tk()
 class Menu:
     # @staticmethod
     # def createwindow():
@@ -130,57 +130,61 @@ class Menu:
         quitbutton = tk.Button(text="Quit", command=quit)
         def go_back():
             # Code to return to welcome screen
-            pass
+            self.welcome()
         backbutton = tk.Button(text="Back", command=go_back)
-        canvas.create_window(400, 600, window=avatarbutton)
+        canvas.create_window(350, 600, window=avatarbutton)
         canvas.create_window(50, 50, window=quitbutton)
         canvas.create_window(150, 50, window=backbutton)
         root.mainloop()
-    
+    @staticmethod
+    def welcome():
+        for widget in root.winfo_children():
+            widget.destroy()
+        root.title("Welcome")
+        title_font = tkFont.Font(family="Phosphate", size=72, weight="bold")
+        subtitle_font = tkFont.Font(family="Noteworthy", size=36, slant="italic")
 
-root = tk.Tk()
-root.title("Welcome")
-title_font = tkFont.Font(family="Phosphate", size=72, weight="bold")
-subtitle_font = tkFont.Font(family="Noteworthy", size=36, slant="italic")
+        canvas = tk.Canvas(root, width=1420, height=1200)
 
-canvas = tk.Canvas(root, width=1420, height=1200)
+        canvas.grid()
 
-canvas.grid()
-
-bg_img = Image.open("images/welcomebg.png")
-bg_img = quizmodule.Quiz.resizeImg(1420, bg_img)  
-bg_imgtk = ImageTk.PhotoImage(bg_img)
-canvas.bg_imgtk = bg_imgtk
-canvas.create_image(0, 0, image=bg_imgtk, anchor="nw")
-
-
-q_whatColourIsThat = quizmodule.Quiz("whatColourIsThat.json")
-q_allAboutHSV = quizmodule.Quiz("allAboutHSV.json")
-q_colourRelationships = quizmodule.Quiz("colourRelationships.json")
-q_tiersOfColours = quizmodule.Quiz("tiersOfColours.json")
-
-def menu():
-    Menu([q_allAboutHSV, q_whatColourIsThat, q_colourRelationships, q_tiersOfColours], root=root)
+        bg_img = Image.open("images/welcomebg.png")
+        bg_img = quizmodule.Quiz.resizeImg(1420, bg_img)  
+        bg_imgtk = ImageTk.PhotoImage(bg_img)
+        canvas.bg_imgtk = bg_imgtk
+        canvas.create_image(0, 0, image=bg_imgtk, anchor="nw")
 
 
-menubutton = tk.Button(text="Begin the Crusade", fg="#5E0083", font=("Noteworthy"), command=menu)
-canvas.create_text(
-    1420/2, 300, 
-    text="Welcome to....",
-    font=subtitle_font, 
-    fill="#141615"
-    )
-canvas.create_text(
-    1420/2, 
-    400, 
-    text="Colour Crusaders", 
-    font=title_font, 
-    fill="#141615"
-    )
-canvas.create_window(
-    1420/2,
-    700,
-    window=menubutton)
+        q_whatColourIsThat = quizmodule.Quiz("whatColourIsThat.json")
+        q_allAboutHSV = quizmodule.Quiz("allAboutHSV.json")
+        q_colourRelationships = quizmodule.Quiz("colourRelationships.json")
+        q_tiersOfColours = quizmodule.Quiz("tiersOfColours.json")
+
+        def menu():
+            Menu([q_allAboutHSV, q_whatColourIsThat, q_colourRelationships, q_tiersOfColours], root=root)
+
+
+        menubutton = tk.Button(text="Begin the Crusade", fg="#5E0083", font=tk.font.Font(family="Noteworthy", size=24), command=menu)
+        canvas.create_text(
+            1420/2, 300, 
+            text="Welcome to....",
+            font=subtitle_font, 
+            fill="#141615"
+            )
+        canvas.create_text(
+            1420/2, 
+            400, 
+            text="Colour Crusaders", 
+            font=title_font, 
+            fill="#141615"
+            )
+        canvas.create_window(
+            1420/2,
+            700,
+            window=menubutton)
+
+
+Menu.welcome()
 root.mainloop()
 
 
