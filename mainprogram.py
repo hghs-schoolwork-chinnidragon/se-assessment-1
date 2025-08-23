@@ -105,7 +105,7 @@ class Menu:
             cobaltcanvas = tk.Canvas(cobaltwindow, width=400, height=400, bg="#A1E3FF")
             cobaltcanvas.grid(row=0, column=6, rowspan=6, padx=10, pady=10)
             #Creating the avatar on the canvas
-            cobaltAvatar = layerimage.Avatars(cobaltImages, "bactiveattributes.json", cobaltwindow, canvas=cobaltcanvas)
+            cobaltAvatar = layerimage.Avatars(cobaltImages, "cobalt_attributes.json", cobaltwindow, canvas=cobaltcanvas)
             bimglist = []
             for image in cobaltAvatar.getImages():
                 bimglist.append(cobaltAvatar.resizeImg(750, image))
@@ -113,8 +113,13 @@ class Menu:
             cobaltAvatar.create_Buttons()
             cobaltAvatar.activateAvatar()
 
-        avatarbutton = tk.Button(text="customise avatar!!!", command=avatar)
-        canvas.create_window(500, 500, window=avatarbutton)
+        avatarimg = Image.open("images/avatarcustomisation.png")
+        avatarimg = quizmodule.Quiz.resizeImg(300, avatarimg)
+        avatarbutton = tk.Button(text="customise avatar!!!", command=avatar, image=ImageTk.PhotoImage(avatarimg))
+        quitbutton = tk.Button(text="Quit", command=quit)
+        canvas.create_window(450, 600, window=avatarbutton)
+        canvas.create_window(0, 0, window=quitbutton)
+        root.mainloop()
     
 root = tk.Tk()
 root.title("Welcome")
