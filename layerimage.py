@@ -6,7 +6,8 @@ import json
 class Avatars:
     def __init__(self, image_paths, jsonfile, window, canvas=None):
         self.__window = window
-        self.__window.title = "avatar customisation"
+        self.__window.title("avatar customisation")
+        self.jsonfile = jsonfile
         # window.config(background="#D5FBFF")
         self.__window.geometry("+500+100")
         self.__canvas = canvas
@@ -93,6 +94,7 @@ class Avatars:
             self.__active_attr.remove("pant")
         else:
             self.__active_attr.append("pant")
+        print(self.__active_attr)
         self.activateAvatar()
 
     def toggleMouth(self):
@@ -121,6 +123,13 @@ class Avatars:
             self.__active_attr.remove("accessories")
         else:
             self.__active_attr.append("accessories")
+        self.activateAvatar()
+    
+    def toggleShoe(self):
+        if "shoe" in self.__active_attr:
+            self.__active_attr.remove("shoe")
+        else:
+            self.__active_attr.append("shoe")
         self.activateAvatar()
 
     def activateAvatar(self):
@@ -178,11 +187,14 @@ class Avatars:
         accessoryButton = tk.Button(self.__window, text="Accessory", command=self.toggleAccessory)
         self.__canvas.create_window(300, 200, anchor="nw", window=accessoryButton)
 
+        shoeButton = tk.Button(self.__window, text="Shoe", command=self.toggleShoe)
+        self.__canvas.create_window(300, 250, anchor="nw", window=shoeButton)
+
         resetButton = tk.Button(self.__window, text="Reset", command=self.reset)
-        self.__canvas.create_window(300, 250, anchor="nw", window=resetButton)
+        self.__canvas.create_window(300, 300, anchor="nw", window=resetButton)
         
         def save():
-            self.saveAvatar("activeattributes.json")
+            self.saveAvatar(self.jsonfile)
 
         saveButton = tk.Button(self.__window, text="Save", command=save)
-        self.__canvas.create_window(300, 300, anchor="nw", window=saveButton)
+        self.__canvas.create_window(300, 350, anchor="nw", window=saveButton)

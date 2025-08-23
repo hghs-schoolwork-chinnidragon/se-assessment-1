@@ -16,7 +16,6 @@ class Menu:
 
 
     def __init__(self, quizzes, root):
-        # window = tk.tk()
         for widget in root.winfo_children():
             widget.destroy()
         root.title("Quiz Menu")
@@ -67,29 +66,66 @@ class Menu:
         canvas.create_text(1420/2-500, 100, text="Choose your challenge:", font=("Arial", 65, "bold", "italic"), fill="#141615", width=445, anchor="nw")
         
         def avatar():
-            window = tk.Toplevel()
+    # Create Crimson Avatar Window
+            crimsonwindow = tk.Toplevel(root)
+            crimsonwindow.title("Crimson Avatar")
+            crimsonwindow.image_refs = []  # Store image references
+            
             crimsonImages = []
             for image in sorted(os.listdir("images/crimson")):
-                crimsonImages.append(f"images/crimson/{image}")
-            # Creating canvas
-            canvas = tk.Canvas(window, width=400, height=400, bg="#FFA1A1")
-            canvas.grid(row=0, column=6, rowspan=6, padx=10, pady=10)
-            #Creating the avatar on the canvas
-            crimsonAvatar = layerimage.Avatars(crimsonImages, "activeattributes.json", window, canvas=canvas)
-            imglist = []
+                if not image.startswith('.'):  # Skip .DS_Store files
+                    crimsonImages.append(f"images/crimson/{image}")
+            
+            # Creating canvas for crimson
+            crimson_canvas = tk.Canvas(crimsonwindow, width=400, height=400, bg="#FFA1A1")
+            crimson_canvas.grid(row=0, column=6, rowspan=6, padx=10, pady=10)
+            
+            # Creating the crimson avatar
+            crimsonAvatar = layerimage.Avatars(crimsonImages, "crimson_attributes.json", crimsonwindow, canvas=crimson_canvas)
+            crimson_imglist = []
             for image in crimsonAvatar.getImages():
-                imglist.append(crimsonAvatar.resizeImg(200, image))
-            crimsonAvatar.setImages(imglist)
+                img = crimsonAvatar.resizeImg(200, image)
+                crimson_imglist.append(img)
+                crimsonwindow.image_refs.append(img)  # Store reference
+            
+            crimsonAvatar.setImages(crimson_imglist)
             crimsonAvatar.create_Buttons()
             crimsonAvatar.activateAvatar()
+            
+            # Create Cobalt Avatar Window
+            cobaltwindow = tk.Toplevel(root)
+            cobaltwindow.title("Cobalt Avatar") 
+            cobaltwindow.image_refs = []  # Store image references
+            
+            cobaltImages = []
+            for image in sorted(os.listdir("images/cobalt")):
+                if not image.startswith('.'):  # Skip .DS_Store files
+                    cobaltImages.append(f"images/cobalt/{image}")
+            
+            # Creating canvas for cobalt
+            cobalt_canvas = tk.Canvas(cobaltwindow, width=400, height=400, bg="#A1E3FF")
+            cobalt_canvas.grid(row=0, column=6, rowspan=6, padx=10, pady=10)
+            
+            # Creating the cobalt avatar
+            cobaltAvatar = layerimage.Avatars(cobaltImages, "cobalt_attributes.json", cobaltwindow, canvas=cobalt_canvas)
+            cobalt_imglist = []
+            for image in cobaltAvatar.getImages():
+                img = cobaltAvatar.resizeImg(550, image)
+                cobalt_imglist.append(img)
+                cobaltwindow.image_refs.append(img)  # Store reference
+            
+            cobaltAvatar.setImages(cobalt_imglist)
+            cobaltAvatar.create_Buttons()
+            cobaltAvatar.activateAvatar()
 
+        avatarimg = Image.open("images/avatarcustomisation.png")
+        avatarimg = quizmodule.Quiz.resizeImg(300, avatarimg)
+        avatarimgtk = ImageTk.PhotoImage(avatarimg)
+        avatarbutton = tk.Button(text="Customise your avatar!", command=avatar, image=avatarimgtk, compound="bottom")
+        canvas.create_window(450, 600, window=avatarbutton)
 
-        avatarbutton = tk.Button(text="customise avatar!!!", command=avatar)
-        canvas.create_window(500, 500, window=avatarbutton)
-
-
-
-
+        quitb = tk.Button(text="quit", command=quit)
+        canvas.create_window(50, 50, window=quitb)
         root.mainloop()
     
 
