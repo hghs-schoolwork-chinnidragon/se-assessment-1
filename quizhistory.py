@@ -23,16 +23,16 @@ def presentScoreHistory(jsfile, potentialQuizzes, root):
         tk.Label(quiz_windows[quiz], text="Score", font=("Arial", 12, "bold")).grid(row=0, column=1, padx=10, pady=5)
         tk.Label(quiz_windows[quiz], text="Percentage", font=("Arial", 12, "bold")).grid(row=0, column=2, padx=10, pady=5)
 
-        scores[quiz] = {"score":None, "percentage":None}
-        quiz_windows[quiz] = tk.Toplevel(root)
-        heading = tk.Label(quiz_windows[quiz], text="your score")
-        body = tk.Label(quiz_windows[quiz], text="", wraplength=500)
-        heading2 = tk.Label(quiz_windows[quiz], text="ur percentage")
-        body2 = tk.Label(quiz_windows[quiz], text="", wraplength=500)
-        body2.grid(row=4)
-        heading.grid(row=1)
-        heading2.grid(row=3)
-        body.grid(row=2)
+        # scores[quiz] = {"score":None, "percentage":None}
+        # quiz_windows[quiz] = tk.Toplevel(root)
+        # heading = tk.Label(quiz_windows[quiz], text="your score")
+        # body = tk.Label(quiz_windows[quiz], text="", wraplength=500)
+        # heading2 = tk.Label(quiz_windows[quiz], text="ur percentage")
+        # body2 = tk.Label(quiz_windows[quiz], text="", wraplength=500)
+        # body2.grid(row=4)
+        # heading.grid(row=1)
+        # heading2.grid(row=3)
+        # body.grid(row=2)
         
 
 

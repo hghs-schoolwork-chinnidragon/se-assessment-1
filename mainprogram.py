@@ -36,7 +36,7 @@ class Menu:
             quizWidgetImage = ImageTk.PhotoImage(quizWidgetImage)
             title = quizzes[i].getTitle()
             file = quizzes[i].getFile()
-            #need to resize images
+
             def runQuiz(file=file):
                 quiz = quizmodule.Quiz(file)
                 quiz.run()
@@ -46,7 +46,7 @@ class Menu:
                 text=title,
                 image=quizWidgetImage, 
                 compound="bottom", 
-                font=("Arial", 16, "italic"), 
+                font=("Noteworthy", 16, "italic"), 
                 wraplength="200", 
                 command=runQuiz)
             self.images.append(quizWidgetImage)
@@ -65,7 +65,7 @@ class Menu:
         for widgetNum, widget in enumerate(quizWidgets):
             canvas.create_window(coordinates[widgetNum][0], coordinates[widgetNum][1], anchor="nw", window=widget)
         
-        canvas.create_text(1420/2-500, 100, text="Choose your challenge:", font=tkFont.Font(family="Comic Sans MS", size=64, weight="bold"), fill="#141615", width=450, anchor="nw")
+        canvas.create_text(1420/2-500, 100, text="Choose your challenge:", font=tkFont.Font(family="Marker Felt", size=64, weight="bold"), fill="#141615", width=450, anchor="nw")
         
         def avatar():
             #--- CRIMSON ---
@@ -125,14 +125,14 @@ class Menu:
         avatarimg = Image.open("images/avatarcustomisation.png")
         avatarimg = quizmodule.Quiz.resizeImg(300, avatarimg)
         avatar_tk = ImageTk.PhotoImage(avatarimg)
-        avatarbutton = tk.Button(text="customise avatar!!!", command=avatar, image=avatar_tk, compound="bottom")
+        avatarbutton = tk.Button(text="Customise your Avatar", font=tkFont.Font(family="Marker Felt", size=24), command=avatar, image=avatar_tk, compound="bottom")
         avatarbutton.image = avatar_tk 
         quitbutton = tk.Button(text="Quit", command=quit)
         def go_back():
             # Code to return to welcome screen
             pass
         backbutton = tk.Button(text="Back", command=go_back)
-        canvas.create_window(400, 650, window=avatarbutton)
+        canvas.create_window(400, 600, window=avatarbutton)
         canvas.create_window(50, 50, window=quitbutton)
         canvas.create_window(150, 50, window=backbutton)
         root.mainloop()
@@ -140,8 +140,8 @@ class Menu:
 
 root = tk.Tk()
 root.title("Welcome")
-title_font = tkFont.Font(family="Comic Sans MS", size=72, weight="bold")
-subtitle_font = tkFont.Font(family="Papyrus", size=36, slant="italic")
+title_font = tkFont.Font(family="Phosphate", size=72, weight="bold")
+subtitle_font = tkFont.Font(family="Noteworthy", size=36, slant="italic")
 
 canvas = tk.Canvas(root, width=1420, height=1200)
 
@@ -163,7 +163,7 @@ def menu():
     Menu([q_allAboutHSV, q_whatColourIsThat, q_colourRelationships, q_tiersOfColours], root=root)
 
 
-menubutton = tk.Button(text="Begin the Crusade", fg="#15A702", bg="#15A702", command=menu)
+menubutton = tk.Button(text="Begin the Crusade", fg="#5E0083", font=("Noteworthy"), command=menu)
 canvas.create_text(
     1420/2, 300, 
     text="Welcome to....",
