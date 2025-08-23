@@ -3,6 +3,7 @@ from PIL import Image, ImageTk
 import os
 import json
 
+# window = tk.Tk()
 class Avatars:
     def __init__(self, image_paths, jsonfile, window, canvas=None):
         self.__window = window
@@ -18,6 +19,7 @@ class Avatars:
         self.__base = image_paths[4]
         self.__shirt = image_paths[5]
         self.__shoe = image_paths[6]
+        self.__attr = [self.__mouth, self.__hair, self.__pant, self.__shirt, self.__shoe, self.__accessories]
         self.__attr_map = {
                     "accessories": self.__accessories,
                     "hair": self.__hair,
@@ -28,12 +30,24 @@ class Avatars:
                     "shoe": self.__shoe,
                 }
         try:
-            with open(jsonfile, "r") as file:
+            with open(self.jsonfile, "r") as file:
                 attributes = json.load(file)
             self.__active_attr = attributes["attributes"]
         except TypeError: #no file has been passed
             print("no file has been provided :(")
             self.__active_attr = []
+        # self.attribute_check("scorehistory.json")
+    # def attribute_check(self, quizzes):
+    #     quizzes_passed = 0
+    #     for item in quizzes:
+    #         with open(f"{item}.txt", "r") as file:
+    #             score = file
+    #         if "pass" in score:
+    #             quizzes_passed+=1
+    #     for number in range(0, quizzes_passed):
+    #         self.__allowed_attr.append(self.__attr[number])
+    #     print(self.__allowed_attr)
+
 
 
     def resizeImg(self, newWidth, image):
@@ -109,6 +123,13 @@ class Avatars:
             self.__active_attr.remove("hair")
         else:
             self.__active_attr.append("hair")
+        self.activateAvatar()
+
+    def toggleShoe(self):
+        if "shoe" in self.__active_attr:
+            self.__active_attr.remove("shoe")
+        else:
+            self.__active_attr.append("shoe")
         self.activateAvatar()
 
     def toggleShirt(self):
@@ -198,3 +219,24 @@ class Avatars:
 
         saveButton = tk.Button(self.__window, text="Save", command=save)
         self.__canvas.create_window(300, 350, anchor="nw", window=saveButton)
+
+
+# cobaltImages = []
+# for image in sorted(os.listdir("images/cobalt")):
+#     # Skip .DS_Store and any other hidden files
+#     if not image.startswith('.'):
+#         cobaltImages.append(f"images/cobalt/{image}")
+# # Creating canvas
+# canvas = tk.Canvas(window, width=400, height=400, bg="#A1E3FF")
+# canvas.grid(row=0, column=6, rowspan=6, padx=10, pady=10)
+# #Creating the avatar on the canvas
+# cobaltAvatar = Avatars(cobaltImages, "bactiveattributes.json", window, canvas=canvas)
+# imglist = []
+# for image in cobaltAvatar.getImages():
+#     imglist.append(cobaltAvatar.resizeImg(750, image))
+# cobaltAvatar.setImages(imglist)
+# cobaltAvatar.create_Buttons()
+# cobaltAvatar.activateAvatar()
+
+
+# window.mainloop()

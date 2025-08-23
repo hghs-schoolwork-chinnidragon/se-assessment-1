@@ -10,7 +10,6 @@ from pygame import mixer
 class Quiz:
     #retrieving data from provided file
     def __init__(self, jsfile):
-        
         self.__jsfile = jsfile
         with open(self.__jsfile, "r") as file:
             self.__questiondata = json.load(file)
@@ -158,6 +157,14 @@ First, there are some things you need to know:""",
                 json.dump(data, file)
                 print("", file=file)
             
+            if (self.score/len(self.__questions))*100 > 80:
+                data = "pass"
+            else:
+                data="fail"
+            with open(f'{self.__title}.txt', 'a') as file:
+                json.dump(data, file)
+                print("", file=file)
+
             def close():
                 mixer.music.load("audio/Pookatori and Friends.mp3")
                 mixer.music.play(-1,0.0)
