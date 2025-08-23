@@ -31,12 +31,11 @@ class Quiz:
             self.__questions.append(self.__questiondata['questions'][i]['question'])
             self.__answers.append(self.__questiondata['questions'][i]['correctAnswer'])
             self.__choices.append(self.__questiondata['questions'][i]['choices'])
-        #img referencing for garbage collection
+        #Img referencing for garbage collection
         self.__images = []
     @staticmethod
     def resizeImg(newWidth, image):
-        #newwidth divided by width/height OR newwidth * height/width
-        #resizing the image while keeping the aspect ratio
+        #Resizing the image while keeping the aspect ratio
         try:
             pilImage = Image.open(image).convert("RGBA")
         except AttributeError: #already a PIL image
@@ -48,14 +47,15 @@ class Quiz:
         return(resizedImage)
 
     def run(self):
+        #New music
         mixer.music.load("audio/Kick Shock.mp3")
         mixer.music.play(-1,0.0)
         window = tk.Toplevel()
         window.geometry("+50+50")
+        #MAking window title the quiz name
         window.title(f"{self.__title}")
         self.current_question = 0
         self.score = 0
-        # while True:
         self.nextbutton = tk.Button(window, text="Next!")
         self.nextbutton.grid(column=5)
 
