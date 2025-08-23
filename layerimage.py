@@ -7,10 +7,10 @@ import json
 class Avatars:
     def __init__(self, image_paths, jsonfile, window, canvas=None):
         self.__window = window
-        self.__window.title("avatar customisation")
+        # self.__window.title("avatar customisation")
         self.jsonfile = jsonfile
         # window.config(background="#D5FBFF")
-        self.__window.geometry("+500+100")
+        # self.__window.geometry("+500+100")
         self.__canvas = canvas
         self.__accessories = image_paths[0]
         self.__hair = image_paths[1]
@@ -141,7 +141,7 @@ class Avatars:
             self.__active_attr.append("shoe")
         self.activateAvatar()
 
-    def activateAvatar(self):
+    def activateAvatar(self, x=200, y=200):
         base = self.__base.copy() 
         if not self.__active_attr: #If there aren't any active attributes
             avatar =  ImageTk.PhotoImage(base) #Default to the bare base
@@ -154,7 +154,7 @@ class Avatars:
             # Clear previous image
             self.__canvas.delete("avatar")
             # Create image on canvas
-            self.__canvas.create_image(200, 200, image=avatar, tags="avatar")
+            self.__canvas.create_image(x, y, image=avatar, tags="avatar")
             self.__canvas.image = avatar
         else:
             self.avatarLabel.image = avatar 
@@ -164,9 +164,11 @@ class Avatars:
             else:
                 self.avatarLabel.config(image=avatar)
             self.avatarLabel.image = avatar 
-        if self.__active_attr == ["accessories","hair","mouth","pant","base","shirt","shoe"]:
-            ssstylish = tk.Label(text="Stylish!!!!", font=tk.Font.Font(family="Apple Chancery", size=36))
-            self.canvas.create_window(150, 300, window=ssstylish)
+        # if len(self.__active_attr) == 6:
+        #     ssstylish = tk.Label(self.__window, text="Looking Stylish!!!!", font=tk.font.Font(family="Apple Chancery", size=24), fg="#ECD228")
+        #     self.__canvas.create_window(200, 30, window=ssstylish)
+        # else:
+        #     ssstylish = tk.Label()
     
     #for saving the current attributes (so that the avatar will look the same wherever)
     def saveAvatar(self, filename):

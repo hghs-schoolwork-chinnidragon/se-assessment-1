@@ -93,7 +93,7 @@ class Menu:
             crimsonAvatar.setImages(crimson_imglist)
             crimsonAvatar.create_Buttons()
             #Creates avatar
-            crimsonAvatar.activateAvatar()
+            crimsonAvatar.activateAvatar(200, 200)
             #--- COBALT ---
             # Create Cobalt avatar window
             cobaltwindow = tk.Toplevel(root)
@@ -121,7 +121,7 @@ class Menu:
             cobaltAvatar.setImages(cobalt_imglist)
             cobaltAvatar.create_Buttons()
             #Creates avatar
-            cobaltAvatar.activateAvatar()
+            cobaltAvatar.activateAvatar(200, 200)
             
 
         avatarimg = Image.open("images/avatarcustomisation.png")
@@ -187,6 +187,66 @@ class Menu:
             1420/2,
             700,
             window=menubutton)
+                #--- CRIMSON ---
+        crimsonbg = Image.open("images/crimsonmenu.png")
+        cobaltbg = Image.open("images/cobaltmenu.png")
+        crimsonbg = quizmodule.Quiz.resizeImg(300, crimsonbg)
+        crimsonbg = ImageTk.PhotoImage(crimsonbg)
+        cobaltbg = quizmodule.Quiz.resizeImg(300, cobaltbg)
+        cobaltbg = ImageTk.PhotoImage(cobaltbg)
+        # Add the transparent background to both canvases
+
+        crimsonwindow = root
+        crimsonwindow.image_refs = []  # Store image references
+        crimson_canvas = tk.Canvas(root, width=300, height=324)
+        crimson_canvas.place(x=50, y=500)
+        
+        crimson_canvas.create_image(0, 0, image=crimsonbg, anchor="nw")
+        root.transparent_crimson = crimsonbg
+
+        crimsonImages = []
+        for image in sorted(os.listdir("images/crimson")):
+            if not image.startswith('.'):  # Skip non image files
+                crimsonImages.append(f"images/crimson/{image}")
+        
+        # Creating the crimson avatar
+        crimsonAvatar = layerimage.Avatars(crimsonImages, "crimson_attributes.json", crimsonwindow, canvas=crimson_canvas)
+        crimson_imglist = []
+        #Resizing all layers 
+        for image in crimsonAvatar.getImages():
+            img = crimsonAvatar.resizeImg(200, image)
+            crimson_imglist.append(img)
+            crimsonwindow.image_refs.append(img)  # Store reference
+        
+        crimsonAvatar.setImages(crimson_imglist)
+        #Creates avatar
+        crimsonAvatar.activateAvatar(150, 200)
+        #--- COBALT ---
+        # Create Cobalt avatar window
+        cobaltwindow = root
+        cobaltwindow.image_refs = []  # Store image references
+        cobalt_canvas = tk.Canvas(root, width=300, height=324)
+        cobalt_canvas.place(x=1050, y=500)
+        cobalt_canvas.create_image(0, 0, image=cobaltbg, anchor="nw")
+        root.transparent_cobalt = cobaltbg
+
+        cobaltImages = []
+        for image in sorted(os.listdir("images/cobalt")):
+            if not image.startswith('.'):  # Skip non image files
+                cobaltImages.append(f"images/cobalt/{image}")
+                    
+        # Create the cobalt avatar
+        cobaltAvatar = layerimage.Avatars(cobaltImages, "cobalt_attributes.json", cobaltwindow, canvas=cobalt_canvas)
+        cobalt_imglist = []
+        #Resizing all layers 
+        for image in cobaltAvatar.getImages():
+            img = cobaltAvatar.resizeImg(600, image)
+            cobalt_imglist.append(img)
+            cobaltwindow.image_refs.append(img)  # Store reference
+                    
+        cobaltAvatar.setImages(cobalt_imglist)
+        #Creates avatar
+        cobaltAvatar.activateAvatar(150, 200)
 
 #Starting the program
 Menu.welcome()
