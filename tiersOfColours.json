@@ -1,0 +1,64 @@
+{
+    "title": "Tiers of Colours!",
+    "info": [
+        "tiersOfColours.txt",
+        "images/pst.png",
+        "images/colour-tiers.png"
+    ],
+    "questions": [
+        {
+            "question": "What are the three primary colours?",
+            "correctAnswer": "Red, yellow, and blue",
+            "choices": [
+                "Red, yellow, and blue",
+                "Green, orange, and purple",
+                "Pink, brown, and black"
+            ]
+        },
+        {
+            "question": "What do we call colours you get when you mix two primary colours?",
+            "correctAnswer": "Secondary colours",
+            "choices": [
+                "Secondary colours",
+                "Primary colours",
+                "Rainbow colours"
+            ]
+        },
+        {
+            "question": "Which of these is a secondary colour?",
+            "correctAnswer": "Green",
+            "choices": [
+                "Red",
+                "Green",
+                "Blue"
+            ]
+        },
+        {
+            "question": "What do we call colours you get when you mix a primary and a secondary colour?",
+            "correctAnswer": "Tertiary colours",
+            "choices": [
+                "Tertiary colours",
+                "Primary colours",
+                "Super colours"
+            ]
+        },
+        {
+            "question": "Which of these is a tertiary colour?",
+            "correctAnswer": "Yellow-green",
+            "choices": [
+                "Yellow-green",
+                "Red",
+                "Purple"
+            ]
+        },
+        {
+            "question": "If you mix red and yellow, what colour do you get?",
+            "correctAnswer": "Orange",
+            "choices": [
+                "Green",
+                "Orange",
+                "Purple"
+            ]
+        }
+    ]
+}

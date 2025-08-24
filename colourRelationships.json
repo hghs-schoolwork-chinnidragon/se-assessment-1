@@ -1,0 +1,82 @@
+{
+    "title": "Fun with Colour Relationships!",
+    "info": [
+        "colourRelationships.txt",
+        "images/colour-relationships.png",
+        "images/colour-harmony.png"
+    ],
+    "questions": [
+        {
+            "question": "What do we call colours that are opposite each other on the colour wheel?",
+            "correctAnswer": "Complementary colours",
+            "choices": [
+                "Complementary colours",
+                "Best friend colours",
+                "Rainbow colours"
+            ]
+        },
+        {
+            "question": "Which pair are complementary colours?",
+            "correctAnswer": "Red and Green",
+            "choices": [
+                "Red and Orange",
+                "Red and Green",
+                "Blue and Green"
+            ]
+        },
+        {
+            "question": "What do we call colours that are next to each other on the colour wheel?",
+            "correctAnswer": "Analogous colours",
+            "choices": [
+                "Analogous colours",
+                "Opposite colours",
+                "Magic colours"
+            ]
+        },
+        {
+            "question": "Which group is made of analogous colours?",
+            "correctAnswer": "Blue, Blue-Green, Green",
+            "choices": [
+                "Red, Green, Blue",
+                "Blue, Blue-Green, Green",
+                "Yellow, Purple, Orange"
+            ]
+        },
+        {
+            "question": "What is a triadic colour scheme?",
+            "correctAnswer": "Three colours spaced out on the colour wheel",
+            "choices": [
+                "Three colours next to each other",
+                "Three colours spaced out on the colour wheel",
+                "Two colours opposite each other"
+            ]
+        },
+        {
+            "question": "Which set is a triadic colour scheme?",
+            "correctAnswer": "Red, Yellow, Blue",
+            "choices": [
+                "Red, Yellow, Blue",
+                "Red, Green, Blue",
+                "Red, Orange, Yellow"
+            ]
+        },
+        {
+            "question": "If you pick a colour, and then use the two colours next to its opposite, what is that called?",
+            "correctAnswer": "Split-complementary",
+            "choices": [
+                "Split-complementary",
+                "Analogous",
+                "Double rainbow"
+            ]
+        },
+        {
+            "question": "Which is a split-complementary set for blue?",
+            "correctAnswer": "Blue, Yellow-Orange, Red-Orange",
+            "choices": [
+                "Blue, Orange, Green",
+                "Blue, Yellow-Orange, Red-Orange",
+                "Blue, Green, Purple"
+            ]
+        }
+    ]
+}
