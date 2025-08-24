@@ -50,6 +50,22 @@ class Quiz:
             
         # List to store image references (prevents garbage collection)
         self.__images = []
+        with open("scorehistory.json", "r") as file:
+            completed = False
+            for line in file:
+                try:
+                    record = json.loads(line)
+                    if record.get("quiz") == self.__title:
+                        completed = True
+                        break
+                except json.JSONDecodeError:
+                    continue
+        if completed:
+            self.__completed = True
+        else:
+            self.__completed = False
+
+
         
     @staticmethod
     def resizeImg(newWidth, image):
@@ -115,16 +131,27 @@ class Quiz:
         # Display quiz image on welcome screen
         main_canvas.create_image(400, 450, image=quiz_photo)
 
+        if not self.__completed:
         # Display welcome message
-        main_canvas.create_text(
-            400, 200,  # Center horizontally, position vertically
-            text=f"""Welcome to the "{self.__title}" quiz! 
-First, there are some things you need to know:""",
-            font=("Arial", 24, "bold"), 
-            fill="#800808",  # Dark red color
-            width=600,  # Text wrapping width
-            justify="center"
-        )
+            main_canvas.create_text(
+                400, 200,  # Center horizontally, position vertically
+                text=f"""Welcome to the "{self.__title}" quiz! 
+    First, there are some things you need to know:""",
+                font=("Arial", 24, "bold"), 
+                fill="#800808",  # Dark red color
+                width=600,  # Text wrapping width
+                justify="center"
+            )
+        else:
+            main_canvas.create_text(
+                400, 200,  # Center horizontally, position vertically
+                text=f"""You've already done the "{self.__title}" quiz, but you can still do it again! 
+    Here are some things you probably know:""",
+                font=("Arial", 24, "bold"), 
+                fill="#800808",  # Dark red color
+                width=600,  # Text wrapping width
+                justify="center"
+            )
 
         def config_info():
             """
@@ -135,6 +162,7 @@ First, there are some things you need to know:""",
             main_canvas.delete("all")
             
             # Show quiz image
+            quiz_photo = ImageTk.PhotoImage(self.resizeImg(50, quizImage))
             main_canvas.create_image(600, 150, image=quiz_photo)
             
             # Show quiz information text
@@ -219,22 +247,13 @@ First, there are some things you need to know:""",
                 widget.destroy()
                 
             # Create new canvas for results
-            main_canvas = tk.Canvas(window, width=800, height=800, bg="#f0f0ff", highlightthickness=0)
+            main_canvas = tk.Canvas(window, bg="#f0f0ff", highlightthickness=0)
             main_canvas.pack(fill="both", expand=True)
             
             # Format results text with score and percentage
             result_text = f"""Quiz Complete!\nYou got {self.score} out of {len(self.__questions)}.
 \nThat's {round((self.score/len(self.__questions))*100)}%!"""
             
-            # Create results label
-            result_label = tk.Label(
-                window,
-                text=result_text,
-                font=("Chalkboard", 24),
-                fg="#AA1CA8",  # Purple text
-                wraplength=500
-            )
-            # Add label to canvas
             main_canvas.create_text(150, 300, text=result_text, font=("Chalkboard", 24), fill="#AA1CA8",  width=500)
             
             # Save score data to JSON file

@@ -185,29 +185,29 @@ class Avatars:
 
     def create_Buttons(self):
         # Create and place buttons for toggling each attribute on the canvas
-        hairButton = tk.Button(self.__window, text="Hair", command=self.toggleHair)
+        hairButton = tk.Button(self.__window, text="Hair", command=self.toggleHair, font=("Noteworthy", 10))
         self.__canvas.create_window(300, 0, anchor="nw", window=hairButton)
 
-        mouthButton = tk.Button(self.__window, text="Mouth", command=self.toggleMouth)
+        mouthButton = tk.Button(self.__window, text="Mouth", command=self.toggleMouth, font=("Noteworthy", 10))
         self.__canvas.create_window(300, 50, anchor="nw", window=mouthButton)
 
-        shirtButton = tk.Button(self.__window, text="Shirt", command=self.toggleShirt)
+        shirtButton = tk.Button(self.__window, text="Shirt", command=self.toggleShirt, font=("Noteworthy", 10))
         self.__canvas.create_window(300, 100, anchor="nw", window=shirtButton)
 
-        pantButton = tk.Button(self.__window, text="Pant", command=self.togglePant)
+        pantButton = tk.Button(self.__window, text="Pant", command=self.togglePant, font=("Noteworthy", 10))
         self.__canvas.create_window(300, 150, anchor="nw", window=pantButton)
 
-        accessoryButton = tk.Button(self.__window, text="Accessory", command=self.toggleAccessory)
+        accessoryButton = tk.Button(self.__window, text="Accessory", command=self.toggleAccessory, font=("Noteworthy", 10))
         self.__canvas.create_window(300, 200, anchor="nw", window=accessoryButton)
 
-        shoeButton = tk.Button(self.__window, text="Shoe", command=self.toggleShoe)
+        shoeButton = tk.Button(self.__window, text="Shoe", command=self.toggleShoe, font=("Noteworthy", 10))
         self.__canvas.create_window(300, 250, anchor="nw", window=shoeButton)
 
-        resetButton = tk.Button(self.__window, text="Reset", command=self.reset)
+        resetButton = tk.Button(self.__window, text="Reset", command=self.reset, font=("Noteworthy", 10))
         self.__canvas.create_window(300, 300, anchor="nw", window=resetButton)
         
         def save():
             self.saveAvatar(self.jsonfile)
 
-        saveButton = tk.Button(self.__window, text="Save", command=save)
+        saveButton = tk.Button(self.__window, text="Save", command=save, font=("Noteworthy", 10))
         self.__canvas.create_window(300, 350, anchor="nw", window=saveButton)
