@@ -336,8 +336,7 @@ class Menu:
         windowcanvas.create_window(250, 450, window=close_btn)
 
         windowcanvas.image = image
-        
-        
+
 
 # Start the application by showing the welcome screen
 Menu.welcome()
