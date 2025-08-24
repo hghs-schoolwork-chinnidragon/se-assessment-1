@@ -11,7 +11,7 @@ def presentScoreHistory(jsfile, potentialQuizzes, root):
                 data.append(json.loads(record))
             except json.decoder.JSONDecodeError:
                 pass
-    # print(data)
+
     scores = {}
     quiz_windows = {}
     for quiz in potentialQuizzes:
@@ -19,21 +19,9 @@ def presentScoreHistory(jsfile, potentialQuizzes, root):
         quiz_windows[quiz].title(f"{quiz} - Score History")
         quiz_windows[quiz].geometry("500x400")
 
-        tk.Label(quiz_windows[quiz], text="Attempt", font=("Arial", 12, "bold")).grid(row=0, column=0, padx=10, pady=5)
-        tk.Label(quiz_windows[quiz], text="Score", font=("Arial", 12, "bold")).grid(row=0, column=1, padx=10, pady=5)
-        tk.Label(quiz_windows[quiz], text="Percentage", font=("Arial", 12, "bold")).grid(row=0, column=2, padx=10, pady=5)
+        tk.Label(quiz_windows[quiz], text="Score", font=("Arial", 12, "bold")).grid(row=0, column=0, padx=10, pady=5)
+        tk.Label(quiz_windows[quiz], text="Percentage", font=("Arial", 12, "bold")).grid(row=0, column=1, padx=10, pady=5)
 
-        # scores[quiz] = {"score":None, "percentage":None}
-        # quiz_windows[quiz] = tk.Toplevel(root)
-        # heading = tk.Label(quiz_windows[quiz], text="your score")
-        # body = tk.Label(quiz_windows[quiz], text="", wraplength=500)
-        # heading2 = tk.Label(quiz_windows[quiz], text="ur percentage")
-        # body2 = tk.Label(quiz_windows[quiz], text="", wraplength=500)
-        # body2.grid(row=4)
-        # heading.grid(row=1)
-        # heading2.grid(row=3)
-        # body.grid(row=2)
-        
 
 
     for record in data:
@@ -43,14 +31,15 @@ def presentScoreHistory(jsfile, potentialQuizzes, root):
                 scores[quiz]["score"] = f"Your score: {record['score']}!"
                 scores[quiz]["percentage"] = f"Your percentage: {round(record['percentage'])}%!"
                 # .append([f"Your score: {record['score']}!", f"Your percentage: {round(record['percentage'])}!"])
-                body.config(text=scores[quiz])
-                body2.config(text=scores[quiz])
+                score = tk.Label(quiz_windows[quiz], text=scores[quiz]["score"])
+                score.grid(column=0)
+                percent = tk.Label(quiz_windows[quiz], text=scores[quiz]["percentage"])
+                percent.grid(column=1)
             quiznum+=1
     
 
     # window.mainloop()
 
-    print(scores)
 
 
 presentScoreHistory(

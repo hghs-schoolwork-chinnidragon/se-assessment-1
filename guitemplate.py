@@ -25,7 +25,6 @@ class QuestionTemplate():
         # self.__canvas.create_window(400, 500, window=popup)
 
         def checkIfCorrect(optionButton):
-            print(f"{optionButton.cget("text")}, {self.__correctOption}")
             if optionButton.cget("text") == self.__correctOption:
                 is_correct = True
                 popup.config(text="Correct!!!", font=("Arial", 20), fg="#0FB800")
@@ -95,5 +94,3 @@ class QuestionTemplate():
 
         button.config(command=buttoncommand)
         self.__canvas.create_window(400, 400, window=button)
-
-
