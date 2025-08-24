@@ -208,7 +208,7 @@ First, there are some things you need to know:""",
             self.nextbutton.config(text="Next Question", command=show_next_question)
             
             # Show next button on canvas
-            main_canvas.create_window(400, 135, window=self.nextbutton)
+            main_canvas.create_window(600, 35, window=self.nextbutton)
             
         def show_results():
             """
@@ -235,7 +235,7 @@ First, there are some things you need to know:""",
                 wraplength=500
             )
             # Add label to canvas
-            main_canvas.create_window(150, 300, window=result_label)
+            main_canvas.create_text(150, 300, text=result_text, font=("Chalkboard", 24), fill="#AA1CA8",  width=500)
             
             # Save score data to JSON file
             data = {
@@ -258,7 +258,7 @@ First, there are some things you need to know:""",
 
             # Create close button
             close_button = tk.Button(window, text="Close", command=close)
-            close_button.pack(pady=20)
+            main_canvas.create_window(150, 400, window=close_button)
         
         # Store image references to prevent garbage collection
         window.images = self.__images

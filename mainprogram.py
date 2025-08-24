@@ -306,7 +306,7 @@ class Menu:
         cobalt_imglist = []
         # Resize all layers to fit the welcome screen display
         for image in cobaltAvatar.getImages():
-            img = cobaltAvatar.resizeImg(200, image)  # Changed from 600 to 200 for consistency
+            img = cobaltAvatar.resizeImg(600, image)  
             cobalt_imglist.append(img)
             cobaltwindow.image_refs.append(img)  # Store reference to prevent garbage collection
                     
