@@ -1,16 +1,14 @@
 import tkinter as tk
 from PIL import Image, ImageTk
 import json
-
-# window = tk.Tk()
 class Avatars:
     def __init__(self, image_paths, jsonfile, window, canvas=None):
+        # Store references to window, canvas, and JSON file for avatar attributes
         self.__window = window
-        # self.__window.title("avatar customisation")
         self.jsonfile = jsonfile
-        # window.config(background="#D5FBFF")
-        # self.__window.geometry("+500+100")
         self.__canvas = canvas
+
+        # Load image paths for each avatar layer
         self.__accessories = image_paths[0]
         self.__hair = image_paths[1]
         self.__mouth = image_paths[2]
@@ -18,39 +16,39 @@ class Avatars:
         self.__base = image_paths[4]
         self.__shirt = image_paths[5]
         self.__shoe = image_paths[6]
+
+        # List and map for easy attribute access
         self.__attr = [self.__mouth, self.__hair, self.__pant, self.__shirt, self.__shoe, self.__accessories]
         self.__attr_map = {
-                    "accessories": self.__accessories,
-                    "hair": self.__hair,
-                    "mouth": self.__mouth,
-                    "pant": self.__pant,
-                    "base": self.__base,
-                    "shirt": self.__shirt,
-                    "shoe": self.__shoe,
-                }
+            "accessories": self.__accessories,
+            "hair": self.__hair,
+            "mouth": self.__mouth,
+            "pant": self.__pant,
+            "base": self.__base,
+            "shirt": self.__shirt,
+            "shoe": self.__shoe,
+        }
+
+        # Load active attributes from JSON file, or start empty if not provided
         try:
             with open(self.jsonfile, "r") as file:
                 attributes = json.load(file)
             self.__active_attr = attributes["attributes"]
-        except TypeError: #no file has been passed
+        except TypeError: # no file has been passed
             print("no file has been provided :(")
             self.__active_attr = []
 
-
-
     def resizeImg(self, newWidth, image):
-        #newwidth divided by width/height OR newwidth * height/width
-        #resizing the image while keeping the aspect ratio
+        # Resize an image while maintaining aspect ratio
         pilImage = Image.open(image).convert("RGBA")
-
         orig_width, orig_height = pilImage.size
         ratio = orig_width / orig_height
         newHeight = round(newWidth/ratio)
         resizedImage = pilImage.resize([newWidth, newHeight])
-
-        return(resizedImage)
+        return resizedImage
     
     def getImages(self):
+        # Return all avatar layer images in order
         return [
             self.__accessories,
             self.__hair,
@@ -62,36 +60,39 @@ class Avatars:
         ]
     
     def setImages(self, images):
+        # Set avatar layer images from a provided list
         self.__accessories = images[0]
         self.__hair = images[1]
         self.__mouth = images[2]
         self.__pant = images[3]
         self.__base = images[4]
         self.__shirt = images[5]
-        self.__shoe = images [6]
+        self.__shoe = images[6]
+        # Update attribute map with new images
         self.__attr_map = {
-                    "accessories": self.__accessories,
-                    "hair": self.__hair,
-                    "mouth": self.__mouth,
-                    "pant": self.__pant,
-                    "base": self.__base,
-                    "shirt": self.__shirt,
-                    "shoe": self.__shoe,
-                }
+            "accessories": self.__accessories,
+            "hair": self.__hair,
+            "mouth": self.__mouth,
+            "pant": self.__pant,
+            "base": self.__base,
+            "shirt": self.__shirt,
+            "shoe": self.__shoe,
+        }
 
     def createAvatar(self):
-        #creating the images based on the path provided
+        # Open image files for each layer if not already opened
         try:
             self.__base = Image.open(self.__base)
             self.__hair = Image.open(self.__hair)
             self.__mouth = Image.open(self.__mouth)
             self.__accessories = Image.open(self.__accessories)
             self.__shirt = Image.open(self.__shirt)
-        except AttributeError: #raised when they are already images (eg resize function has been used)
+        except AttributeError: # Already PIL images
             pass
 
-    #toggling various outfit options
+    # Toggle functions for each outfit option
     def togglePant(self):
+        # Add/remove pants from active attributes
         if "pant" in self.__active_attr:
             self.__active_attr.remove("pant")
         else:
@@ -134,6 +135,7 @@ class Avatars:
         self.activateAvatar()
     
     def toggleShoe(self):
+        # Duplicate toggle for shoe (can be removed if not needed)
         if "shoe" in self.__active_attr:
             self.__active_attr.remove("shoe")
         else:
@@ -141,21 +143,22 @@ class Avatars:
         self.activateAvatar()
 
     def activateAvatar(self, x=200, y=200):
+        # Compose the avatar image by layering active attributes
         base = self.__base.copy() 
-        if not self.__active_attr: #If there aren't any active attributes
-            avatar =  ImageTk.PhotoImage(base) #Default to the bare base
+        if not self.__active_attr: # If no attributes, show base only
+            avatar = ImageTk.PhotoImage(base)
         else:
             for item in self.__active_attr:
                 mappedItem = self.__attr_map[item]
                 base.paste(mappedItem, (0,0), mappedItem)
-                avatar =  ImageTk.PhotoImage(base)
+                avatar = ImageTk.PhotoImage(base)
         if self.__canvas:
-            # Clear previous image
-            self.__canvas.delete("avatar")
-            # Create image on canvas
+            # Display avatar on canvas
+            self.__canvas.delete("avatar")  # Remove previous avatar
             self.__canvas.create_image(x, y, image=avatar, tags="avatar")
-            self.__canvas.image = avatar
+            self.__canvas.image = avatar    # Prevent garbage collection
         else:
+            # Display avatar in a label if no canvas is provided
             self.avatarLabel.image = avatar 
             if not hasattr(self, 'avatarLabel'):
                 self.avatarLabel = tk.Label(self.__window, image=avatar)
@@ -163,17 +166,12 @@ class Avatars:
             else:
                 self.avatarLabel.config(image=avatar)
             self.avatarLabel.image = avatar 
-        # if len(self.__active_attr) == 6:
-        #     ssstylish = tk.Label(self.__window, text="Looking Stylish!!!!", font=tk.font.Font(family="Apple Chancery", size=24), fg="#ECD228")
-        #     self.__canvas.create_window(200, 30, window=ssstylish)
-        # else:
-        #     ssstylish = tk.Label()
     
-    #for saving the current attributes (so that the avatar will look the same wherever)
     def saveAvatar(self, filename):
+        # Save current active attributes to a JSON file
         data = {
-                "attributes": []
-            }
+            "attributes": []
+        }
         for i in range(0, len(self.__active_attr)):
             data["attributes"].append(str(self.__active_attr[i]))
         with open(filename, 'w') as file:
@@ -181,10 +179,12 @@ class Avatars:
         self.__window.destroy()
     
     def reset(self):
+        # Reset avatar to base (no attributes)
         self.__active_attr = []
         self.activateAvatar()
 
     def create_Buttons(self):
+        # Create and place buttons for toggling each attribute on the canvas
         hairButton = tk.Button(self.__window, text="Hair", command=self.toggleHair)
         self.__canvas.create_window(300, 0, anchor="nw", window=hairButton)
 
@@ -211,24 +211,3 @@ class Avatars:
 
         saveButton = tk.Button(self.__window, text="Save", command=save)
         self.__canvas.create_window(300, 350, anchor="nw", window=saveButton)
-
-
-# cobaltImages = []
-# for image in sorted(os.listdir("images/cobalt")):
-#     # Skip .DS_Store and any other hidden files
-#     if not image.startswith('.'):
-#         cobaltImages.append(f"images/cobalt/{image}")
-# # Creating canvas
-# canvas = tk.Canvas(window, width=400, height=400, bg="#A1E3FF")
-# canvas.grid(row=0, column=6, rowspan=6, padx=10, pady=10)
-# #Creating the avatar on the canvas
-# cobaltAvatar = Avatars(cobaltImages, "bactiveattributes.json", window, canvas=canvas)
-# imglist = []
-# for image in cobaltAvatar.getImages():
-#     imglist.append(cobaltAvatar.resizeImg(750, image))
-# cobaltAvatar.setImages(imglist)
-# cobaltAvatar.create_Buttons()
-# cobaltAvatar.activateAvatar()
-
-
-# window.mainloop()
