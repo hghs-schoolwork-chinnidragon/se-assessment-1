@@ -50,49 +50,63 @@ class Quiz:
         #New music
         mixer.music.load("audio/Kick Shock.mp3")
         mixer.music.play(-1,0.0)
+        #Creating window
         window = tk.Toplevel()
-        window.geometry("+50+50")
-        #MAking window title the quiz name
+        window.geometry("800x600+50+50")
+        #Making window title the quiz name
         window.title(f"{self.__title}")
+
+        #Creating main canvas
+        main_canvas = tk.Canvas(window, width=800, height=800, bg="#f0f0ff", highlightthickness=0)
+        main_canvas.pack(fill="both", expand=True)
+
+        #Initialising variables
         self.current_question = 0
         self.score = 0
-        self.nextbutton = tk.Button(window, text="Next!")
-        self.nextbutton.grid(column=5)
+        self.window = window
+        self.main_canvas = main_canvas
+        self.buttons = []
+        
+        self.nextbutton = tk.Button(window, text="Next!", font="Chalkboard")
+        main_canvas.create_window(700, 550, window=self.nextbutton)
 
+        # Loading and displaying quiz image
         quizImage = Image.open(self.__questiondata['info'][2])
         resizedQuizImage = self.resizeImg(200, quizImage)
-        self.__images.append(resizedQuizImage)
+        quiz_photo = ImageTk.PhotoImage(resizedQuizImage)
+        self.__images.append(quiz_photo)
         
-        qtext = tk.Label(
-            window, 
+        # Display image on canvas
+        main_canvas.create_image(400, 450, image=quiz_photo)
+
+        main_canvas.create_text(
+            400, 200,  # x and y coordinates (center of canvas)
             text=f"""Welcome to the "{self.__title}" quiz! 
 First, there are some things you need to know:""",
-            font=("Arial", 48), 
-            wraplength=500
-            )
-        qtext.grid()
+            font=("Arial", 24, "bold"), 
+            fill="#800808",
+            width=600,
+            justify="center"
+        )
+
 
         def config_info():
-            qt = guitemplate.QuestionTemplate(
-                window,
-                None,
-                None, 
-                None,
-                None)
-            qt.configInfo(
-                resizedQuizImage,
-                self.__quizinfo, 
-                qtext, 
-                True, 
-                self.nextbutton, 
-                show_next_question)
+            main_canvas.delete("all")
+            main_canvas.create_image(600, 150, image=quiz_photo)
+            main_canvas.create_text(
+                400, 300,
+                text=self.__quizinfo,
+                font=("Chalkboard", 12),
+                fill="#000000",
+                width=600,
+                justify="left"
+            )
+            self.nextbutton.config(text="Start Quiz", command=show_next_question)
+            main_canvas.create_window(400, 500, window=self.nextbutton)
 
         def show_next_question():
-            # Clear previous question widgets if any
-            for widget in window.winfo_children():
-                if widget != self.nextbutton:  # Keep the next button
-                    widget.destroy()
-            
+            main_canvas.delete("all")
+
             # If all questions answered, show results
             if self.current_question >= len(self.__questions):
                 show_results()
@@ -108,7 +122,8 @@ First, there are some things you need to know:""",
                 q+1, 
                 self.__questions[q], 
                 shuffled_copy, 
-                self.__answers[q]
+                self.__answers[q],
+                main_canvas
             )
             
             # Pass callback function to handle when answer is selected
@@ -124,24 +139,26 @@ First, there are some things you need to know:""",
             if is_correct:
                 self.score += 1
             
-            self.nextbutton = tk.Button(window, text="Next Question", command=show_next_question)
-            self.nextbutton.grid()
+            self.nextbutton.config(text="Next Question", command=show_next_question)
+            main_canvas.create_window(400, 135, window=self.nextbutton)
             
         # Show final results
         def show_results():
             for widget in window.winfo_children():
                 widget.destroy()
-            
+            main_canvas = tk.Canvas(window, width=800, height=800, bg="#f0f0ff", highlightthickness=0)
+            main_canvas.pack(fill="both", expand=True)
             result_text = f"""Quiz Complete!\nYou got {self.score} out of {len(self.__questions)}.
 \nThat's {round((self.score/len(self.__questions))*100)}%!"""
             
             result_label = tk.Label(
                 window,
                 text=result_text,
-                font=("Arial", 24),
+                font=("Chalkboard", 24),
+                fg="#AA1CA8",
                 wraplength=500
             )
-            result_label.pack(pady=50)
+            main_canvas.create_window(150, 300, window=result_label)
             
             # Save score data
             data = {

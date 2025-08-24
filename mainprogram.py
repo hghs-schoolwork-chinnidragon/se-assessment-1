@@ -191,14 +191,17 @@ class Menu:
         crimsonbg = Image.open("images/crimsonmenu.png")
         cobaltbg = Image.open("images/cobaltmenu.png")
         crimsonbg = quizmodule.Quiz.resizeImg(300, crimsonbg)
+        width1, height1 = crimsonbg.size
         crimsonbg = ImageTk.PhotoImage(crimsonbg)
         cobaltbg = quizmodule.Quiz.resizeImg(300, cobaltbg)
+        width2, height2 = cobaltbg.size
         cobaltbg = ImageTk.PhotoImage(cobaltbg)
-        # Add the transparent background to both canvases
 
         crimsonwindow = root
         crimsonwindow.image_refs = []  # Store image references
-        crimson_canvas = tk.Canvas(root, width=300, height=324)
+
+
+        crimson_canvas = tk.Canvas(root, width=width1, height=height1)
         crimson_canvas.place(x=50, y=500)
         
         crimson_canvas.create_image(0, 0, image=crimsonbg, anchor="nw")
@@ -225,8 +228,10 @@ class Menu:
         # Create Cobalt avatar window
         cobaltwindow = root
         cobaltwindow.image_refs = []  # Store image references
-        cobalt_canvas = tk.Canvas(root, width=300, height=324)
+
+        cobalt_canvas = tk.Canvas(root, width=width2, height=height2)
         cobalt_canvas.place(x=1050, y=500)
+
         cobalt_canvas.create_image(0, 0, image=cobaltbg, anchor="nw")
         root.transparent_cobalt = cobaltbg
 
